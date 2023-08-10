@@ -1,0 +1,73 @@
+:root {
+    --fs1: calc(28px + (36 - 28)*(100vw - 320px)/(920 - 320));
+    --fs2: calc(24px + (30 - 24)*(100vw - 320px)/(920 - 320));
+    --fs3: calc(22px + (28 - 22)*(100vw - 320px)/(920 - 320));
+    --fs4: calc(20px + (26 - 20)*(100vw - 320px)/(920 - 320));
+    --fs5: calc(16px + (24 - 16)*(100vw - 320px)/(920 - 320));
+    --fs6: calc(14px + (18 - 14)*(100vw - 320px)/(920 - 320));
+    --fs7: calc(13px + (16 - 13)*(100vw - 320px)/(920 - 320));
+    --fs8: calc(12px + (14 - 12)*(100vw - 320px)/(920 - 320));
+    --pd1: 1.5% 2%;
+    --pd2: 2% 5%;
+    --pd3: 3% 3% 0;
+    --pd4: 3%;
+    --pd5: 0 3%;
+    --pd6: 5vw 10vw;
+    --pd7: 1vw 2.5vw;
+    --gap1: 30px;
+    --gap2: 20px;
+    --gap3: 15px;
+    --gap4: 5px;
+
+    --cl1: #fff;
+    --cl3: #eee;
+    --cl2: #a5a1a16e;
+    --cl4: #8b8484ce;
+    --cl5: #aaa;
+    --cl6: var(--cl1);
+    --cl7: #00000080;
+    --cl8: #aaaa;
+    --cl9: #F09B47;
+
+    --vh1: 90px;
+}
+
+
+@media(max-width: 750px) {
+    :root {
+        --pd2: 2% 3%;
+        --pd3: 2% 2% 0;
+        --pd4: 3%;
+        --pd7: 1vw 2.5vw;
+        --gap1: 25px;
+        --gap2: 15px;
+        --gap3: 10px;
+
+        --vh1: 80px;
+    }
+}
+
+@media(max-width: 550px) {
+    :root {
+        --pd2: 2%;
+        --pd4: 2.5%;
+        --gap1: 20px;
+        --gap2: 13px;
+        --gap3: 7px;
+        --gap4: 5px;
+
+        --vh1: 70px;
+    }
+}
+
+@media(max-width: 430px) {
+    :root {
+        --pd2: 4%;
+        --pd4: 5%;
+        --gap1: 18px;
+        --gap2: 10px;
+        --gap4: 5px;
+
+        --vh1: 70px;
+    }
+}

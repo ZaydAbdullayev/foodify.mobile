@@ -1,0 +1,114 @@
+.my_profil{
+   width: 100%;
+   height: 90vh;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+}
+
+.my_profil > div {
+   width: 800px;
+   border-radius: 10px;
+   background: #fff;
+   box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+   padding: 3%;
+}
+
+ 
+/* ======== my_account ====== */
+/* ======== my_account ====== */
+ 
+.my_account {
+   width: 100%;
+   padding: 3% 5%;
+   gap: 10px;
+}
+.my_account > div > h1 {
+   font-size: 30px;
+   font-weight:  bold;
+   font-family: 'Times New Roman', Times, serif;
+
+}
+.my_account > div > p {
+   font-size: 17px;
+   font-family: 'Times New Roman', Times, serif;
+}
+.my_account > hr {
+   width: 100%;
+   height: 2px;
+   background: grey;
+   border: none;
+   margin: 1% 0;
+}
+
+
+/* ======== profil_card ====== */
+/* ======== profil_card ====== */
+
+.profil_card {
+   width: 100%;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+}
+.profil_card > div {
+   width: 100%;
+   display: flex;
+   justify-content: center;
+   flex-direction: column;
+   align-items: center;
+}
+.profil_card > div > p {
+   font-size: 25px;
+   font-weight: bold;
+   font-family: 'Times New Roman', Times, serif;
+
+}
+.profil_card > div > form  {
+   width: 100%;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   flex-direction: row;
+   flex-wrap: wrap;
+   gap: 30px;
+   padding: 5%;
+}
+.profil_card > div > form > section {
+   display: flex;
+   justify-content: center;
+   flex-direction: column;
+   align-items: flex-start;
+   gap: 10px;
+}
+.profil_card > div > form > section > span {
+   font-size: 18px;
+   text-align: start;
+   font-family: 'Times New Roman', Times, serif;
+}
+.profil_card > div > form > section > input {
+   width: 300px;
+   height: 40px;
+   border-radius: 6px;
+   border: 1px solid grey;
+   font-size: 15px;
+   padding: 0% 3%;
+   box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+}
+.profil_card > div > button {
+   width: 160px;
+   height: 40px;
+   border: none;
+   border-radius: 8px;
+   background: #ff8c00;
+   color: #fff;
+   font-weight: bold;
+   font-size: 16px;
+}
+.profil_card > div > form > section > input:hover{
+   border: 2px solid #ff8c00;
+}
+.profil_card > div > button:hover{
+   border: 2px solid #7fff00;
+   font-size: 14px;
+}

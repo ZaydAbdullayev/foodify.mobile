@@ -1,0 +1,23 @@
+.kutucuk {
+    background: yellow;
+    padding: 10px;
+    font-family: monospace;
+    font-size: 14px;
+    border: 1px solid red;
+    border-top: 0;
+}
+
+.esas {
+    padding: 10px 10px 20px 10px;
+    border: 1px solid red;
+}
+
+button {
+    padding: 10px;
+    border-radius: 5px;
+    font-size: inherit;
+}
+
+#harita {
+    border: none;
+}

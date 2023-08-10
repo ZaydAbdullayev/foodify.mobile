@@ -1,0 +1,134 @@
+.catalog_product {
+    position: relative;
+    width: calc(100% / 3 - 10px);
+    padding: 1.5%;
+    height: 380px;
+    display: flex;
+    flex-direction: column;
+    border-radius: 20px;
+    background: var(--cl4);
+    gap: var(--gap3);
+}
+
+.catalog_product>img {
+    width: 100%;
+    height: calc(100% - 40%);
+    object-position: center;
+    border-radius: 15px;
+}
+
+.product_info {
+    width: 100%;
+    height: 40%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    color: var(--cl6);
+    font-weight: 500;
+    gap: var(--gap4);
+}
+
+.product_info>:first-child {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.product_info>:first-child>:nth-child(1) {
+    font-size: var(--fs4);
+    font-weight: 500;
+    border: none;
+    outline: none;
+}
+
+.product_info>:first-child>span {
+    font-size: var(--fs5);
+}
+
+.product_info>:first-child>:last-child {
+    color: var(--cl5);
+}
+
+.btn_box {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: var(--cl7);
+    border: none;
+    border-radius: 15px;
+    font-size: var(--fs3);
+    gap: 10px;
+    cursor: pointer;
+    overflow: hidden;
+}
+
+.btn_box>button {
+    padding: 6.5%;
+    border: none;
+    background: none;
+    font-size: var(--fs6);
+    color: var(--cl1);
+    letter-spacing: 1.5px;
+}
+
+.btn_box>span {
+    padding: 4% 0;
+    font-size: var(--fs4);
+    inline-size: calc(100% / 3);
+    height: 100%;
+    color: var(--cl1);
+    text-align: center;
+    user-select: none;
+}
+
+.btn_box>:first-child:active {
+    background: linear-gradient(to left, #eee, #ddd, #ddd);
+}
+
+.btn_box>:last-child:active {
+    background: linear-gradient(to right, #eee, #ddd, #ddd);
+}
+
+.like_btn {
+    position: absolute;
+    top: 18px;
+    right: 18px;
+    padding: 2.3% 3% 0;
+    border: none;
+    background: var(--cl4);
+    border-radius: 15px;
+    font-size: var(--fs4);
+    color: var(--cl1);
+}
+
+@media(max-width: 450px) {
+    .catalog_product {
+        width: calc(100% / 2 - 7.5px);
+        height: 330px;
+        border-radius: 15px;
+    }
+
+    .catalog_product>img {
+        border-radius: 12px;
+    }
+
+    .btn_box {
+        border-radius: 12px;
+    }
+}
+
+@media(max-width: 380px) {
+    .catalog_product {
+        height: 300px;
+        border-radius: 10px;
+    }
+
+    .catalog_product>img {
+        border-radius: 10px;
+    }
+
+    .btn_box {
+        border-radius: 10px;
+    }
+}

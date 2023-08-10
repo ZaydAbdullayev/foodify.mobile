@@ -1,0 +1,156 @@
+.my_favorite {
+   width: 100%;
+   height: 100vh;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   padding: 8%;
+}
+
+.my_favorite>div {
+   width: 1300px;
+   border-radius: 10px;
+   background: #fff;
+   box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+   padding: 3%;
+   overflow: hidden;
+}
+
+/* ======== my_account ====== */
+/* ======== my_account ====== */
+
+.my_account {
+   width: 100%;
+   padding: 3% 5%;
+   gap: 10px;
+}
+
+.my_account>div>h1 {
+   font-size: 30px;
+   font-weight: bold;
+   font-family: 'Times New Roman', Times, serif;
+
+}
+
+.my_account>div>p {
+   font-size: 17px;
+   font-family: 'Times New Roman', Times, serif;
+}
+
+.my_account>hr {
+   width: 100%;
+   height: 2px;
+   background: grey;
+   border: none;
+   margin: 1% 0;
+}
+
+.my_account>p {
+   font-size: 30px;
+   font-family: 'Times New Roman', Times, serif;
+   padding-top: 10px;
+}
+
+/* ======== profil_card ====== */
+/* ======== profil_card ====== */
+.fovorite_card {
+   width: 100%;
+   display: flex;
+   flex-direction: row;
+   flex-wrap: wrap;
+   justify-content: center;
+   align-items: center;
+}
+
+.fovorite_card>div {
+   width: 100%;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   flex-direction: row;
+   gap: 30px;
+   border-bottom: 2px solid grey;
+   padding: 2% 0;
+}
+
+.fovorite_card>div:last-child {
+   border: none;
+}
+
+.fovorite_card>div>figure>img {
+   width: 125px;
+   height: 60px;
+   border-radius: 4px;
+}
+
+.fovorite_card>div>figure {
+   width: 125px;
+   height: 60px;
+   border-radius: 4px;
+   object-fit: cover;
+}
+
+.fovorite_card>div>:first-child {
+   width: 125px;
+   height: 60px;
+   border-radius: 4px;
+}
+
+.fovorite_card>div>p {
+   font-size: 18px;
+}
+
+.fovorite_card>div>button {
+   width: 160px;
+   height: 40px;
+   border: none;
+   border-radius: 8px;
+   background: #ff8c00;
+   color: #fff;
+   font-weight: bold;
+   font-size: 16px;
+}
+
+.fovorite_card>div>button:hover {
+   border: 2px solid #7fff00;
+   font-size: 14px;
+}
+
+.fovorite_card>div>span {
+   width: 3%;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+}
+
+.fovorite_card>div>span>svg {
+   color: black;
+   font-size: 30px;
+
+}
+
+/* ========= foods ========== */
+/* ========= foods ========== */
+/* ========= foods ========== */
+
+/* ========= foods ========== */
+.foods {
+   width: 100%;
+   display: flex;
+   justify-content: flex-start;
+   align-items: flex-start;
+   padding: 3%;
+}
+
+/* .foods > div {
+   width: 100%;
+   display: flex;
+   justify-content: flex-start;
+   align-items: flex-start;
+   padding: 3%;
+} */
+.foods>div>p {
+   font-size: 30px;
+   font-family: 'Times New Roman', Times, serif;
+   padding-top: 10px;
+}

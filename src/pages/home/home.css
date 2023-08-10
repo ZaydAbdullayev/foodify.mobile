@@ -1,0 +1,136 @@
+.home_page {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+}
+
+.restaurant_carusel {
+    min-width: 100%;
+    height: 120px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: var(--gap2);
+    padding: 2% 3%;
+    overflow: hidden;
+    overflow-x: auto;
+}
+
+.sticky {
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: inherit;
+}
+
+
+.carusel_item {
+    width: 120px;
+    height: 100%;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.carusel_item>img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.restaurant_box {
+    width: 100%;
+    padding: var(--pd2);
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--gap1);
+}
+
+.restaurant {
+    position: relative;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    background: var(--cl4);
+    border-radius: 25px;
+    padding: 1% 1% 3%;
+    color: var(--cl3);
+}
+
+.restaurant>img {
+    width: 100%;
+    height: 350px;
+    object-fit: cover;
+    border-radius: 20px;
+}
+
+.restaurant>label {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.restaurant>label>div>h1 {
+    font-size: var(--fs1);
+    line-height: 1.5;
+}
+
+.restaurant>label>div>p {
+    display: flex;
+    padding-left: 1vw;
+    align-items: center;
+    gap: var(--gap2);
+    font-size: var(--fs6);
+}
+
+.restaurant>label>span {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--gap4);
+    font-size: var(--fs6);
+}
+
+.restaurant>label>span>svg {
+    font-size: var(--fs3);
+    color: #fc0
+}
+
+.free_delivery {
+    display: flex;
+    align-items: center;
+    gap: var(--gap4);
+}
+
+.free_delivery>svg {
+    font-size: var(--fs3);
+    color: #fc0
+}
+
+@media(max-width: 750px) {
+    .restaurant>img {
+        height: 320px;
+    }
+}
+
+@media(max-width: 550px) {
+    .restaurant>img {
+        height: 280px;
+    }
+}
+
+@media(max-width: 430px) {
+    .restaurant {
+        padding: 2% 2% 3%;
+        border-radius: 20px;
+    }
+
+    .restaurant>img {
+        height: 220px;
+    }
+
+    .free_delivery>span {
+        display: none;
+    }
+}

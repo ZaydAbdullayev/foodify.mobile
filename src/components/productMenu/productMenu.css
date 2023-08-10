@@ -1,0 +1,41 @@
+.food_menu {
+    position: relative;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+
+}
+
+.food_menu::-webkit-scrollbar {
+    display: none;
+}
+
+.food_menu,
+.food_menu>ul {
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.food_menu>ul {
+    list-style: none;
+
+}
+
+.food_menu>ul>a {
+    padding: var(--pd2);
+    font-size: var(--fs3);
+    color: var(--cl6);
+    line-height: 2;
+    transition: all 0.3s ease;
+    background: #5e5e5e;
+}
+
+.active {
+    background: var(--cl8) !important;
+    font-weight: 600;
+}
+
+.food_menu>ul>a:hover {
+    background: var(--cl8);
+    color: var(--cl3);
+}

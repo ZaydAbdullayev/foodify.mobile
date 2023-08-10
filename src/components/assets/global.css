@@ -1,0 +1,95 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: YSText, sans-serif;
+    letter-spacing: 0.05rem;
+}
+
+html {
+    scroll-behavior: smooth;
+    overscroll-behavior-y: none;
+}
+
+body {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+a {
+    text-decoration: none;
+}
+
+button {
+    cursor: pointer;
+    outline: none;
+}
+
+#root {
+    max-width: 1440px;
+    width: 100%;
+}
+
+input {
+    outline: none;
+}
+
+::selection {
+    display: none;
+}
+
+::-webkit-scrollbar {
+    width: 5px;
+    background: #33333341;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #fce000;
+    border-radius: 20px;
+}
+
+img {
+    object-fit: cover;
+    background: linear-gradient(-90deg, #eee, #aaa, #eee, #eee, #eee);
+    background-size: 400%;
+    animation: skeleton 4s linear infinite;
+}
+
+.stm-animate {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    position: fixed;
+    left: 50%;
+    transform: scale(0.5);
+    display: none;
+    z-index: 99999;
+}
+
+.stm-animate.active {
+    display: block;
+    animation: mtanimation 0.4s ease-out forwards;
+}
+
+@keyframes mtanimation {
+    from {
+        transform: scale(0.2);
+        opacity: 1;
+    }
+
+    to {
+        transform: scale(1);
+        opacity: 0;
+    }
+}
+
+@keyframes skeleton {
+    0% {
+        background-position: 0%;
+    }
+
+    100% {
+        background-position: 400%;
+    }
+}

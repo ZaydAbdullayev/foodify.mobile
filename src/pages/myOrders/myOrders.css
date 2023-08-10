@@ -1,0 +1,129 @@
+.my_orders {
+    padding: var(--pd2);
+    gap: var(--gap3);
+    color: var(--cl1);
+}
+
+.my_orders>pre {
+    inline-size: 100%;
+    border-bottom: 1px solid var(--cl3);
+    line-height: 2;
+    font-size: var(--fs2);
+    color: var(--cl1);
+}
+
+.my_orders,
+.orders_item {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.orders_item {
+    padding: var(--pd7);
+    gap: 5vw;
+    background: var(--cl4);
+    border-radius: 15px;
+}
+
+
+
+.order_info {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    line-height: 2;
+    border-bottom: 1px solid var(--cl3);
+    font-size: var(--fs5);
+}
+
+
+.orders_stution {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--gap3);
+
+    >span {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        font-size: var(--fs7);
+
+        >svg {
+            font-size: var(--fs1);
+            color: var(--cl8);
+        }
+    }
+
+    >p {
+        width: 100px;
+        height: 2px;
+        background: #aaaa;
+    }
+}
+
+/* ==============order body ================== */
+.order_body {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--gap3);
+}
+
+.order_body__item {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: var(--gap1);
+    background: var(--cl7);
+    font-size: var(--fs5);
+    border-radius: 15px;
+
+    >img {
+        width: 12dvw;
+        height: 12dvw;
+        object-fit: cover;
+        border-radius: 15px;
+        border: 2px solid #edede9;
+    }
+
+    >figcaption {
+        display: flex;
+        align-items: center;
+        gap: var(--gap1);
+        color: var(--cl1);
+        flex: 1;
+
+        & pre>span {
+            color: var(--cl5);
+        }
+    }
+
+    >span {
+        padding-right: 5%;
+    }
+
+}
+
+.order_body>div {
+    inline-size: 100%;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    font-size: var(--fs4);
+    line-height: 2;
+    border-top: 1px solid var(--cl1);
+
+    & span {
+        color: var(--cl3);
+        font-weight: 600;
+    }
+
+    >b {
+        font-size: var(--fs7);
+        color: #aaa;
+    }
+}
