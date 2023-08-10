@@ -13,6 +13,7 @@
     width: 100%;
     overflow: hidden;
     z-index: 999;
+    margin-top: -30px;
 
     & svg {
         position: absolute;
@@ -21,7 +22,6 @@
         transform: translate(0, -50%);
         font-size: var(--fs2);
         color: var(--cl1);
-        background: #5e5e5e;
         z-index: 9999;
     }
 }
@@ -40,7 +40,6 @@
     position: relative;
     width: 100%;
     height: 370px;
-    border-radius: 0 0 30px 30px;
     overflow: hidden;
 }
 

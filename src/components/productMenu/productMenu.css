@@ -14,6 +14,7 @@
     width: 100%;
     display: flex;
     align-items: center;
+    border-radius: 15px;
 }
 
 .food_menu>ul {
@@ -25,7 +26,7 @@
     padding: var(--pd2);
     font-size: var(--fs3);
     color: var(--cl6);
-    line-height: 2;
+    line-height: 1.5;
     transition: all 0.3s ease;
     background: #5e5e5e;
 }
@@ -36,6 +37,7 @@
 }
 
 .food_menu>ul>a:hover {
-    background: var(--cl8);
+    background: var(--cl4);
     color: var(--cl3);
+    border-radius: 5px;
 }
