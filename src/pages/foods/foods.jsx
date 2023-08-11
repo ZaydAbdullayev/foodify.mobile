@@ -5,7 +5,9 @@ import { Link, useLocation } from "react-router-dom";
 export const Foods = () => {
   const { search } = useLocation();
 
-  const ct = search && search.split("=");
+  const ct =
+    search && search.split("=")[1].split("%").join("").split("20").join(" ");
+  console.log(ct);
 
   return (
     <div className="foods_box">
