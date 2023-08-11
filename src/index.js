@@ -5,7 +5,7 @@ import { BrowserRouter } from "react-router-dom";
 import { SnackbarProvider } from "notistack";
 import { Provider } from "react-redux";
 import { store } from "./redux/store";
-import { Modal } from "./components/modal/modal";
+// import { Modal } from "./components/modal/modal";
 import { Loading } from "./components/loading/loading";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
@@ -14,7 +14,7 @@ root.render(
     <SnackbarProvider maxSnack={3}>
       <BrowserRouter>
         <Router />
-        <Modal />
+        {/* <Modal /> */}
         <Loading />
       </BrowserRouter>
     </SnackbarProvider>

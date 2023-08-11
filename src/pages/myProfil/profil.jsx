@@ -1,13 +1,21 @@
 import React, { useEffect, useState } from "react";
 import "./profil.css";
-import { ApiGetService, ApiUpdateService } from "../../services/api.service";
-import { NumericFormat } from "react-number-format";
+import { ApiGetService } from "../../services/api.service";
+import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
+
+import delivery from "./old delivery.png";
+import order from "./takeaway-food-icon.png";
+import favourite from "./favorite food.png";
+import default_img from "../../components/assets/images/default-img.png";
+import { HiGift } from "react-icons/hi";
+import { IoIosCar, IoIosPeople } from "react-icons/io";
+import { MdAddHomeWork, MdHelp } from "react-icons/md";
 
 export const MyProfil = () => {
-  const id = JSON.parse(localStorage.getItem("customer")).id || null;
+  const { id } = JSON.parse(localStorage.getItem("customer")).users || null;
   const [users, setUser] = useState([]);
-
-  const phone = users?.phone?.split("+")[1];
+  const navigate = useNavigate();
 
   useEffect(() => {
     ApiGetService.fetching(`get/user/${id}`)
@@ -17,65 +25,76 @@ export const MyProfil = () => {
       .catch((err) => console.log(err));
   }, [id]);
 
-  useEffect(() => {
-    ApiUpdateService.fetching(`update/user/${id}`)
-      .then((res) => {
-        setUser(res);
-      })
-      .catch((err) => console.log(err));
-  }, [id]);
+  // useEffect(() => {
+  //   ApiUpdateService.fetching(`update/user/${id}`)
+  //     .then((res) => {
+  //       setUser(res);
+  //     })
+  //     .catch((err) => console.log(err));
+  // }, [id]);
 
   return (
     <div className="my_profil">
-      <div>
-        <div>
-          <div className="my_account">
-            <div>
-              <h1>My Account</h1>
-              <p>Account Orders</p>
-            </div>
-            <hr />
-          </div>
-          <div className="profil_card">
-            <div>
-              <p>Start Your Order</p>
-              <form>
-                <section>
-                  <span>Username</span>
-                  <input
-                    placeholder="Name..."
-                    type="text"
-                    defaultValue={users?.username}
-                  />
-                </section>
-                <section>
-                  <span>Password</span>
-                  <input
-                    placeholder="******"
-                    type="password"
-                    defaultValue={users?.password}
-                  />
-                </section>
-                <section>
-                  <span>phone</span>
-                  <NumericFormat
-                    value={phone}
-                    name="phone"
-                    prefix="+"
-                    allowLeadingZeros
-                    thousandSeparator=" "
-                  />
-                </section>
-                <section>
-                  <span>food</span>
-                  <input placeholder="777" type="number" />
-                </section>
-              </form>
-              <button>Find Food</button>
-            </div>
-          </div>
-        </div>
+      <div className="user_info">
+        <img src={default_img} alt="images" />
+        <h1 style={{ textTransform: "capitalize" }}>
+          {users.username || "Username"}
+        </h1>
+      </div>
+
+      <div className="short_path">
+        <figure onClick={() => navigate("/my/favourite")}>
+          <img src={favourite} alt="favourite" />
+          <span>Sevimli ovqatlar</span>
+        </figure>
+        <figure onClick={() => navigate("/my/orders")}>
+          <img src={delivery} alt="favourite" />
+          <span>Buyurtmalarim</span>
+        </figure>
+        <figure onClick={() => navigate("/all/foods")}>
+          <img src={order} alt="favourite" />
+          <span>Buyurtma berish</span>
+        </figure>
+      </div>
+
+      <div className="user_menu">
+        {menu.map((menu, index) => {
+          return (
+            <Link to={menu.path} key={index}>
+              <span>{menu.icon}</span>
+              {menu.name}
+            </Link>
+          );
+        })}
       </div>
     </div>
   );
 };
+
+const menu = [
+  {
+    name: "Sovg'a yuborish",
+    path: "/send/gift",
+    icon: <HiGift />,
+  },
+  {
+    name: "Yetkazish xizmati",
+    path: "/delivery",
+    icon: <IoIosCar />,
+  },
+  {
+    name: "Oilaviy",
+    path: "/my/family",
+    icon: <IoIosPeople />,
+  },
+  {
+    name: "Ish xona",
+    path: "/send/gift",
+    icon: <MdAddHomeWork />,
+  },
+  {
+    name: "Yordam",
+    path: "/help",
+    icon: <MdHelp />,
+  },
+];

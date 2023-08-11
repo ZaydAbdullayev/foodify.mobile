@@ -11,6 +11,7 @@ import { MyProfil } from "./pages/myProfil/profil";
 import { MyFavorite } from "./pages/myFavorite/favorite.jsx";
 import { Payment } from "./payment/payment";
 import { MyOrders } from "./pages/myOrders/myOrders";
+import { Foods } from "./pages/foods/foods";
 
 export const Router = () => {
   const span = document.createElement("span");
@@ -34,7 +35,8 @@ export const Router = () => {
         <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />
           <Route path="/catalog/:id" element={<Catalog />} />
-          <Route path="/my/profil" element={<MyProfil />} />
+          <Route path="/all/foods" element={<Foods />} />
+          <Route path="/my/profile" element={<MyProfil />} />
           <Route path="/my/favourite" element={<MyFavorite />} />
           <Route path="/my/orders" element={<MyOrders />} />
           <Route path="/payment/:id" element={<Payment />} />

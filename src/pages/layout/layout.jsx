@@ -21,7 +21,7 @@ export const Layout = () => {
 
   const handleTouchEnd = (e) => {
     const endY = e.changedTouches[0].clientY;
-    if (startY - endY < 80) {
+    if (startY - endY < 150 + "px") {
       setOpen(false);
     }
   };
@@ -78,7 +78,7 @@ const menu = [
   {
     id: 6453,
     name: "Food",
-    path: "/foods",
+    path: "/all/foods",
     icon: <ImSpoonKnife />,
   },
   {
@@ -91,13 +91,13 @@ const menu = [
   {
     id: 6535,
     name: "Yoqtirganlar",
-    path: "/fovorite",
+    path: "/my/favourite",
     icon: <MdOutlineFavorite />,
   },
   {
     id: 9876,
     name: "Profil",
-    path: "/profile",
+    path: "/my/profile",
     icon: <FaUser />,
   },
 ];

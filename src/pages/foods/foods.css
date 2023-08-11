@@ -1,0 +1,50 @@
+.foods_box {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    background: var(--cl7);
+    color: var(--cl1);
+    /* overflow: hidden;
+    overflow-y: auto; */
+}
+
+.foods_box>h1 {
+    font-size: calc(var(--fs1) + 10px);
+    margin: 5% 0 0 5%;
+}
+
+.category {
+    width: 100%;
+    padding: var(--pd4);
+    display: flex;
+    align-items: flex-start;
+    overflow: hidden;
+    overflow-x: auto;
+    gap: var(--gap2);
+}
+
+.category::-webkit-scrollbar {
+    display: none;
+}
+
+.category>a {
+    min-width: 140px;
+    height: 140px;
+    padding: 2%;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: var(--fs4);
+    color: var(--cl1);
+    background: var(--cl2);
+    border-radius: 20px;
+}
+
+.category>a>img {
+    width: 70px;
+    height: 70px;
+    background: transparent;
+}

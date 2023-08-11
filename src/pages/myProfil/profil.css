@@ -1,114 +1,105 @@
-.my_profil{
+.my_profil {
    width: 100%;
-   height: 90vh;
+   height: 100%;
    display: flex;
-   justify-content: center;
-   align-items: center;
-}
-
-.my_profil > div {
-   width: 800px;
-   border-radius: 10px;
-   background: #fff;
-   box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
-   padding: 3%;
-}
-
- 
-/* ======== my_account ====== */
-/* ======== my_account ====== */
- 
-.my_account {
-   width: 100%;
-   padding: 3% 5%;
-   gap: 10px;
-}
-.my_account > div > h1 {
-   font-size: 30px;
-   font-weight:  bold;
-   font-family: 'Times New Roman', Times, serif;
-
-}
-.my_account > div > p {
-   font-size: 17px;
-   font-family: 'Times New Roman', Times, serif;
-}
-.my_account > hr {
-   width: 100%;
-   height: 2px;
-   background: grey;
-   border: none;
-   margin: 1% 0;
-}
-
-
-/* ======== profil_card ====== */
-/* ======== profil_card ====== */
-
-.profil_card {
-   width: 100%;
-   display: flex;
-   justify-content: center;
-   align-items: center;
-}
-.profil_card > div {
-   width: 100%;
-   display: flex;
-   justify-content: center;
    flex-direction: column;
-   align-items: center;
+   background: var(--cl7);
 }
-.profil_card > div > p {
-   font-size: 25px;
-   font-weight: bold;
-   font-family: 'Times New Roman', Times, serif;
 
-}
-.profil_card > div > form  {
+/* ============= user info =========== */
+.user_info {
    width: 100%;
    display: flex;
+   align-items: center;
+   padding: var(--pd6);
+
+   >h1 {
+      inline-size: calc(100% - 100px);
+      text-align: end;
+      color: var(--cl1);
+      font-size: calc(var(--fs1) + 10px);
+   }
+
+}
+
+.user_info>img {
+   width: 100px;
+   height: 100px;
+   border-radius: 50%;
+   object-fit: cover;
+   box-shadow: rgba(141, 141, 141, 0.493) 0px 0px 50px;
+}
+
+/* ============= short path ============= */
+.short_path {
+   width: 100%;
+   padding: var(--pd6);
+   display: flex;
+   align-items: center;
+   gap: var(--gap1);
+}
+
+.short_path>figure {
+   width: calc(100% / 3 - 15px);
+   height: 200px;
+   padding: 2%;
+   background: var(--cl4);
+   display: flex;
+   flex-direction: column;
    justify-content: center;
    align-items: center;
-   flex-direction: row;
-   flex-wrap: wrap;
-   gap: 30px;
-   padding: 5%;
+   border-radius: 20px;
+   gap: var(--gap4);
 }
-.profil_card > div > form > section {
+
+.short_path>figure>span {
+   font-size: var(--fs5);
+   color: var(--cl1);
+   text-align: center;
+   letter-spacing: 2px;
+}
+
+.short_path>figure>img {
+   height: 80px;
+   object-fit: cover;
+   background: transparent;
+   margin-bottom: 7%;
+}
+
+.short_path>:first-child>img {
+   height: 100px;
+   margin-bottom: 0;
+}
+
+/* ============= user menu =============== */
+.user_menu {
+   width: 100%;
+   padding: 5% 0;
    display: flex;
-   justify-content: center;
    flex-direction: column;
-   align-items: flex-start;
-   gap: 10px;
+   /* gap: 5px; */
 }
-.profil_card > div > form > section > span {
-   font-size: 18px;
-   text-align: start;
-   font-family: 'Times New Roman', Times, serif;
+
+.user_menu>a {
+   inline-size: 100%;
+   padding: 0 5%;
+   display: flex;
+   align-items: center;
+   line-height: 2.5;
+   font-size: var(--fs4);
+   color: var(--cl1);
+   letter-spacing: 0.2rem;
+   background: var(--cl2);
+   transition: all 0.3s ease;
+   /* border-radius: 20px; */
 }
-.profil_card > div > form > section > input {
-   width: 300px;
-   height: 40px;
-   border-radius: 6px;
-   border: 1px solid grey;
-   font-size: 15px;
-   padding: 0% 3%;
-   box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+
+.user_menu>a:active {
+   background: var(--cl4);
 }
-.profil_card > div > button {
-   width: 160px;
-   height: 40px;
-   border: none;
-   border-radius: 8px;
-   background: #ff8c00;
-   color: #fff;
-   font-weight: bold;
-   font-size: 16px;
-}
-.profil_card > div > form > section > input:hover{
-   border: 2px solid #ff8c00;
-}
-.profil_card > div > button:hover{
-   border: 2px solid #7fff00;
-   font-size: 14px;
+
+.user_menu>a>span {
+   font-size: calc(var(--fs1) + 5px);
+   color: var(--cl1);
+   margin-right: 3vw;
 }
