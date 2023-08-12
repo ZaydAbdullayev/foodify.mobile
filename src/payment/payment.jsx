@@ -14,6 +14,7 @@ import { NumericFormat, PatternFormat } from "react-number-format";
 import { useParams, useNavigate } from "react-router-dom";
 import { SiHomeadvisor } from "react-icons/si";
 import { MdDelete } from "react-icons/md";
+import { ImArrowLeft2 } from "react-icons/im";
 
 const bankImages = {
   humo: require("../components/assets/images/humo.jpg"),
@@ -123,7 +124,12 @@ export const Payment = () => {
 
   return (
     <div className="payment_box">
-      <h1>{shop?.username.split("_").join(" ")}</h1>
+      <pre>
+        <span onClick={() => navigate(-1)}>
+          <ImArrowLeft2 />
+        </span>
+        <h1>{shop?.username.split("_").join(" ")}</h1>
+      </pre>
       <div className="rigth_section">
         <p>Yetakazish shartlari</p>
         <div className="whose_order">
@@ -139,7 +145,7 @@ export const Payment = () => {
           onClick={() => setWrite(true)}
         >
           <div className="user_location">
-            <SiHomeadvisor style={{ fontSize: "var(--fs4)", color: "#333" }} />
+            <SiHomeadvisor style={{ fontSize: "var(--fs4)", color: "#fff" }} />
             <select name="location">
               <option value="value">Namangan</option>
             </select>

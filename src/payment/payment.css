@@ -8,13 +8,18 @@
     column-gap: 50px;
 }
 
-.payment_box>h1 {
+.payment_box>pre {
+    padding: 2% 0 0;
+}
+
+.payment_box>pre :where(h1, span) {
     inline-size: 100%;
     color: var(--cl1);
     font-size: var(--fs1);
     font-weight: 300;
     line-height: 2;
 }
+
 
 .payment_box>div {
     padding: 2.2% 3%;

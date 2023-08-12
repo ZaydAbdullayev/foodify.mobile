@@ -1,8 +1,10 @@
 .home_page {
     width: 100%;
+    min-height: 100%;
     display: flex;
     flex-direction: column;
     overflow-y: auto;
+    background: var(--cl7);
 }
 
 .restaurant_carusel {

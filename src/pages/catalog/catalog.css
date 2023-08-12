@@ -3,6 +3,7 @@
     width: 100%;
     display: flex;
     gap: var(--gap1);
+    background: var(--cl7);
 }
 
 /* ============== Product filter section ======= */
@@ -138,6 +139,14 @@
 @media(max-width: 430px) {
     .about_restoran {
         height: 330px;
+    }
+
+    .restoran_delivery>div {
+        padding: 2% 2.5%;
+    }
+
+    .restoran_delivery>button {
+        padding: 2% 3%;
     }
 
     .restoran_info_box {

@@ -11,7 +11,13 @@ import { Loading } from "./components/loading/loading";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <Provider store={store}>
-    <SnackbarProvider maxSnack={3}>
+    <SnackbarProvider
+      maxSnack={3}
+      anchorOrigin={{
+        vertical: "top",
+        horizontal: "center",
+      }}
+    >
       <BrowserRouter>
         <Router />
         {/* <Modal /> */}

@@ -62,7 +62,7 @@ export const Layout = () => {
         ) : (
           <BsChevronCompactUp />
         )}
-        <Cart />
+        <Cart setOpen={setOpen} />
       </div>
     </div>
   );

@@ -1,24 +1,66 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./foods.css";
 import { Link, useLocation } from "react-router-dom";
+import { ApiGetService } from "../../services/api.service";
+import { NumericFormat } from "react-number-format";
+
+import img from "./assets/pizza.png";
 
 export const Foods = () => {
   const { search } = useLocation();
+  const [products, setProducts] = useState([]);
+
+  const totalProductCount = products.reduce((count) => {
+    return count + 1;
+  }, 0);
+
+  useEffect(() => {
+    ApiGetService.fetching("get/products")
+      .then((res) => {
+        setProducts(res?.data?.data);
+      })
+      .catch((err) => console.log(err));
+  }, []);
 
   const ct =
     search && search.split("=")[1].split("%").join("").split("20").join(" ");
+
   console.log(ct);
 
   return (
     <div className="foods_box">
       <h1>Foods</h1>
       <div className="category">
-        {category.map((category) => {
+        {category.map((category, index) => {
           return (
-            <Link to={`?q/category=${category.name}`} key={category.id}>
+            <Link to={`?category=${category.name}`} key={index}>
               <img src={category.img} alt="images" />
               {category.name}
             </Link>
+          );
+        })}
+      </div>
+
+      <div className="food_body">
+        <h1>Topligan mahsulotlar: {totalProductCount} ta</h1>
+        {products.map((item) => {
+          return (
+            <figure className="food_body_item" key={item.id}>
+              <img src={item?.img} alt="" />
+              <figcaption>
+                <pre>
+                  <p>{item.name}</p>
+                  <NumericFormat
+                    displayType="text"
+                    value={item.price}
+                    suffix=" sum"
+                    thousandSeparator=" "
+                  />
+                  <p>15-20 min</p>
+                </pre>
+                <span>4.6</span>
+              </figcaption>
+            </figure>
           );
         })}
       </div>

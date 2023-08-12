@@ -15,7 +15,7 @@ import { acPrice } from "../../redux/price";
 import empty from "../../components/assets/images/empty-cart.gif";
 import { BsTaxiFrontFill, BsTaxiFront, BsInfoCircle } from "react-icons/bs";
 
-export const Cart = memo(() => {
+export const Cart = memo(({ setOpen }) => {
   const user = JSON.parse(localStorage.getItem("customer")) || [];
   const [cart, setCart] = useState([]);
   const [total, setTotal] = useState(0);
@@ -56,6 +56,7 @@ export const Cart = memo(() => {
   };
 
   const payment = () => {
+    setOpen(false)
     navigate(`/payment/${id}`);
   };
 
