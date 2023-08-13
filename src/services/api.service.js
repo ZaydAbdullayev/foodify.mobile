@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const base_url = "https://yandex.sp-school58.uz";
+const base_url = "https://server.foodify.uz";
 const user = JSON?.parse(localStorage.getItem("customer")) || [];
 
 const config = {
@@ -19,7 +19,7 @@ export const ApiService = {
 
 export const ApiGetService = {
   async fetching(url) {
-    const response = await axios.get(`${base_url}/${url}`);
+    const response = await axios.get(`${base_url}/${url}`, config);
     return response;
   },
 };

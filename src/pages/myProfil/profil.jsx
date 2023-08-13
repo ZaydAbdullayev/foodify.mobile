@@ -25,21 +25,13 @@ export const MyProfil = () => {
       .catch((err) => console.log(err));
   }, [id]);
 
-  // useEffect(() => {
-  //   ApiUpdateService.fetching(`update/user/${id}`)
-  //     .then((res) => {
-  //       setUser(res);
-  //     })
-  //     .catch((err) => console.log(err));
-  // }, [id]);
-
   return (
     <div className="my_profil">
       <div className="user_info">
-        <img src={default_img} alt="images" />
         <h1 style={{ textTransform: "capitalize" }}>
           {users.username || "Username"}
         </h1>
+        <img src={default_img} alt="images" />
       </div>
 
       <div className="short_path">

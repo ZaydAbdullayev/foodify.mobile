@@ -22,6 +22,7 @@
     height: 40%;
     display: flex;
     flex-direction: column;
+    align-items: center;
     justify-content: space-between;
     color: var(--cl6);
     font-weight: 500;
@@ -29,10 +30,13 @@
 }
 
 .product_info>:first-child {
+    width: 100%;
     display: flex;
     flex-direction: column;
     gap: 2px;
 }
+
+
 
 .product_info>:first-child>:nth-child(1) {
     font-size: var(--fs4);
@@ -63,6 +67,22 @@
     overflow: hidden;
 }
 
+.add_effect {
+    animation: test 3s ease alternate;
+}
+
+@keyframes test {
+    0% {
+        width: 0;
+        opacity: 0.2;
+    }
+
+    100% {
+        width: 100%;
+        opacity: 1;
+    }
+}
+
 .btn_box>button {
     padding: 6.5%;
     border: none;
@@ -83,11 +103,14 @@
 }
 
 .btn_box>:first-child:active {
-    background: linear-gradient(to left, #eee, #ddd, #ddd);
+    width: 100%;
+    background: linear-gradient(to left, #424242, #696464, #222121);
 }
 
 .btn_box>:last-child:active {
+    width: 100%;
     background: linear-gradient(to right, #eee, #ddd, #ddd);
+    opacity: 0.5;
 }
 
 .like_btn {

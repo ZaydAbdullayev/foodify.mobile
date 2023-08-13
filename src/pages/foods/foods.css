@@ -26,7 +26,7 @@
     display: none;
 }
 
-.category>a {
+.category>p {
     min-width: 140px;
     height: 140px;
     padding: 2%;
@@ -41,7 +41,7 @@
     border-radius: 20px;
 }
 
-.category>a>img {
+.category>p>img {
     width: 70px;
     height: 70px;
     background: transparent;

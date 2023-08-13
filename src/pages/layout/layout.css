@@ -66,7 +66,8 @@
     overflow-y: auto;
 }
 
-.layout>aside {
+.navigator {
+    position: relative;
     width: 100%;
     height: var(--vh1);
     padding: 1% 0;
@@ -75,6 +76,31 @@
     justify-content: space-between;
     background: #333;
     z-index: 9999;
+}
+
+.navigator::after {
+    position: absolute;
+    content: "";
+    top: -13%;
+    left: 9.3%;
+    width: 13px;
+    height: 13px;
+    border-radius: 50%;
+    background: #17fd02;
+    transition: all 0.3s ease;
+}
+
+
+.food::after {
+    left: 29.3%;
+}
+
+.like::after {
+    left: 69.3%;
+}
+
+.profil::after {
+    left: 89.3%;
 }
 
 .label {
@@ -111,30 +137,18 @@
     letter-spacing: 1px;
 }
 
-.location::after {
+.navigator_item {
+    width: 120%;
     position: absolute;
-    content: '';
-    top: -40%;
-    left: 50%;
-    transform: translate(-50%);
-    width: 15px;
-    height: 15px;
-    border-radius: 50%;
-    background: #c20303;
-    z-index: 99;
+    top: 0;
+    left: -10%;
+    background: none;
+    z-index: -9;
+    transition: all 0.3s ease;
 }
 
-.location::before {
-    position: absolute;
-    content: '';
-    top: -45%;
-    left: 50%;
-    transform: translate(-50%);
-    width: 80%;
-    height: 50px;
-    border-radius: 50%;
-    background: #333;
-    transition: all 0.5s ease;
+.active_menu {
+    top: -50%;
 }
 
 .cart {
@@ -163,6 +177,18 @@
     top: 0;
 }
 
+@media(max-width: 770px) {
+    .navigator::after {
+        width: 11px;
+        height: 11px;
+        top: -11%;
+    }
+
+    .active_menu {
+        top: -49%;
+    }
+}
+
 @media(max-width: 550px) {
     .header {
         height: 120px;
@@ -177,16 +203,20 @@
         display: none;
     }
 
-    .location::after {
-        top: -50%;
-        width: 12px;
-        height: 12px;
-    }
-
     .label>span>span {
         width: 25px;
         height: 25px;
         padding: 0.5vw 0 0;
+    }
+
+    .navigator::after {
+        width: 10px;
+        height: 10px;
+        top: -8%;
+    }
+
+    .active_menu {
+        top: -80%;
     }
 
 }
@@ -199,17 +229,6 @@
     .navigation_panel>button {
         width: 35px;
         height: 35px;
-    }
-
-    .location::after {
-        top: -80%;
-        width: 10px;
-        height: 10px;
-    }
-
-    .location::before {
-        top: -95%;
-        height: 30px;
     }
 
     .label>span>span {

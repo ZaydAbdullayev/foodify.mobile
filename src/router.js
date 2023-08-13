@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./components/assets/global.css";
 import "./components/assets/root.css";
 import "./components/assets/media.css";
@@ -14,6 +14,28 @@ import { MyOrders } from "./pages/myOrders/myOrders";
 import { Foods } from "./pages/foods/foods";
 
 export const Router = () => {
+  // const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+
+  // useEffect(() => {
+  //   const handleResize = () => {
+  //     setIsMobile(window.innerWidth <= 920);
+  //   };
+
+  //   window.addEventListener("resize", handleResize);
+
+  //   return () => {
+  //     window.removeEventListener("resize", handleResize);
+  //   };
+  // }, []);
+
+  // useEffect(() => {
+  //   if (isMobile) {
+  //     window.location.href = `http://localhost:3000`;
+  //   } else {
+  //     window.location.href = `https://foodify.uz`;
+  //   }
+  // }, [isMobile]);
+
   const span = document.createElement("span");
   span.classList.add("stm-animate");
   document.body.appendChild(span);

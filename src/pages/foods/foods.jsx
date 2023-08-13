@@ -1,42 +1,33 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import "./foods.css";
-import { Link, useLocation } from "react-router-dom";
 import { ApiGetService } from "../../services/api.service";
 import { NumericFormat } from "react-number-format";
 
-import img from "./assets/pizza.png";
-
 export const Foods = () => {
-  const { search } = useLocation();
   const [products, setProducts] = useState([]);
 
   const totalProductCount = products.reduce((count) => {
     return count + 1;
   }, 0);
 
-  useEffect(() => {
-    ApiGetService.fetching("get/products")
+  const filterCategory = (name) => {
+    ApiGetService.fetching(`filter/byCategory/${name}`)
       .then((res) => {
-        setProducts(res?.data?.data);
+        setProducts(res?.data);
       })
       .catch((err) => console.log(err));
-  }, []);
-
-  const ct =
-    search && search.split("=")[1].split("%").join("").split("20").join(" ");
-
-  console.log(ct);
+  };
 
   return (
     <div className="foods_box">
       <h1>Foods</h1>
       <div className="category">
-        {category.map((category, index) => {
+        {category.map((category) => {
           return (
-            <Link to={`?category=${category.name}`} key={index}>
-              <img src={category.img} alt="images" />
-              {category.name}
-            </Link>
+            <p key={category.id} onClick={() => filterCategory(category.name)}>
+              {category.img && <img src={category.img} alt="images" />}
+              {category.visibility ? category.visibility : category.name}
+            </p>
           );
         })}
       </div>
@@ -69,6 +60,11 @@ export const Foods = () => {
 };
 
 const category = [
+  {
+    id: 98765,
+    name: "all",
+    visibility: "Barchasi",
+  },
   {
     id: 34567,
     name: "fast food",

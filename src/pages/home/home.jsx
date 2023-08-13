@@ -5,6 +5,7 @@ import { ApiGetService } from "../../services/api.service";
 import { useDispatch } from "react-redux";
 import { acLoading } from "../../redux/loading";
 import { Navbar } from "../../components/navbar/navbar";
+import { Test } from "../../components/cProductCard/cProductCard";
 
 import { BsTaxiFrontFill, BsFillStarFill } from "react-icons/bs";
 import {
@@ -72,6 +73,7 @@ export const Home = () => {
         </div>
       </div>
       <div className="restaurant_box">
+        <Test />
         {restaurant?.map((shop) => {
           return (
             <figure

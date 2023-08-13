@@ -15,7 +15,7 @@
 
    >h1 {
       inline-size: calc(100% - 100px);
-      text-align: end;
+      /* text-align: end; */
       color: var(--cl1);
       font-size: calc(var(--fs1) + 10px);
    }

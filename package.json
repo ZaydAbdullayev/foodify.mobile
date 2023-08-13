@@ -14,7 +14,7 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-icons": "^4.10.1",
-    "react-ionicons": "^4.2.1",
+    "react-ionicons": "^1.5.7",
     "react-number-format": "^5.2.2",
     "react-redux": "^8.1.1",
     "react-router-dom": "^6.14.0",

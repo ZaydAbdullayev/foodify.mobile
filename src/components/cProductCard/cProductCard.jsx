@@ -119,7 +119,7 @@ export const CatalogCard = memo(({ restaurantId, category }) => {
                 <span>{item?.description || ""}</span>
               </div>
               {existingCartItem ? (
-                <div className="btn_box">
+                <div className="btn_box add_effect">
                   {quantity > 0 && (
                     <span
                       className="span"
@@ -177,3 +177,52 @@ export const CatalogCard = memo(({ restaurantId, category }) => {
     </>
   );
 });
+
+const data = [
+  {
+    id: "gh6543",
+    name: "shashlik",
+    price: "23400",
+    description: "go'shtli",
+    quantity: 1,
+    status: 1,
+    restaurant: "fv567h",
+  },
+];
+
+export const Test = () => {
+  return data.map((item) => {
+    return (
+      <figure
+        className="catalog_product"
+        key={item.id}
+        style={
+          item?.status === 0 ? { opacity: "0.4", cursor: "not-allowed" } : {}
+        }
+      >
+        <img src={item.img} alt="images" />
+        <figcaption className="product_info">
+          <div>
+            <NumericFormat
+              value={item.price}
+              suffix=" sum"
+              thousandSeparator=" "
+              displayType="text"
+            />
+            <span style={{ textTransform: "capitalize" }}>{item.name}</span>
+            <span>{item?.description || ""}</span>
+          </div>
+          <div className="btn_box">
+            <button style={item.status === 0 ? { cursor: "not-allowed" } : {}}>
+              {" "}
+              Qo'shish +
+            </button>
+          </div>
+        </figcaption>
+        <button className="like_btn">
+          {item.id ? <MdFavorite /> : <MdOutlineFavoriteBorder />}
+        </button>
+      </figure>
+    );
+  });
+};
