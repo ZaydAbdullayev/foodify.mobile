@@ -11,11 +11,11 @@
    width: 100%;
    display: flex;
    align-items: center;
+   justify-content: space-between;
    padding: var(--pd6);
 
    >h1 {
       inline-size: calc(100% - 100px);
-      /* text-align: end; */
       color: var(--cl1);
       font-size: calc(var(--fs1) + 10px);
    }
@@ -36,6 +36,7 @@
    padding: var(--pd6);
    display: flex;
    align-items: center;
+   justify-content: center;
    gap: var(--gap1);
 }
 
@@ -94,7 +95,6 @@
    color: var(--cl1);
    letter-spacing: 0.2rem;
    transition: all 0.3s ease;
-   /* border-radius: 20px; */
 }
 
 .user_menu>a:active {
@@ -105,4 +105,109 @@
    font-size: calc(var(--fs1) + 5px);
    color: var(--cl1);
    margin-right: 3vw;
+}
+
+@media(max-width: 770px) {
+   .user_info>img {
+      width: 80px;
+      height: 80px;
+   }
+
+   .short_path>figure {
+      width: calc(100% / 3 - 30px);
+      height: 170px;
+   }
+
+   .short_path>figure>img {
+      height: 60px;
+   }
+
+   .short_path>:first-child>img {
+      height: 80px;
+   }
+}
+
+@media(max-width: 550px) {
+   .user_menu {
+      min-height: 70vh;
+   }
+
+   .user_info>img {
+      width: 70px;
+      height: 70px;
+   }
+
+   .short_path>figure {
+      width: calc(100% / 3 - 10px);
+      height: 150px;
+   }
+
+   .short_path>figure>img {
+      height: 50px;
+   }
+
+   .short_path>:first-child>img {
+      height: 70px;
+   }
+}
+
+@media(max-width: 430px) {
+   .user_info>img {
+      width: 60px;
+      height: 60px;
+   }
+
+   .short_path>figure {
+      height: 110px;
+   }
+
+   .short_path>figure>img {
+      height: 40px;
+   }
+
+   .short_path>:first-child>img {
+      height: 60px;
+   }
+
+   .short_path>figure>span {
+      font-size: var(--fs7);
+
+   }
+
+   .short_path>:nth-child(2)>span {
+      inline-size: 70px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+   }
+
+   .user_menu {
+      margin-top: 8%;
+   }
+
+   .user_menu>a {
+      line-height: 2;
+   }
+}
+
+@media(max-width: 360px) {
+   .short_path>figure {
+      height: 95px;
+   }
+
+   .short_path>figure>img {
+      height: 30px;
+   }
+
+   .short_path>:first-child>img {
+      height: 45px;
+   }
+
+   .short_path>:nth-child(1)>span {
+      margin-top: -8%;
+   }
+
+   .user_menu>a {
+      line-height: 1.8;
+   }
 }

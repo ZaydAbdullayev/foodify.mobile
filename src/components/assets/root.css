@@ -47,7 +47,7 @@
     }
 }
 
-@media(max-width: 550px) {
+@media(max-width: 570px) {
     :root {
         --pd2: 2%;
         --pd4: 2.5%;

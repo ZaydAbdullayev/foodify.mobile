@@ -41,13 +41,7 @@ input {
 }
 
 ::-webkit-scrollbar {
-    width: 5px;
-    background: #33333341;
-}
-
-::-webkit-scrollbar-thumb {
-    background: #fce000;
-    border-radius: 20px;
+    display: none;
 }
 
 img {

@@ -33,8 +33,8 @@ export const Foods = () => {
       </div>
 
       <div className="food_body">
-        <h1>Topligan mahsulotlar: {totalProductCount} ta</h1>
-        {products.map((item) => {
+        <h1>Topligan mahsulotlar: {totalProductCount }100 ta</h1>
+        {data.map((item) => {
           return (
             <figure className="food_body_item" key={item.id}>
               <img src={item?.img} alt="" />
@@ -58,6 +58,135 @@ export const Foods = () => {
     </div>
   );
 };
+
+const data = [
+  {
+    id: "gh6543",
+    name: "shashlik",
+    price: "23400",
+    description: "go'shtli",
+    quantity: 1,
+    status: 1,
+    restaurant: "fv567h",
+  },
+  {
+    id: "gh6543",
+    name: "shashlik",
+    price: "23400",
+    description: "go'shtli",
+    quantity: 1,
+    status: 1,
+    restaurant: "fv567h",
+  },
+  {
+    id: "gh6543",
+    name: "shashlik",
+    price: "23400",
+    description: "go'shtli",
+    quantity: 1,
+    status: 1,
+    restaurant: "fv567h",
+  },
+  {
+    id: "gh6543",
+    name: "shashlik",
+    price: "23400",
+    description: "go'shtli",
+    quantity: 1,
+    status: 1,
+    restaurant: "fv567h",
+  },
+  {
+    id: "gh6543",
+    name: "shashlik",
+    price: "23400",
+    description: "go'shtli",
+    quantity: 1,
+    status: 1,
+    restaurant: "fv567h",
+  },
+  {
+    id: "gh6543",
+    name: "shashlik",
+    price: "23400",
+    description: "go'shtli",
+    quantity: 1,
+    status: 1,
+    restaurant: "fv567h",
+  },
+  {
+    id: "gh6543",
+    name: "shashlik",
+    price: "23400",
+    description: "go'shtli",
+    quantity: 1,
+    status: 1,
+    restaurant: "fv567h",
+  },
+  {
+    id: "gh6543",
+    name: "shashlik",
+    price: "23400",
+    description: "go'shtli",
+    quantity: 1,
+    status: 1,
+    restaurant: "fv567h",
+  },
+  {
+    id: "gh6543",
+    name: "shashlik",
+    price: "23400",
+    description: "go'shtli",
+    quantity: 1,
+    status: 1,
+    restaurant: "fv567h",
+  },
+  {
+    id: "gh6543",
+    name: "shashlik",
+    price: "23400",
+    description: "go'shtli",
+    quantity: 1,
+    status: 1,
+    restaurant: "fv567h",
+  },
+  {
+    id: "gh6543",
+    name: "shashlik",
+    price: "23400",
+    description: "go'shtli",
+    quantity: 1,
+    status: 1,
+    restaurant: "fv567h",
+  },
+  {
+    id: "gh6543",
+    name: "shashlik",
+    price: "23400",
+    description: "go'shtli",
+    quantity: 1,
+    status: 1,
+    restaurant: "fv567h",
+  },
+  {
+    id: "gh6543",
+    name: "shashlik",
+    price: "23400",
+    description: "go'shtli",
+    quantity: 1,
+    status: 1,
+    restaurant: "fv567h",
+  },
+  {
+    id: "gh6543",
+    name: "shashlik",
+    price: "23400",
+    description: "go'shtli",
+    quantity: 1,
+    status: 1,
+    restaurant: "fv567h",
+  },
+];
 
 const category = [
   {
