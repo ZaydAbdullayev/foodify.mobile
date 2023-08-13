@@ -5,6 +5,7 @@
     font-family: YSText, sans-serif;
     letter-spacing: 0.05rem;
     overscroll-behavior: none;
+    user-select: none;
 }
 
 html {

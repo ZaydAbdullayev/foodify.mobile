@@ -236,4 +236,10 @@
         height: 22px;
         padding: 0.7vw 0 0;
     }
+
+    .navigator::after {
+        width: 8px;
+        height: 8px;
+        top: -6%;
+    }
 }
