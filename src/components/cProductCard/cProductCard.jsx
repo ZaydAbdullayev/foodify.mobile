@@ -49,8 +49,9 @@ export const CatalogCard = memo(({ restaurantId, category }) => {
     if (user.token) {
       ApiService.fetching("add/toCart", item)
         .then((res) => {
-          const msg = "Mahsulot savatga muvoffaqiyatli qo'shildi!";
-          enqueueSnackbar(msg, { variant: "success" });
+          enqueueSnackbar("Mahsulot savatga muvoffaqiyatli qo'shildi!", {
+            variant: "success",
+          });
           dispatch(acUpdateCard());
         })
         .catch((err) => console.log(err));
@@ -69,8 +70,10 @@ export const CatalogCard = memo(({ restaurantId, category }) => {
     service
       .fetching(endpoint, item)
       .then((res) => {
-        console.log(res);
         dispatch(acUpdateCard());
+        enqueueSnackbar("Mahsulot savatga muvoffaqiyatli qo'shildi!", {
+          variant: "success",
+        });
       })
       .catch((err) => console.log(err));
   };
@@ -82,7 +85,7 @@ export const CatalogCard = memo(({ restaurantId, category }) => {
   const filtered = product.filter((item) => {
     return (
       item?.restaurant?.toLowerCase().includes(restaurantId.toLowerCase()) &&
-      item.category === category
+      item?.category === category
     );
   });
 
@@ -177,52 +180,3 @@ export const CatalogCard = memo(({ restaurantId, category }) => {
     </>
   );
 });
-
-const data = [
-  {
-    id: "gh6543",
-    name: "shashlik",
-    price: "23400",
-    description: "go'shtli",
-    quantity: 1,
-    status: 1,
-    restaurant: "fv567h",
-  },
-];
-
-export const Test = () => {
-  return data.map((item) => {
-    return (
-      <figure
-        className="catalog_product"
-        key={item.id}
-        style={
-          item?.status === 0 ? { opacity: "0.4", cursor: "not-allowed" } : {}
-        }
-      >
-        <img src={item.img} alt="images" />
-        <figcaption className="product_info">
-          <div>
-            <NumericFormat
-              value={item.price}
-              suffix=" sum"
-              thousandSeparator=" "
-              displayType="text"
-            />
-            <span style={{ textTransform: "capitalize" }}>{item.name}</span>
-            <span>{item?.description || ""}</span>
-          </div>
-          <div className="btn_box">
-            <button style={item.status === 0 ? { cursor: "not-allowed" } : {}}>
-              {" "}
-              Qo'shish +
-            </button>
-          </div>
-        </figcaption>
-        <button className="like_btn">
-          {item.id ? <MdFavorite /> : <MdOutlineFavoriteBorder />}
-        </button>
-      </figure>
-    );
-  });
-};

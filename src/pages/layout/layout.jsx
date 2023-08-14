@@ -14,11 +14,11 @@ export const Layout = () => {
   const [count, setCount] = useState(0);
   const { id } = JSON.parse(localStorage.getItem("customer"))?.users || null;
 
-  useEffect(() => {
-    ApiGetService.fetching(`cart/count/products/${id}`)
-      .then((res) => setCount(res?.data))
-      .catch((err) => console.log(err));
-  }, [id]);
+  // useEffect(() => {
+  //   ApiGetService.fetching(`cart/count/products/${id}`)
+  //     .then((res) => setCount(res?.data))
+  //     .catch((err) => console.log(err));
+  // }, [id]);
 
   let startY = 0;
 

@@ -3,6 +3,7 @@ import "./catalog.css";
 import { CatalogCard } from "../../components/cProductCard/cProductCard";
 import { ProductMenu } from "../../components/productMenu/productMenu";
 import { useParams } from "react-router-dom";
+import { enqueueSnackbar } from "notistack";
 import {
   MdOutlineFavoriteBorder,
   MdOutlineAccessTimeFilled,
@@ -13,14 +14,13 @@ import { ApiGetService, ApiService } from "../../services/api.service";
 import { HiArrowNarrowRight } from "react-icons/hi";
 
 export const Catalog = () => {
-  const user = JSON.parse(localStorage.getItem("customer")) || [];
-  const [favorite, setFavorite] = useState(false);
+  const user = JSON.parse(localStorage.getItem("customer")).users || [];
   const [shop, setShop] = useState([]);
   const id = useParams().id;
   const [category, setCategory] = useState([]);
   const name = shop?.username?.split("_").join(" ");
   const [selectedCategory, setSelectedCategory] = useState("");
-  const user_id = user?.users?.id;
+  const user_id = user?.id;
 
   useEffect(() => {
     ApiGetService.fetching(`get/restaurant/${id}`)
@@ -55,11 +55,20 @@ export const Catalog = () => {
 
   const uniqueCategories = getUniqueCategories();
 
-  const addToLike = (shop) => {
-    ApiService.fetching("add/favRes", shop)
+  const addToLike = (state) => {
+    const shop_data = {
+      id: id,
+      state: state,
+      username: name,
+      user_id: user_id,
+      rating: shop?.rating,
+      img: shop?.img,
+    };
+    ApiService.fetching("add/favRes", shop_data)
       .then((res) => {
-        console.log(res);
-        setFavorite(true);
+        enqueueSnackbar("Restoran Yoqtirilganlarga qo'shildi", {
+          variant: "success",
+        });
       })
       .catch((err) => console.log(err));
   };
@@ -70,8 +79,6 @@ export const Catalog = () => {
 
   return (
     <div className="catalog_page">
-      {/* ========== filter the product ============== */}
-
       {/* =========== show product section ============= */}
       <div className="product_show">
         <figure className="about_restoran" key={id}>
@@ -80,18 +87,13 @@ export const Catalog = () => {
             <span>
               <button
                 className="restoran_btn"
-                onClick={() =>
-                  addToLike({
-                    id: id,
-                    state: 1,
-                    username: name,
-                    user_id: user_id,
-                    rating: shop?.rating,
-                    img: shop?.img,
-                  })
-                }
+                onClick={() => addToLike(shop.state === 1 ? 0 : 1)}
               >
-                {favorite ? <MdFavorite /> : <MdOutlineFavoriteBorder />}
+                {!shop?.status === 1 ? (
+                  <MdFavorite />
+                ) : (
+                  <MdOutlineFavoriteBorder />
+                )}
               </button>
             </span>
             <div className="restoran_info_box">

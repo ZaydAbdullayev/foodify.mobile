@@ -29,7 +29,7 @@ export const MyProfil = () => {
     <div className="my_profil">
       <div className="user_info">
         <h1 style={{ textTransform: "capitalize" }}>
-          {users.username || "Username"}
+          {users?.username || "Username"}
         </h1>
         <img src={default_img} alt="images" />
       </div>

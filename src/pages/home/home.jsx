@@ -5,7 +5,6 @@ import { ApiGetService } from "../../services/api.service";
 import { useDispatch } from "react-redux";
 import { acLoading } from "../../redux/loading";
 import { Navbar } from "../../components/navbar/navbar";
-import { Test } from "../../components/cProductCard/cProductCard";
 
 import { BsTaxiFrontFill, BsFillStarFill } from "react-icons/bs";
 import {
@@ -19,24 +18,16 @@ import pin from "../../components/assets/images/pin.png";
 export const Home = () => {
   const [restaurant, setRestaurant] = useState([]);
   const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const [favorite, setFavorite] = useState(false);
-
-  const addToLike = (id) => {
-    setFavorite(id);
-  };
 
   useEffect(() => {
-    dispatch(acLoading(true));
     ApiGetService.fetching("get/restaurants")
       .then((res) => {
         setRestaurant(res?.data?.data);
       })
       .catch((err) => {
         console.log(err);
-      })
-      .finally(() => dispatch(acLoading(false)));
-  }, [dispatch]);
+      });
+  }, []);
 
   const viewShop = (id) => {
     navigate(`/catalog/${id}`);
@@ -73,7 +64,6 @@ export const Home = () => {
         </div>
       </div>
       <div className="restaurant_box">
-        <Test />
         {restaurant?.map((shop) => {
           return (
             <figure
@@ -119,13 +109,6 @@ export const Home = () => {
                   {shop.delivery_time_till} min
                 </span>
               </label>
-              <button className="like_btn" onClick={() => addToLike(shop.id)}>
-                {favorite === shop.id ? (
-                  <MdFavorite />
-                ) : (
-                  <MdOutlineFavoriteBorder />
-                )}
-              </button>
             </figure>
           );
         })}

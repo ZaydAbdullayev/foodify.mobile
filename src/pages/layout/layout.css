@@ -92,15 +92,15 @@
 
 
 .food::after {
-    left: 29.3%;
+    left: 29%;
 }
 
 .like::after {
-    left: 69.3%;
+    left: 69%;
 }
 
 .profil::after {
-    left: 89.3%;
+    left: 89%;
 }
 
 .label {

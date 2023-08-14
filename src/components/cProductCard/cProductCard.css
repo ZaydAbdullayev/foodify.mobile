@@ -68,7 +68,7 @@
 }
 
 .add_effect {
-    animation: test 3s ease alternate;
+    animation: test 1s ease alternate;
 }
 
 @keyframes test {
@@ -103,12 +103,10 @@
 }
 
 .btn_box>:first-child:active {
-    width: 100%;
     background: linear-gradient(to left, #424242, #696464, #222121);
 }
 
 .btn_box>:last-child:active {
-    width: 100%;
     background: linear-gradient(to right, #eee, #ddd, #ddd);
     opacity: 0.5;
 }

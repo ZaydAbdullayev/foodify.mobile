@@ -2,77 +2,159 @@ import React, { useState, useEffect } from "react";
 import "./favorite.css";
 import { FiStar } from "react-icons/fi";
 import { BsStarFill } from "react-icons/bs";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { ApiGetService } from "../../services/api.service";
 
 export const MyFavorite = () => {
-  const user = JSON.parse(localStorage.getItem("customer")) || [];
-
+  const { id } = JSON.parse(localStorage.getItem("customer")).users || [];
+  const navigate = useNavigate();
   const [favorite, setFavorite] = useState(false);
-  const id = useParams().id;
-  const user_id = user?.id;
+  const shop_id = useParams().id;
   const [shop, setShop] = useState([]);
-  console.log(shop);
+
   useEffect(() => {
-    ApiGetService.fetching(`get/favRes/${user_id}`)
+    ApiGetService.fetching(`get/favRes/${id}`)
       .then((res) => {
         setShop(res?.data?.innerData);
       })
       .catch((err) => console.log(err));
     window.scrollTo(0, 0);
-  }, [user_id]);
+  }, [id]);
+
   return (
     <div className="my_favorite">
-      <div>
-        <div className="my_account">
-          <div>
-            <h1>My Favorite</h1>
-            <p>Dashboard</p>
-          </div>
-          <hr />
-          <p>Restaurant</p>
-        </div>
-        <div className="fovorite_card">
-          {shop?.map((item, index) => {
-            return (
-              <div key={item.username || index}>
-                <figure>
-                  <img src={item.img} alt="" />
-                </figure>
-                <p style={{ flex: "1" }}>{item.username}</p>
+      <h1>Men yoqtirgan restoranlar</h1>
+      <div className="fovorite_card">
+        {shop?.map((item) => {
+          return (
+            <div key={item.id} className="fovorite_item">
+              <figure>
+                <img src={item.img} alt="" />
+              </figure>
+              <p style={{ flex: "1" }}>{item.username}</p>
+              <div className="give_raiting">
                 <span
                   onClick={() =>
                     setFavorite({
-                      id: id,
+                      id: shop_id,
                       state: true,
                       name: shop.name,
-                      user_id: user_id,
+                      user_id: id,
                       img: shop.img,
                       rating: favorite,
                     })
                   }
+                  style={
+                    favorite.status >= 1 && favorite.id === item.id
+                      ? { color: "#fc0" }
+                      : {}
+                  }
                 >
-                  {favorite >= 1 && item.id ? <BsStarFill /> : <FiStar />}
+                  {favorite.status >= 1 && favorite.id === item.id ? (
+                    <BsStarFill />
+                  ) : (
+                    <FiStar />
+                  )}
                 </span>
-                <span onClick={() => setFavorite(2)}>
-                  {favorite >= 2 && item.id ? <BsStarFill /> : <FiStar />}
+                <span
+                  onClick={() => setFavorite({ id: item.id, status: 2 })}
+                  style={
+                    favorite.status >= 2 && favorite.id === item.id
+                      ? { color: "#fc0" }
+                      : {}
+                  }
+                >
+                  {favorite.status >= 2 && favorite.id === item.id ? (
+                    <BsStarFill />
+                  ) : (
+                    <FiStar />
+                  )}
                 </span>
-                <span onClick={() => setFavorite(3)}>
-                  {favorite >= 3 && item.id ? <BsStarFill /> : <FiStar />}
+                <span
+                  onClick={() => setFavorite({ id: item.id, status: 3 })}
+                  style={
+                    favorite.status >= 3 && favorite.id === item.id
+                      ? { color: "#fc0" }
+                      : {}
+                  }
+                >
+                  {favorite.status >= 3 && favorite.id === item.id ? (
+                    <BsStarFill />
+                  ) : (
+                    <FiStar />
+                  )}
                 </span>
-                <span onClick={() => setFavorite(4)}>
-                  {favorite >= 4 && item.id ? <BsStarFill /> : <FiStar />}
+                <span
+                  onClick={() => setFavorite({ id: item.id, status: 4 })}
+                  style={
+                    favorite.status >= 4 && favorite.id === item.id
+                      ? { color: "#fc0" }
+                      : {}
+                  }
+                >
+                  {favorite.status >= 4 && favorite.id === item.id ? (
+                    <BsStarFill />
+                  ) : (
+                    <FiStar />
+                  )}
                 </span>
-                <span onClick={() => setFavorite(5)}>
-                  {favorite >= 5 && item.id ? <BsStarFill /> : <FiStar />}
+                <span
+                  onClick={() => setFavorite({ id: item.id, status: 5 })}
+                  style={
+                    favorite.status >= 5 && favorite.id === item.id
+                      ? { color: "#fc0" }
+                      : {}
+                  }
+                >
+                  {favorite.status >= 5 && favorite.id === item.id ? (
+                    <BsStarFill />
+                  ) : (
+                    <FiStar />
+                  )}
                 </span>
-                <p>===========</p>
-                <button>Order</button>
               </div>
-            );
-          })}
-        </div>
+              <p>=======</p>
+              <button onClick={() => navigate(`/catalog/${item.id}`)}>
+                Buyurtma
+              </button>
+            </div>
+          );
+        })}
       </div>
     </div>
   );
 };
+
+const data = [
+  {
+    id: "gf45tfd",
+    img: "",
+    username: "Oqtepa Lavash",
+  },
+  {
+    id: "jyhtrge3",
+    img: "",
+    username: "Oqtepa Lavash",
+  },
+  {
+    id: "gf45tfd",
+    img: "",
+    username: "Oqtepa Lavash",
+  },
+
+  {
+    id: "gf45tfd",
+    img: "",
+    username: "Oqtepa Lavash",
+  },
+  {
+    id: "gf45tfd",
+    img: "",
+    username: "Oqtepa Lavash",
+  },
+  {
+    id: "gf45tfd",
+    img: "",
+    username: "Oqtepa Lavash",
+  },
+];

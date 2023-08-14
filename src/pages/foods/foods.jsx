@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./foods.css";
 import { ApiGetService } from "../../services/api.service";
 import { NumericFormat } from "react-number-format";
@@ -6,14 +6,17 @@ import { NumericFormat } from "react-number-format";
 export const Foods = () => {
   const [products, setProducts] = useState([]);
 
-  const totalProductCount = products.reduce((count) => {
+  const totalProductCount = products?.reduce((count) => {
     return count + 1;
   }, 0);
 
+  useEffect(() => filterCategory(), []);
+
   const filterCategory = (name) => {
-    ApiGetService.fetching(`filter/byCategory/${name}`)
+    const category = name ? name : "ichimliklar";
+    ApiGetService.fetching(`filter/byCategory/${category}`)
       .then((res) => {
-        setProducts(res?.data);
+        setProducts(res?.data?.innerData);
       })
       .catch((err) => console.log(err));
   };
@@ -33,8 +36,11 @@ export const Foods = () => {
       </div>
 
       <div className="food_body">
-        <h1>Topligan mahsulotlar: {totalProductCount }100 ta</h1>
-        {data.map((item) => {
+        <h1>
+          Topligan mahsulotlar:{" "}
+          {totalProductCount === 300 ? "300+" : totalProductCount}
+        </h1>
+        {products?.map((item) => {
           return (
             <figure className="food_body_item" key={item.id}>
               <img src={item?.img} alt="" />
@@ -49,7 +55,9 @@ export const Foods = () => {
                   />
                   <p>15-20 min</p>
                 </pre>
-                <span>4.6</span>
+                <span style={item?.raiting ? {} : { display: "none" }}>
+                  {item?.raiting}
+                </span>
               </figcaption>
             </figure>
           );
@@ -58,135 +66,6 @@ export const Foods = () => {
     </div>
   );
 };
-
-const data = [
-  {
-    id: "gh6543",
-    name: "shashlik",
-    price: "23400",
-    description: "go'shtli",
-    quantity: 1,
-    status: 1,
-    restaurant: "fv567h",
-  },
-  {
-    id: "gh6543",
-    name: "shashlik",
-    price: "23400",
-    description: "go'shtli",
-    quantity: 1,
-    status: 1,
-    restaurant: "fv567h",
-  },
-  {
-    id: "gh6543",
-    name: "shashlik",
-    price: "23400",
-    description: "go'shtli",
-    quantity: 1,
-    status: 1,
-    restaurant: "fv567h",
-  },
-  {
-    id: "gh6543",
-    name: "shashlik",
-    price: "23400",
-    description: "go'shtli",
-    quantity: 1,
-    status: 1,
-    restaurant: "fv567h",
-  },
-  {
-    id: "gh6543",
-    name: "shashlik",
-    price: "23400",
-    description: "go'shtli",
-    quantity: 1,
-    status: 1,
-    restaurant: "fv567h",
-  },
-  {
-    id: "gh6543",
-    name: "shashlik",
-    price: "23400",
-    description: "go'shtli",
-    quantity: 1,
-    status: 1,
-    restaurant: "fv567h",
-  },
-  {
-    id: "gh6543",
-    name: "shashlik",
-    price: "23400",
-    description: "go'shtli",
-    quantity: 1,
-    status: 1,
-    restaurant: "fv567h",
-  },
-  {
-    id: "gh6543",
-    name: "shashlik",
-    price: "23400",
-    description: "go'shtli",
-    quantity: 1,
-    status: 1,
-    restaurant: "fv567h",
-  },
-  {
-    id: "gh6543",
-    name: "shashlik",
-    price: "23400",
-    description: "go'shtli",
-    quantity: 1,
-    status: 1,
-    restaurant: "fv567h",
-  },
-  {
-    id: "gh6543",
-    name: "shashlik",
-    price: "23400",
-    description: "go'shtli",
-    quantity: 1,
-    status: 1,
-    restaurant: "fv567h",
-  },
-  {
-    id: "gh6543",
-    name: "shashlik",
-    price: "23400",
-    description: "go'shtli",
-    quantity: 1,
-    status: 1,
-    restaurant: "fv567h",
-  },
-  {
-    id: "gh6543",
-    name: "shashlik",
-    price: "23400",
-    description: "go'shtli",
-    quantity: 1,
-    status: 1,
-    restaurant: "fv567h",
-  },
-  {
-    id: "gh6543",
-    name: "shashlik",
-    price: "23400",
-    description: "go'shtli",
-    quantity: 1,
-    status: 1,
-    restaurant: "fv567h",
-  },
-  {
-    id: "gh6543",
-    name: "shashlik",
-    price: "23400",
-    description: "go'shtli",
-    quantity: 1,
-    status: 1,
-    restaurant: "fv567h",
-  },
-];
 
 const category = [
   {
@@ -201,7 +80,7 @@ const category = [
   },
   {
     id: 76543,
-    name: "coffee",
+    name: "ichimliklar",
     img: require("./assets/coffee-cup-26.png"),
   },
   {
