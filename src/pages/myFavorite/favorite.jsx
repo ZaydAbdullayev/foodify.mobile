@@ -2,15 +2,14 @@ import React, { useState, useEffect } from "react";
 import "./favorite.css";
 import { FiStar } from "react-icons/fi";
 import { BsStarFill } from "react-icons/bs";
-import { useParams, useNavigate } from "react-router-dom";
-import { ApiGetService } from "../../services/api.service";
+import { useNavigate } from "react-router-dom";
+import { ApiGetService, ApiUpdateService } from "../../services/api.service";
 
 export const MyFavorite = () => {
   const { id } = JSON.parse(localStorage.getItem("customer")).users || [];
   const navigate = useNavigate();
-  const [favorite, setFavorite] = useState(false);
-  const shop_id = useParams().id;
   const [shop, setShop] = useState([]);
+  const [update, setUpdate] = useState(false);
 
   useEffect(() => {
     ApiGetService.fetching(`get/favRes/${id}`)
@@ -19,101 +18,65 @@ export const MyFavorite = () => {
       })
       .catch((err) => console.log(err));
     window.scrollTo(0, 0);
-  }, [id]);
+  }, [id, update]);
+
+  const giveRaiting = (data) => {
+    ApiUpdateService.fetching(`update/favRes/${id}/${data.id}`, {
+      state: data.state,
+    })
+      .then((res) => {
+        setUpdate(!update);
+      })
+      .catch((err) => console.log(err));
+  };
 
   return (
     <div className="my_favorite">
       <h1>Men yoqtirgan restoranlar</h1>
       <div className="fovorite_card">
         {shop?.map((item) => {
+          console.log(item);
           return (
             <div key={item.id} className="fovorite_item">
               <figure>
                 <img src={item.img} alt="" />
               </figure>
-              <p style={{ flex: "1" }}>{item.username}</p>
-              <div className="give_raiting">
-                <span
-                  onClick={() =>
-                    setFavorite({
-                      id: shop_id,
-                      state: true,
-                      name: shop.name,
-                      user_id: id,
-                      img: shop.img,
-                      rating: favorite,
-                    })
-                  }
-                  style={
-                    favorite.status >= 1 && favorite.id === item.id
-                      ? { color: "#fc0" }
-                      : {}
-                  }
-                >
-                  {favorite.status >= 1 && favorite.id === item.id ? (
-                    <BsStarFill />
-                  ) : (
-                    <FiStar />
-                  )}
-                </span>
-                <span
-                  onClick={() => setFavorite({ id: item.id, status: 2 })}
-                  style={
-                    favorite.status >= 2 && favorite.id === item.id
-                      ? { color: "#fc0" }
-                      : {}
-                  }
-                >
-                  {favorite.status >= 2 && favorite.id === item.id ? (
-                    <BsStarFill />
-                  ) : (
-                    <FiStar />
-                  )}
-                </span>
-                <span
-                  onClick={() => setFavorite({ id: item.id, status: 3 })}
-                  style={
-                    favorite.status >= 3 && favorite.id === item.id
-                      ? { color: "#fc0" }
-                      : {}
-                  }
-                >
-                  {favorite.status >= 3 && favorite.id === item.id ? (
-                    <BsStarFill />
-                  ) : (
-                    <FiStar />
-                  )}
-                </span>
-                <span
-                  onClick={() => setFavorite({ id: item.id, status: 4 })}
-                  style={
-                    favorite.status >= 4 && favorite.id === item.id
-                      ? { color: "#fc0" }
-                      : {}
-                  }
-                >
-                  {favorite.status >= 4 && favorite.id === item.id ? (
-                    <BsStarFill />
-                  ) : (
-                    <FiStar />
-                  )}
-                </span>
-                <span
-                  onClick={() => setFavorite({ id: item.id, status: 5 })}
-                  style={
-                    favorite.status >= 5 && favorite.id === item.id
-                      ? { color: "#fc0" }
-                      : {}
-                  }
-                >
-                  {favorite.status >= 5 && favorite.id === item.id ? (
-                    <BsStarFill />
-                  ) : (
-                    <FiStar />
-                  )}
-                </span>
+              <div className="res_raiting">
+                <p style={{ flex: "1" }}>{item.username}</p>
+                <div className="give_raiting">
+                  <span
+                    onClick={() => giveRaiting({ id: item.id, state: 1 })}
+                    style={item?.state >= 1 ? { color: "#fc0" } : {}}
+                  >
+                    {item?.state >= 1 ? <BsStarFill /> : <FiStar />}
+                  </span>
+                  <span
+                    onClick={() => giveRaiting({ id: item.id, state: 2 })}
+                    style={item?.state >= 2 ? { color: "#fc0" } : {}}
+                  >
+                    {item?.state >= 2 ? <BsStarFill /> : <FiStar />}
+                  </span>
+                  <span
+                    onClick={() => giveRaiting({ id: item.id, state: 3 })}
+                    style={item?.state >= 3 ? { color: "#fc0" } : {}}
+                  >
+                    {item?.state >= 3 ? <BsStarFill /> : <FiStar />}
+                  </span>
+                  <span
+                    onClick={() => giveRaiting({ id: item.id, state: 4 })}
+                    style={item?.state >= 4 ? { color: "#fc0" } : {}}
+                  >
+                    {item?.state >= 4 ? <BsStarFill /> : <FiStar />}
+                  </span>
+                  <span
+                    onClick={() => giveRaiting({ id: item.id, state: 5 })}
+                    style={item?.state >= 5 ? { color: "#fc0" } : {}}
+                  >
+                    {item?.state >= 5 ? <BsStarFill /> : <FiStar />}
+                  </span>
+                </div>
               </div>
-              <p>=======</p>
+              <p id="none">=======</p>
               <button onClick={() => navigate(`/catalog/${item.id}`)}>
                 Buyurtma
               </button>

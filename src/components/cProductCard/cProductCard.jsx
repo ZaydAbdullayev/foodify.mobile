@@ -28,12 +28,12 @@ export const CatalogCard = memo(({ restaurantId, category }) => {
   }, []);
 
   useEffect(() => {
-    ApiGetService.fetching("get/products")
+    ApiGetService.fetching(`get/products/${restaurantId}`)
       .then((res) => {
-        setProduct(res?.data?.data);
+        setProduct(res?.data?.innerData);
       })
       .catch((err) => console.log(err));
-  }, [updateCard]);
+  }, [updateCard, restaurantId]);
 
   useEffect(() => {
     ApiGetService.fetching(`cart/get/products/${user_id}`)
@@ -83,10 +83,7 @@ export const CatalogCard = memo(({ restaurantId, category }) => {
   };
 
   const filtered = product.filter((item) => {
-    return (
-      item?.restaurant?.toLowerCase().includes(restaurantId.toLowerCase()) &&
-      item?.category === category
-    );
+    return item?.category === category;
   });
 
   return (

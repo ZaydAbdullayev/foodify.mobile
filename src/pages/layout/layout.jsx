@@ -4,6 +4,7 @@ import { Outlet, Link, useLocation } from "react-router-dom";
 import { Cart } from "../cart/cart";
 import { ApiGetService } from "../../services/api.service";
 import { menu } from "./menu";
+import { useSelector } from "react-redux";
 
 import { BsChevronCompactDown, BsChevronCompactUp } from "react-icons/bs";
 import active from "./active_11.png";
@@ -13,12 +14,13 @@ export const Layout = () => {
   const [open, setOpen] = useState(false);
   const [count, setCount] = useState(0);
   const { id } = JSON.parse(localStorage.getItem("customer"))?.users || null;
+  const updateCard = useSelector((state) => state.updateCard);
 
-  // useEffect(() => {
-  //   ApiGetService.fetching(`cart/count/products/${id}`)
-  //     .then((res) => setCount(res?.data))
-  //     .catch((err) => console.log(err));
-  // }, [id]);
+  useEffect(() => {
+    ApiGetService.fetching(`cart/count/products/${id}`)
+      .then((res) => setCount(res?.data?.innerData))
+      .catch((err) => console.log(err));
+  }, [id, updateCard]);
 
   useEffect(() => setOpen(false), [location]);
 
@@ -44,10 +46,12 @@ export const Layout = () => {
         className={
           location === "/all/foods"
             ? "navigator food"
-            : location === "/my/favourite"
+            : location.startsWith("/my/fav/")
             ? "navigator like"
-            : location === "/my/profile"
+            : location.startsWith("/my/profile")
             ? "navigator profil"
+            : location === "/catalog/:id"
+            ? "navigator"
             : "navigator"
         }
       >
@@ -64,9 +68,7 @@ export const Layout = () => {
               >
                 {menu.icon}
                 {menu.ticket && (
-                  <span style={count === 0 ? { display: "none" } : {}}>
-                    {count}
-                  </span>
+                  <span style={count ? {} : { display: "none" }}>{count}</span>
                 )}
               </span>
               <p>{menu.name}</p>
@@ -94,7 +96,7 @@ export const Layout = () => {
         ) : (
           <BsChevronCompactUp />
         )}
-        <Cart setOpen={setOpen} />
+        <Cart />
       </div>
     </div>
   );

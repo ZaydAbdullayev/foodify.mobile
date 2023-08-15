@@ -12,6 +12,7 @@ import { MyFavorite } from "./pages/myFavorite/favorite.jsx";
 import { Payment } from "./payment/payment";
 import { MyOrders } from "./pages/myOrders/myOrders";
 import { Foods } from "./pages/foods/foods";
+import { MyFavFood } from "./pages/myFavoriteFood/myFavoriteFood";
 
 export const Router = () => {
   // const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
@@ -58,8 +59,15 @@ export const Router = () => {
           <Route index element={<Home />} />
           <Route path="/catalog/:id" element={<Catalog />} />
           <Route path="/all/foods" element={<Foods />} />
-          <Route path="/my/profile" element={<MyProfil />} />
-          <Route path="/my/favourite" element={<MyFavorite />} />
+          <Route path="/my/profile" element={<MyProfil />}>
+            <Route path="send/gift" element={<h1>sovga yuborish</h1>} />
+            <Route path="delivery" element={<h1>Yetkazib ebrish</h1>} />
+            <Route path="my/family" element={<h1>Oilaviy</h1>} />
+            <Route path="work" element={<h1>Ishxonalarim</h1>} />
+            <Route path="help" element={<h1>Help</h1>} />
+          </Route>
+          <Route path="/my/fav/res" element={<MyFavorite />} />
+          <Route path="/my/fav/food" element={<MyFavFood />} />
           <Route path="/my/orders" element={<MyOrders />} />
           <Route path="/payment/:id" element={<Payment />} />
           <Route path="/signin" element={<Signin />} />

@@ -35,7 +35,7 @@ export const MyProfil = () => {
       </div>
 
       <div className="short_path">
-        <figure onClick={() => navigate("/my/favourite")}>
+        <figure onClick={() => navigate("/my/fav/food")}>
           <img src={favourite} alt="favourite" />
           <span>Sevimli ovqatlar</span>
         </figure>
@@ -66,27 +66,27 @@ export const MyProfil = () => {
 const menu = [
   {
     name: "Sovg'a yuborish",
-    path: "/send/gift",
+    path: "send/gift",
     icon: <HiGift />,
   },
   {
     name: "Yetkazish xizmati",
-    path: "/delivery",
+    path: "delivery",
     icon: <IoIosCar />,
   },
   {
     name: "Oilaviy",
-    path: "/my/family",
+    path: "my/family",
     icon: <IoIosPeople />,
   },
   {
     name: "Ish xona",
-    path: "/send/gift",
+    path: "work",
     icon: <MdAddHomeWork />,
   },
   {
     name: "Yordam",
-    path: "/help",
+    path: "help",
     icon: <MdHelp />,
   },
 ];

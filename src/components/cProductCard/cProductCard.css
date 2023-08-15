@@ -141,7 +141,7 @@
 
 @media(max-width: 380px) {
     .catalog_product {
-        height: 300px;
+        height: 260px;
         border-radius: 10px;
     }
 
@@ -150,6 +150,11 @@
     }
 
     .btn_box {
-        border-radius: 10px;
+        border-radius: 5px;
+    }
+
+    .like_btn {
+        top: 10px;
+        right: 10px;
     }
 }

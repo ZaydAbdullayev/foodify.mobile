@@ -27,7 +27,7 @@ export const menu = [
   {
     id: 6535,
     name: "Yoqtirganlar",
-    path: "/my/favourite",
+    path: "/my/fav/res",
     icon: <MdOutlineFavorite />,
   },
   {

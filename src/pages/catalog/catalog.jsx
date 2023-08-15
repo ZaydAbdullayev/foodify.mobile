@@ -10,7 +10,11 @@ import {
   MdFavorite,
 } from "react-icons/md";
 import { BsInfoCircle, BsFillStarFill } from "react-icons/bs";
-import { ApiGetService, ApiService } from "../../services/api.service";
+import {
+  ApiDeleteService,
+  ApiGetService,
+  ApiService,
+} from "../../services/api.service";
 import { HiArrowNarrowRight } from "react-icons/hi";
 
 export const Catalog = () => {
@@ -18,6 +22,8 @@ export const Catalog = () => {
   const [shop, setShop] = useState([]);
   const id = useParams().id;
   const [category, setCategory] = useState([]);
+  const [state, setState] = useState([]);
+  const [update, setUpdate] = useState(false);
   const name = shop?.username?.split("_").join(" ");
   const [selectedCategory, setSelectedCategory] = useState("");
   const user_id = user?.id;
@@ -55,6 +61,14 @@ export const Catalog = () => {
 
   const uniqueCategories = getUniqueCategories();
 
+  useEffect(() => {
+    ApiGetService.fetching(`get/favRes/${user_id}/${id}`)
+      .then((res) => {
+        setState(res?.data?.innerData);
+      })
+      .catch((err) => console.log(err));
+  }, [id, user_id, update]);
+
   const addToLike = (state) => {
     const shop_data = {
       id: id,
@@ -64,13 +78,26 @@ export const Catalog = () => {
       rating: shop?.rating,
       img: shop?.img,
     };
-    ApiService.fetching("add/favRes", shop_data)
-      .then((res) => {
-        enqueueSnackbar("Restoran Yoqtirilganlarga qo'shildi", {
-          variant: "success",
-        });
-      })
-      .catch((err) => console.log(err));
+
+    if (state === 1) {
+      ApiDeleteService.fetching(`remove/restaurant/${user_id}/${id}`)
+        .then((res) => {
+          setUpdate(!update);
+          enqueueSnackbar("Restoran yoqtirilganlardan o'chirildi", {
+            variant: "warning",
+          });
+        })
+        .catch((err) => console.log(err));
+    } else {
+      ApiService.fetching("add/favRes", shop_data)
+        .then((res) => {
+          setUpdate(!update);
+          enqueueSnackbar("Restoran Yoqtirilganlarga qo'shildi", {
+            variant: "success",
+          });
+        })
+        .catch((err) => console.log(err));
+    }
   };
 
   const handleCategoryClick = (category) => {
@@ -87,13 +114,10 @@ export const Catalog = () => {
             <span>
               <button
                 className="restoran_btn"
-                onClick={() => addToLike(shop.state === 1 ? 0 : 1)}
+                onClick={() => addToLike(state === 1 ? 0 : 1)}
+                style={state === 1 ? { color: "#9e0d0d" } : {}}
               >
-                {!shop?.status === 1 ? (
-                  <MdFavorite />
-                ) : (
-                  <MdOutlineFavoriteBorder />
-                )}
+                {state === 1 ? <MdFavorite /> : <MdOutlineFavoriteBorder />}
               </button>
             </span>
             <div className="restoran_info_box">

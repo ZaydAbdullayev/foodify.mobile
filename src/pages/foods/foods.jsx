@@ -13,7 +13,7 @@ export const Foods = () => {
   useEffect(() => filterCategory(), []);
 
   const filterCategory = (name) => {
-    const category = name ? name : "ichimliklar";
+    const category = name ? name : "all";
     ApiGetService.fetching(`filter/byCategory/${category}`)
       .then((res) => {
         setProducts(res?.data?.innerData);

@@ -1,0 +1,18 @@
+.food_fav {
+    width: 100%;
+    min-height: 80vh;
+    padding: var(--pd4);
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--gap1) var(--gap3);
+    background: var(--cl2);
+    border-radius: 30px 30px 0 0;
+}
+
+.food_fav>figure{
+    background: rgba(238, 230, 200, 0.534);
+}
+
+.food_fav * {
+    color: #333;
+}
