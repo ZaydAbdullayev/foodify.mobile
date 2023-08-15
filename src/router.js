@@ -15,27 +15,27 @@ import { Foods } from "./pages/foods/foods";
 import { MyFavFood } from "./pages/myFavoriteFood/myFavoriteFood";
 
 export const Router = () => {
-  // const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
 
-  // useEffect(() => {
-  //   const handleResize = () => {
-  //     setIsMobile(window.innerWidth <= 920);
-  //   };
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 920);
+    };
 
-  //   window.addEventListener("resize", handleResize);
+    window.addEventListener("resize", handleResize);
 
-  //   return () => {
-  //     window.removeEventListener("resize", handleResize);
-  //   };
-  // }, []);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
-  // useEffect(() => {
-  //   if (isMobile) {
-  //     window.location.href = `https://foodify.mobile.uz`;
-  //   } else {
-  //     window.location.href = `https://foodify.uz`;
-  //   }
-  // }, [isMobile]);
+  useEffect(() => {
+    if (isMobile) {
+      window.location.href = `https://mobile.foodify.uz`;
+    } else {
+      window.location.href = `https://foodify.uz`;
+    }
+  }, [isMobile]);
 
   const span = document.createElement("span");
   span.classList.add("stm-animate");
