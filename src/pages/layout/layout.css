@@ -166,6 +166,7 @@
     z-index: 999;
 
     >svg {
+        inline-size: 100%;
         margin: 2% 0 0;
         line-height: 2;
         color: var(--cl4);

@@ -20,6 +20,8 @@ export const Layout = () => {
   //     .catch((err) => console.log(err));
   // }, [id]);
 
+  useEffect(() => setOpen(false), [location]);
+
   let startY = 0;
 
   const handleTouchStart = (e) => {
