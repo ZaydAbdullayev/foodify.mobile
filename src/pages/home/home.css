@@ -34,7 +34,7 @@
 }
 
 .carusel_item>img {
-    width: 100%;
+    width: 70px;
     height: 100%;
     object-fit: cover;
 }

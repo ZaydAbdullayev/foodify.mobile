@@ -51,16 +51,52 @@ export const Home = () => {
       </div>
       <div className="restaurant_carusel">
         <div className="carusel_item">
-          <img src={img} alt="" />
+          <img
+            src="https://restaurantsnapshot.com/wp-content/uploads/2023/02/Best-New-Restaurants-1.jpg"
+            alt=""
+          />
         </div>
         <div className="carusel_item">
-          <img src={img} alt="" />
+          <img
+            src="https://www.touchbistro.com/wp-content/uploads/2021/08/restaurant-interior-design-ideas-thumbnail.jpg"
+            alt=""
+          />
         </div>
         <div className="carusel_item">
-          <img src={img} alt="" />
+          <img
+            src="https://img.freepik.com/premium-photo/3d-rendering-loft-luxury-hotel-reception-vintage-cafe-lounge-restaurant_105762-1102.jpg"
+            alt=""
+          />
         </div>
         <div className="carusel_item">
-          <img src={img} alt="" />
+          <img
+            src="https://prodmypods.azureedge.net/-/media/businessblog/gettyimages-1226046100-2048x1707.jpg?rev=0d0c057269b0494b8e3b1628557f5d35&mw=767&hash=9E225268FC281BF143947C54E23AB6EF"
+            alt=""
+          />
+        </div>
+        <div className="carusel_item">
+          <img
+            src="https://restaurantsnapshot.com/wp-content/uploads/2023/02/Best-New-Restaurants-1.jpg"
+            alt=""
+          />
+        </div>
+        <div className="carusel_item">
+          <img
+            src="https://www.touchbistro.com/wp-content/uploads/2021/08/restaurant-interior-design-ideas-thumbnail.jpg"
+            alt=""
+          />
+        </div>
+        <div className="carusel_item">
+          <img
+            src="https://img.freepik.com/premium-photo/3d-rendering-loft-luxury-hotel-reception-vintage-cafe-lounge-restaurant_105762-1102.jpg"
+            alt=""
+          />
+        </div>
+        <div className="carusel_item">
+          <img
+            src="https://prodmypods.azureedge.net/-/media/businessblog/gettyimages-1226046100-2048x1707.jpg?rev=0d0c057269b0494b8e3b1628557f5d35&mw=767&hash=9E225268FC281BF143947C54E23AB6EF"
+            alt=""
+          />
         </div>
       </div>
       <div className="restaurant_box">
