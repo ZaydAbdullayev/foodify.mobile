@@ -4,6 +4,7 @@ import { MdOutlineFavorite } from "react-icons/md";
 import { FaUser } from "react-icons/fa";
 import { TiShoppingCart } from "react-icons/ti";
 
+const { token } = JSON?.parse(localStorage?.getItem("customer")) || false;
 export const menu = [
   {
     id: 2345,
@@ -33,7 +34,8 @@ export const menu = [
   {
     id: 9876,
     name: "Profil",
-    path: "/my/profile",
+    path: token ? "/my/profile" : "/signin",
     icon: <FaUser />,
+    check: true,
   },
 ];

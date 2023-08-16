@@ -6,7 +6,8 @@ import { useNavigate } from "react-router-dom";
 import { ApiGetService, ApiUpdateService } from "../../services/api.service";
 
 export const MyFavorite = () => {
-  const { id } = JSON.parse(localStorage.getItem("customer")).users || [];
+  const user = JSON?.parse(localStorage?.getItem("customer")) || [];
+  const id = user?.users?.id;
   const navigate = useNavigate();
   const [shop, setShop] = useState([]);
   const [update, setUpdate] = useState(false);

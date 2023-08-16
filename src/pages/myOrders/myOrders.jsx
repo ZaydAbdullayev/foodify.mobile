@@ -11,7 +11,7 @@ import { ImArrowLeft2 } from "react-icons/im";
 import { AiOutlineCheck } from "react-icons/ai";
 
 export const MyOrders = () => {
-  const user = JSON.parse(localStorage.getItem("customer")) || [];
+  const user = JSON?.parse(localStorage?.getItem("customer")) || [];
   const [orders, setOrdres] = useState([]);
   const id = user?.users?.id;
   const navigate = useNavigate();
@@ -30,14 +30,10 @@ export const MyOrders = () => {
       .catch((err) => console.log(err));
   }, [id]);
 
-  const backWord = () => {
-    navigate(-1);
-  };
-
   return (
     <div className="my_orders">
       <pre>
-        <span onClick={backWord}>
+        <span onClick={() => navigate(-1)}>
           <ImArrowLeft2 />
         </span>
         <p>Mening Buyurtmalarim</p>

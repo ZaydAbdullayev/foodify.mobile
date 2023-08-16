@@ -128,7 +128,7 @@
 
 @media(max-width: 360px) {
    .my_favorite>h1 {
-      font-size: var(--fs2);
+      font-size: var(--fs3);
    }
 
    .fovorite_item>figure {

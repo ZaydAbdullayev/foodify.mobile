@@ -11,9 +11,11 @@ import default_img from "../../components/assets/images/default-img.png";
 import { HiGift } from "react-icons/hi";
 import { IoIosCar, IoIosPeople } from "react-icons/io";
 import { MdAddHomeWork, MdHelp } from "react-icons/md";
+import { CgLogOut } from "react-icons/cg";
 
 export const MyProfil = () => {
-  const { id } = JSON.parse(localStorage.getItem("customer"))?.users || null;
+  const customer = JSON?.parse(localStorage?.getItem("customer")) || null;
+  const id = customer?.users?.id;
   const [users, setUser] = useState([]);
   const navigate = useNavigate();
 
@@ -24,6 +26,11 @@ export const MyProfil = () => {
       })
       .catch((err) => console.log(err));
   }, [id]);
+
+  const logout = () => {
+    localStorage.removeItem("customer");
+    window.location.reload();
+  };
 
   return (
     <div className="my_profil">
@@ -58,6 +65,12 @@ export const MyProfil = () => {
             </Link>
           );
         })}
+        <button onClick={logout}>
+          <span>
+            <CgLogOut />
+          </span>{" "}
+          Hisobdan chiqish
+        </button>
       </div>
     </div>
   );

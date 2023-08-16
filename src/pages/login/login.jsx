@@ -19,7 +19,7 @@ export const Signin = () => {
   };
 
   const closeModal = () => {
-    navigate(-1);
+    navigate("/");
   };
 
   const handleSubmit = (e) => {
@@ -129,7 +129,7 @@ export const Login = () => {
   };
 
   const closeModal = () => {
-    navigate(-1);
+    navigate("/");
   };
 
   const handleSubmit = (e) => {
@@ -142,7 +142,7 @@ export const Login = () => {
         localStorage.setItem("customer", JSON.stringify(user));
         const msg = "Hisobga muvoffaqiyatli kirildi!!!";
         enqueueSnackbar(msg, { variant: "success" });
-        navigate(-1);
+        navigate("/");
         window.location.reload();
       })
       .catch((err) => {

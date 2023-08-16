@@ -73,12 +73,12 @@
             color: var(--cl8);
         }
     }
+}
 
-    >p {
-        width: 100px;
-        height: 2px;
-        background: #aaaa;
-    }
+.orders_stution>p {
+    width: 100px;
+    height: 2px;
+    background: #aaaa;
 }
 
 /* ==============order body ================== */
@@ -163,5 +163,73 @@
     >b {
         font-size: var(--fs7);
         color: #aaa;
+    }
+}
+
+@media (max-width: 768px) {
+    .order_body__item>img {
+        width: 18dvw;
+        height: 18dvw;
+    }
+
+    .order_body__item>i {
+        padding-left: 20dvw;
+    }
+
+    .order_body>div {
+        font-size: var(--fs3);
+    }
+}
+
+@media (max-width: 500px) {
+    .order_body__item>img {
+        width: 25vw;
+        height: 25vw;
+    }
+
+    .order_body__item>i {
+        padding-left: 28vw;
+        font-size: var(--fs6);
+    }
+
+    .order_body__item>figcaption {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--gap4);
+
+        & pre {
+            display: flex;
+            gap: var(--gap4);
+        }
+    }
+
+
+    .order_info {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .orders_stution>p {
+        width: 60px;
+    }
+
+    .order_body>div {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}
+
+@media (max-width: 400px) {
+    .order_body__item>img {
+        width: 25dvw;
+        height: 25dvw;
+    }
+
+    .order_body__item>i {
+        padding-left: 27dvw;
+    }
+
+    .orders_stution>p {
+        width: 40px;
     }
 }

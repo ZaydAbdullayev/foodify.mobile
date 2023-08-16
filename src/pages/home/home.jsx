@@ -36,7 +36,7 @@ export const Home = () => {
               <option value="cordinate">Do'stlikshox Ko'chasi</option>
             </select>
           </label>
-          <button>
+          <button onClick={() => navigate("/map")}>
             <img src={pin} alt="" />
           </button>
         </div>

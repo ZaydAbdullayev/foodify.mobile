@@ -25,7 +25,7 @@ export const MyFavFood = () => {
   const navigate = useNavigate();
 
   useMemo(() => {
-    setUser(JSON.parse(localStorage.getItem("customer")) || false);
+    setUser(JSON?.parse(localStorage?.getItem("customer")) || false);
   }, []);
 
   useEffect(() => {

@@ -18,7 +18,7 @@ import {
 import { HiArrowNarrowRight } from "react-icons/hi";
 
 export const Catalog = () => {
-  const user = JSON.parse(localStorage.getItem("customer"))?.users || [];
+  const user = JSON.parse(localStorage.getItem("customer")) || [];
   const [shop, setShop] = useState([]);
   const id = useParams()?.id;
   const [category, setCategory] = useState([]);
@@ -26,7 +26,7 @@ export const Catalog = () => {
   const [update, setUpdate] = useState(false);
   const name = shop?.username?.split("_").join(" ");
   const [selectedCategory, setSelectedCategory] = useState("");
-  const user_id = user?.id;
+  const user_id = user?.users?.id;
 
   useEffect(() => {
     ApiGetService.fetching(`get/restaurant/${id}`)
@@ -64,6 +64,7 @@ export const Catalog = () => {
   useEffect(() => {
     ApiGetService.fetching(`get/favRes/${user_id}/${id}`)
       .then((res) => {
+        console.log(res?.data?.innerData);
         setState(res?.data?.innerData);
       })
       .catch((err) => console.log(err));

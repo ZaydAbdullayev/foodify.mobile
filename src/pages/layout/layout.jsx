@@ -13,7 +13,8 @@ export const Layout = () => {
   const location = useLocation().pathname;
   const [open, setOpen] = useState(false);
   const [count, setCount] = useState(0);
-  const { id } = JSON.parse(localStorage.getItem("customer"))?.users || null;
+  const user = JSON?.parse(localStorage?.getItem("customer")) || null;
+  const id = user?.users?.id;
   const updateCard = useSelector((state) => state.updateCard);
 
   useEffect(() => {
@@ -46,52 +47,44 @@ export const Layout = () => {
         className={
           location === "/all/foods"
             ? "navigator food"
-            : location.startsWith("/my/fav/")
-            ? "navigator like"
-            : location.startsWith("/my/profile")
+            : location.startsWith("/my/fav/") // ? "navigator fav"
+            ? "navigator like" // : location.startsWith("/my/fav/")  //  ? "navigator fav"
+            : location.startsWith("/my/profile") //  ? "navigator profil"
             ? "navigator profil"
-            : location === "/catalog/:id"
-            ? "navigator"
             : "navigator"
         }
       >
-        {menu?.map((menu) => {
-          return (
-            <Link
-              to={menu?.ticket ? location : menu?.path}
-              key={menu?.id}
-              className="label"
+        {menu?.map((menuItem, index) => (
+          <Link
+            to={menuItem?.ticket ? location : menuItem?.path}
+            key={menuItem?.id}
+            className="label"
+          >
+            <span
+              style={{ position: "relative" }}
+              onClick={menuItem?.ticket && (() => setOpen(!open))}
             >
-              <span
-                style={{ position: "relative" }}
-                onClick={menu?.ticket && (() => setOpen(!open))}
-              >
-                {menu?.icon}
-                {menu?.ticket && (
-                  <span style={count ? {} : { display: "none" }}>{count}</span>
-                )}
-              </span>
-              <p>{menu?.name}</p>
-              <img
-                src={active}
-                alt=""
-                className={
-                  location === menu?.path
-                    ? "navigator_item  active_menu"
-                    : "navigator_item"
-                }
-              />
-            </Link>
-          );
-        })}
+              {menuItem?.icon}
+              {menuItem?.ticket && (
+                <span style={count ? {} : { display: "none" }}>{count}</span>
+              )}
+            </span>
+            <p>{menuItem?.name}</p>
+            <img
+              src={active}
+              alt=""
+              className={
+                location === menuItem?.path
+                  ? "navigator_item active_menu"
+                  : "navigator_item"
+              }
+            />
+          </Link>
+        ))}
       </aside>
 
-      <div
-        className={open ? "cart open_cart" : "cart"}
-        onTouchStart={handleTouchStart}
-        onTouchEnd={handleTouchEnd}
-      >
-        <b>
+      <div className={open ? "cart open_cart" : "cart"}>
+        <b onTouchStart={handleTouchStart} onTouchEnd={handleTouchEnd}>
           {open ? (
             <BsChevronCompactDown onClick={() => setOpen(false)} />
           ) : (

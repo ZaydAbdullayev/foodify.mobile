@@ -28,7 +28,7 @@ const bankImages = {
 
 export const Payment = () => {
   const user = useMemo(
-    () => JSON.parse(localStorage.getItem("customer")) || [],
+    () => JSON?.parse(localStorage?.getItem("customer")) || [],
     []
   );
   const [cart, setCart] = useState([]);
@@ -42,7 +42,7 @@ export const Payment = () => {
   const dispatch = useDispatch();
   const user_id = user?.users?.id;
   const [shop, setShop] = useState(null);
-  const id = useParams().id;
+  const id = useParams()?.id;
   const { enqueueSnackbar } = useSnackbar();
   const navigate = useNavigate();
 

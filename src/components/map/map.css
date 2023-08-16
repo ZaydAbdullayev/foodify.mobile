@@ -1,3 +1,11 @@
+/* .map {
+    width: 100%;
+    height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 .kutucuk {
     background: yellow;
     padding: 10px;
@@ -8,6 +16,8 @@
 }
 
 .esas {
+    width: 100%;
+    height: calc(100dvh - 50px);
     padding: 10px 10px 20px 10px;
     border: 1px solid red;
 }
@@ -20,4 +30,4 @@ button {
 
 #harita {
     border: none;
-}
+} */

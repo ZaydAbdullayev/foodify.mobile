@@ -2,9 +2,11 @@ import React, { useState, useEffect } from "react";
 import "./foods.css";
 import { ApiGetService } from "../../services/api.service";
 import { NumericFormat } from "react-number-format";
+import { useNavigate } from "react-router-dom";
 
 export const Foods = () => {
   const [products, setProducts] = useState([]);
+  const navigate = useNavigate();
 
   const totalProductCount = products?.reduce((count) => {
     return count + 1;
@@ -45,7 +47,11 @@ export const Foods = () => {
         </h1>
         {products?.map((item) => {
           return (
-            <figure className="food_body_item" key={item?.id}>
+            <figure
+              className="food_body_item"
+              key={item?.id}
+              onClick={() => navigate(`/catalog/${item?.restaurant}`)}
+            >
               <img src={item?.img} alt="" />
               <figcaption>
                 <pre>

@@ -13,6 +13,7 @@ import { Payment } from "./payment/payment";
 import { MyOrders } from "./pages/myOrders/myOrders";
 import { Foods } from "./pages/foods/foods";
 import { MyFavFood } from "./pages/myFavoriteFood/myFavoriteFood";
+// import { Map } from "./components/map/map";
 
 export const Router = () => {
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 920);
@@ -46,11 +47,11 @@ export const Router = () => {
     const y = event.clientY;
     span.style.top = `${y - 30}px`;
     span.style.left = `${x - 30}px`;
-    span.classList.add("active");
+    span?.classList?.add("active");
   });
 
   span.addEventListener("animationend", function () {
-    span.classList.remove("active");
+    span?.classList?.remove("active");
   });
   return (
     <>
@@ -72,6 +73,7 @@ export const Router = () => {
           <Route path="/payment/:id" element={<Payment />} />
           <Route path="/signin" element={<Signin />} />
           <Route path="/login" element={<Login />} />
+          {/* <Route path="/map" element={<Map />} /> */}
         </Route>
       </Routes>
     </>
