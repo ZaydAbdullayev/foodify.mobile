@@ -91,11 +91,13 @@ export const Layout = () => {
         onTouchStart={handleTouchStart}
         onTouchEnd={handleTouchEnd}
       >
-        {open ? (
-          <BsChevronCompactDown onClick={() => setOpen(false)} />
-        ) : (
-          <BsChevronCompactUp />
-        )}
+        <b>
+          {open ? (
+            <BsChevronCompactDown onClick={() => setOpen(false)} />
+          ) : (
+            <BsChevronCompactUp />
+          )}
+        </b>
         <Cart />
       </div>
     </div>

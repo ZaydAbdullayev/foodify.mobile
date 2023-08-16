@@ -29,13 +29,13 @@ export const Router = () => {
     };
   }, []);
 
-  useEffect(() => {
-    if (isMobile) {
-      window.location.href = `https://mobile.foodify.uz`;
-    } else {
-      window.location.href = `https://foodify.uz`;
-    }
-  }, [isMobile]);
+  // useEffect(() => {
+  //   if (isMobile) {
+  //     window.location.href = `https://mobile.foodify.uz`;
+  //   } else {
+  //     window.location.href = `https://foodify.uz`;
+  //   }
+  // }, [isMobile]);
 
   const span = document.createElement("span");
   span.classList.add("stm-animate");

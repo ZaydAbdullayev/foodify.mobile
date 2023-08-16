@@ -87,37 +87,3 @@ export const MyFavorite = () => {
     </div>
   );
 };
-
-const data = [
-  {
-    id: "gf45tfd",
-    img: "",
-    username: "Oqtepa Lavash",
-  },
-  {
-    id: "jyhtrge3",
-    img: "",
-    username: "Oqtepa Lavash",
-  },
-  {
-    id: "gf45tfd",
-    img: "",
-    username: "Oqtepa Lavash",
-  },
-
-  {
-    id: "gf45tfd",
-    img: "",
-    username: "Oqtepa Lavash",
-  },
-  {
-    id: "gf45tfd",
-    img: "",
-    username: "Oqtepa Lavash",
-  },
-  {
-    id: "gf45tfd",
-    img: "",
-    username: "Oqtepa Lavash",
-  },
-];

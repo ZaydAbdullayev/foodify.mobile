@@ -139,9 +139,9 @@
     }
 }
 
-@media(max-width: 380px) {
+@media(max-width: 400px) {
     .catalog_product {
-        height: 260px;
+        height: 280px;
         border-radius: 10px;
     }
 
@@ -156,5 +156,11 @@
     .like_btn {
         top: 10px;
         right: 10px;
+    }
+}
+
+@media(max-width: 360px) {
+    .catalog_product {
+        height: 240px;
     }
 }
