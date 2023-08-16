@@ -46,7 +46,7 @@ export const CatalogCard = memo(({ restaurantId, category }) => {
   }, [updateCard, user_id]);
 
   const addToCart = (item) => {
-    if (user.token) {
+    if (user?.token) {
       ApiService.fetching("add/toCart", item)
         .then((res) => {
           enqueueSnackbar("Mahsulot savatga muvoffaqiyatli qo'shildi!", {
@@ -61,11 +61,11 @@ export const CatalogCard = memo(({ restaurantId, category }) => {
   };
 
   const updateCart = (item) => {
-    const service = item.quantity > 0 ? ApiUpdateService : ApiDeleteService;
+    const service = item?.quantity > 0 ? ApiUpdateService : ApiDeleteService;
     const endpoint =
-      item.quantity > 0
-        ? `update/cart/${user_id}/${item.id}`
-        : `remove/cartItem/${user_id}/${item.id}`;
+      item?.quantity > 0
+        ? `update/cart/${user_id}/${item?.id}`
+        : `remove/cartItem/${user_id}/${item?.id}`;
 
     service
       .fetching(endpoint, item)
@@ -90,7 +90,7 @@ export const CatalogCard = memo(({ restaurantId, category }) => {
     <>
       {filtered?.map((item) => {
         const existingCartItem = cart?.find(
-          (cartItem) => cartItem?.id === item.id
+          (cartItem) => cartItem?.id === item?.id
         );
         const quantity = existingCartItem
           ? existingCartItem?.quantity
@@ -99,23 +99,25 @@ export const CatalogCard = memo(({ restaurantId, category }) => {
         return (
           <figure
             className="catalog_product"
-            key={item.id}
+            key={item?.id}
             style={
               item?.status === 0
                 ? { opacity: "0.4", cursor: "not-allowed" }
                 : {}
             }
           >
-            <img src={item.img} alt="images" />
+            <img src={item?.img} alt="images" />
             <figcaption className="product_info">
               <div>
                 <NumericFormat
-                  value={item.price}
+                  value={item?.price}
                   suffix=" sum"
                   thousandSeparator=" "
                   displayType="text"
                 />
-                <span style={{ textTransform: "capitalize" }}>{item.name}</span>
+                <span style={{ textTransform: "capitalize" }}>
+                  {item?.name}
+                </span>
                 <span>{item?.description || ""}</span>
               </div>
               {existingCartItem ? (
@@ -124,7 +126,7 @@ export const CatalogCard = memo(({ restaurantId, category }) => {
                     <span
                       className="span"
                       onClick={() =>
-                        updateCart({ quantity: quantity - 1, id: item.id })
+                        updateCart({ quantity: quantity - 1, id: item?.id })
                       }
                     >
                       –
@@ -135,7 +137,7 @@ export const CatalogCard = memo(({ restaurantId, category }) => {
                     <span
                       className="span"
                       onClick={() =>
-                        updateCart({ quantity: quantity + 1, id: item.id })
+                        updateCart({ quantity: quantity + 1, id: item?.id })
                       }
                     >
                       +
@@ -148,9 +150,9 @@ export const CatalogCard = memo(({ restaurantId, category }) => {
                   style={existingCartItem ? {} : { justifyContent: "center" }}
                 >
                   <button
-                    style={item.status === 0 ? { cursor: "not-allowed" } : {}}
+                    style={item?.status === 0 ? { cursor: "not-allowed" } : {}}
                     onClick={() => {
-                      if (item && item.status === 1) {
+                      if (item && item?.status === 1) {
                         addToCart({
                           ...item,
                           quantity: 1,
@@ -164,8 +166,8 @@ export const CatalogCard = memo(({ restaurantId, category }) => {
                 </div>
               )}
             </figcaption>
-            <button className="like_btn" onClick={() => addToLike(item.id)}>
-              {favorite === item.id ? (
+            <button className="like_btn" onClick={() => addToLike(item?.id)}>
+              {favorite === item?.id ? (
                 <MdFavorite />
               ) : (
                 <MdOutlineFavoriteBorder />

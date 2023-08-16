@@ -25,11 +25,14 @@ export const Foods = () => {
     <div className="foods_box">
       <h1>Foods</h1>
       <div className="category">
-        {category.map((category) => {
+        {category?.map((category) => {
           return (
-            <p key={category.id} onClick={() => filterCategory(category.name)}>
-              {category.img && <img src={category.img} alt="images" />}
-              {category.visibility ? category.visibility : category.name}
+            <p
+              key={category?.id}
+              onClick={() => filterCategory(category?.name)}
+            >
+              {category?.img && <img src={category?.img} alt="images" />}
+              {category?.visibility ? category?.visibility : category?.name}
             </p>
           );
         })}
@@ -42,14 +45,14 @@ export const Foods = () => {
         </h1>
         {products?.map((item) => {
           return (
-            <figure className="food_body_item" key={item.id}>
+            <figure className="food_body_item" key={item?.id}>
               <img src={item?.img} alt="" />
               <figcaption>
                 <pre>
-                  <p>{item.name}</p>
+                  <p>{item?.name}</p>
                   <NumericFormat
                     displayType="text"
-                    value={item.price}
+                    value={item?.price}
                     suffix=" sum"
                     thousandSeparator=" "
                   />

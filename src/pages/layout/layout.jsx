@@ -55,28 +55,28 @@ export const Layout = () => {
             : "navigator"
         }
       >
-        {menu.map((menu) => {
+        {menu?.map((menu) => {
           return (
             <Link
-              to={menu.ticket ? location : menu.path}
-              key={menu.id}
+              to={menu?.ticket ? location : menu?.path}
+              key={menu?.id}
               className="label"
             >
               <span
                 style={{ position: "relative" }}
-                onClick={menu.ticket && (() => setOpen(!open))}
+                onClick={menu?.ticket && (() => setOpen(!open))}
               >
-                {menu.icon}
-                {menu.ticket && (
+                {menu?.icon}
+                {menu?.ticket && (
                   <span style={count ? {} : { display: "none" }}>{count}</span>
                 )}
               </span>
-              <p>{menu.name}</p>
+              <p>{menu?.name}</p>
               <img
                 src={active}
                 alt=""
                 className={
-                  location === menu.path
+                  location === menu?.path
                     ? "navigator_item  active_menu"
                     : "navigator_item"
                 }

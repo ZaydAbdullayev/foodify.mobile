@@ -62,11 +62,11 @@ export const MyFavFood = () => {
   };
 
   const updateCart = (item) => {
-    const service = item.quantity > 0 ? ApiUpdateService : ApiDeleteService;
+    const service = item?.quantity > 0 ? ApiUpdateService : ApiDeleteService;
     const endpoint =
-      item.quantity > 0
-        ? `update/cart/${user_id}/${item.id}`
-        : `remove/cartItem/${user_id}/${item.id}`;
+      item?.quantity > 0
+        ? `update/cart/${user_id}/${item?.id}`
+        : `remove/cartItem/${user_id}/${item?.id}`;
 
     service
       .fetching(endpoint, item)
@@ -88,7 +88,7 @@ export const MyFavFood = () => {
       <div className="food_fav">
         {data?.map((item) => {
           const existingCartItem = cart?.find(
-            (cartItem) => cartItem?.id === item.id
+            (cartItem) => cartItem?.id === item?.id
           );
           const quantity = existingCartItem
             ? existingCartItem?.quantity
@@ -97,24 +97,24 @@ export const MyFavFood = () => {
           return (
             <figure
               className="catalog_product"
-              key={item.id}
+              key={item?.id}
               style={
                 item?.status === 0
                   ? { opacity: "0.4", cursor: "not-allowed" }
                   : {}
               }
             >
-              <img src={item.img} alt="images" />
+              <img src={item?.img} alt="images" />
               <figcaption className="product_info">
                 <div>
                   <NumericFormat
-                    value={item.price}
+                    value={item?.price}
                     suffix=" sum"
                     thousandSeparator=" "
                     displayType="text"
                   />
                   <span style={{ textTransform: "capitalize" }}>
-                    {item.name}
+                    {item?.name}
                   </span>
                   <span>{item?.description || ""}</span>
                 </div>
@@ -124,7 +124,7 @@ export const MyFavFood = () => {
                       <span
                         className="span"
                         onClick={() =>
-                          updateCart({ quantity: quantity - 1, id: item.id })
+                          updateCart({ quantity: quantity - 1, id: item?.id })
                         }
                       >
                         –
@@ -135,7 +135,7 @@ export const MyFavFood = () => {
                       <span
                         className="span"
                         onClick={() =>
-                          updateCart({ quantity: quantity + 1, id: item.id })
+                          updateCart({ quantity: quantity + 1, id: item?.id })
                         }
                       >
                         +
@@ -148,9 +148,11 @@ export const MyFavFood = () => {
                     style={existingCartItem ? {} : { justifyContent: "center" }}
                   >
                     <button
-                      style={item.status === 0 ? { cursor: "not-allowed" } : {}}
+                      style={
+                        item?.status === 0 ? { cursor: "not-allowed" } : {}
+                      }
                       onClick={() => {
-                        if (item && item.status === 1) {
+                        if (item && item?.status === 1) {
                           addToCart({
                             ...item,
                             quantity: 1,
@@ -164,8 +166,8 @@ export const MyFavFood = () => {
                   </div>
                 )}
               </figcaption>
-              <button className="like_btn" onClick={() => addToLike(item.id)}>
-                {favorite === item.id ? (
+              <button className="like_btn" onClick={() => addToLike(item?.id)}>
+                {favorite === item?.id ? (
                   <MdFavorite />
                 ) : (
                   <MdOutlineFavoriteBorder />

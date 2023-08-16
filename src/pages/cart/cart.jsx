@@ -16,13 +16,13 @@ import empty from "../../components/assets/images/empty-cart.gif";
 import { BsTaxiFrontFill, BsTaxiFront, BsInfoCircle } from "react-icons/bs";
 
 export const Cart = memo(() => {
-  const user = JSON.parse(localStorage.getItem("customer")) || [];
+  const user = JSON?.parse(localStorage.getItem("customer")) || [];
   const [cart, setCart] = useState([]);
   const [total, setTotal] = useState(0);
   const updateCard = useSelector((state) => state.updateCard);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const id = useParams().id;
+  const id = useParams()?.id;
   const user_id = user?.users?.id;
 
   useEffect(() => {
@@ -39,14 +39,14 @@ export const Cart = memo(() => {
   }, [dispatch, updateCard, user_id]);
 
   const updateCart = (item) => {
-    if (item.quantity > 0) {
-      ApiUpdateService.fetching(`update/cart/${user_id}/${item.id}`, item)
+    if (item?.quantity > 0) {
+      ApiUpdateService.fetching(`update/cart/${user_id}/${item?.id}`, item)
         .then((res) => {
           dispatch(acUpdateCard());
         })
         .catch((err) => console.log(err));
     } else {
-      ApiDeleteService.fetching(`remove/cartItem/${user_id}/${item.id}`)
+      ApiDeleteService.fetching(`remove/cartItem/${user_id}/${item?.id}`)
         .then((res) => {
           dispatch(acUpdateCard());
         })
@@ -83,31 +83,31 @@ export const Cart = memo(() => {
           <div className="cart_body_box last">
             {cart?.map((item) => {
               return (
-                <div className="cart_body__item" key={item.name}>
-                  <img src={item.img} alt="product_photo" />
+                <div className="cart_body__item" key={item?.name}>
+                  <img src={item?.img} alt="product_photo" />
                   <div className="item_info__box">
                     <div className="info">
-                      <p style={{ lineHeight: "1.5" }}>{item.name}</p>
-                      <span>{item.description}</span>
-                      <p>{item.price}</p>
+                      <p style={{ lineHeight: "1.5" }}>{item?.name}</p>
+                      <span>{item?.description}</span>
+                      <p>{item?.price}</p>
                     </div>
                     <div className="count_box">
                       <button
                         onClick={() =>
                           updateCart({
-                            quantity: item.quantity - 1,
-                            id: item.id,
+                            quantity: item?.quantity - 1,
+                            id: item?.id,
                           })
                         }
                       >
                         –
                       </button>
-                      <span>{item.quantity}</span>
+                      <span>{item?.quantity}</span>
                       <button
                         onClick={() =>
                           updateCart({
-                            quantity: item.quantity + 1,
-                            id: item.id,
+                            quantity: item?.quantity + 1,
+                            id: item?.id,
                           })
                         }
                       >

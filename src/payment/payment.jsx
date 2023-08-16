@@ -47,10 +47,10 @@ export const Payment = () => {
   const navigate = useNavigate();
 
   const payment_data = {
-    address: adress_info.home,
-    description: adress_info.description,
-    padyezd: adress_info.padez,
-    qavat: adress_info.qavat,
+    address: adress_info?.home,
+    description: adress_info?.description,
+    padyezd: adress_info?.padez,
+    qavat: adress_info?.qavat,
     product_data: JSON.stringify(cart),
     payment: "token",
     price: total,
@@ -79,11 +79,11 @@ export const Payment = () => {
   }, [updateCard, user_id, id]);
 
   const updateCart = (item) => {
-    const service = item.quantity > 0 ? ApiUpdateService : ApiDeleteService;
+    const service = item?.quantity > 0 ? ApiUpdateService : ApiDeleteService;
     const endpoint =
-      item.quantity > 0
-        ? `update/cart/${user_id}/${item.id}`
-        : `remove/cartItem/${user_id}/${item.id}`;
+      item?.quantity > 0
+        ? `update/cart/${user_id}/${item?.id}`
+        : `remove/cartItem/${user_id}/${item?.id}`;
 
     service
       .fetching(endpoint, item)
@@ -128,7 +128,7 @@ export const Payment = () => {
         <span onClick={() => navigate(-1)}>
           <ImArrowLeft2 />
         </span>
-        <h1>{shop?.username.split("_").join(" ")}</h1>
+        <h1>{shop?.username?.split("_")?.join(" ")}</h1>
       </pre>
       <div className="rigth_section">
         <p>Yetakazish shartlari</p>
@@ -213,9 +213,9 @@ export const Payment = () => {
         <div>
           {cart?.map((item) => {
             return (
-              <div className="cart_body__item payment_body" key={item.name}>
+              <div className="cart_body__item payment_body" key={item?.name}>
                 <div className="payment_info_box">
-                  <img src={item.img} alt="product_photo" />
+                  <img src={item?.img} alt="product_photo" />
                   <label>
                     <p
                       style={{
@@ -223,34 +223,34 @@ export const Payment = () => {
                         textTransform: "capitalize",
                       }}
                     >
-                      {item.name}
+                      {item?.name}
                     </p>
-                    <span>{item.description}</span>
+                    <span>{item?.description}</span>
                   </label>
                 </div>
                 <div className="payment_count_box">
                   <button
                     onClick={() =>
                       updateCart({
-                        quantity: item.quantity - 1,
-                        id: item.id,
+                        quantity: item?.quantity - 1,
+                        id: item?.id,
                       })
                     }
                   >
                     –
                   </button>
-                  <span>{item.quantity}</span>
+                  <span>{item?.quantity}</span>
                   <button
                     onClick={() =>
                       updateCart({
-                        quantity: item.quantity + 1,
-                        id: item.id,
+                        quantity: item?.quantity + 1,
+                        id: item?.id,
                       })
                     }
                   >
                     +
                   </button>
-                  <p>{item.price} so'm</p>
+                  <p>{item?.price} so'm</p>
                 </div>
               </div>
             );

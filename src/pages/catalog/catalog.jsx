@@ -18,9 +18,9 @@ import {
 import { HiArrowNarrowRight } from "react-icons/hi";
 
 export const Catalog = () => {
-  const user = JSON.parse(localStorage.getItem("customer")).users || [];
+  const user = JSON.parse(localStorage.getItem("customer"))?.users || [];
   const [shop, setShop] = useState([]);
-  const id = useParams().id;
+  const id = useParams()?.id;
   const [category, setCategory] = useState([]);
   const [state, setState] = useState([]);
   const [update, setUpdate] = useState(false);
@@ -47,14 +47,14 @@ export const Catalog = () => {
 
   const categoryes = category
     ? category.filter((item) =>
-        item?.restaurant === id ? item.category : null
+        item?.restaurant === id ? item?.category : null
       )
     : [];
 
   const getUniqueCategories = () => {
     const uniqueCategories = new Set();
     categoryes.forEach((item) => {
-      uniqueCategories.add(item.category);
+      uniqueCategories.add(item?.category);
     });
     return Array.from(uniqueCategories);
   };
@@ -109,7 +109,7 @@ export const Catalog = () => {
       {/* =========== show product section ============= */}
       <div className="product_show">
         <figure className="about_restoran" key={id}>
-          <img src={shop.img} alt="restotaunt_img" />
+          <img src={shop?.img} alt="restotaunt_img" />
           <figcaption className="about_restoran_item">
             <span>
               <button
@@ -128,7 +128,7 @@ export const Catalog = () => {
                     <MdOutlineAccessTimeFilled />
                   </span>
                   <p>
-                    {shop.delivery_time_from} - {shop.delivery_time_till}
+                    {shop?.delivery_time_from} - {shop?.delivery_time_till}
                     <span>daqiqa</span>
                   </p>
                 </div>
@@ -137,7 +137,7 @@ export const Catalog = () => {
                     <BsFillStarFill />
                   </span>
                   <p>
-                    {shop.rating}
+                    {shop?.rating}
                     <span>4.5</span>
                   </p>
                 </div>
@@ -169,7 +169,7 @@ export const Catalog = () => {
         </div>
 
         <div className="restoran_product">
-          {uniqueCategories.map((category) => (
+          {uniqueCategories?.map((category) => (
             <Fragment key={category}>
               <h1 id={category} style={selectedCategory === category ? {} : {}}>
                 {category}

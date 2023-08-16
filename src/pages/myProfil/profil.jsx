@@ -13,7 +13,7 @@ import { IoIosCar, IoIosPeople } from "react-icons/io";
 import { MdAddHomeWork, MdHelp } from "react-icons/md";
 
 export const MyProfil = () => {
-  const { id } = JSON.parse(localStorage.getItem("customer")).users || null;
+  const { id } = JSON.parse(localStorage.getItem("customer"))?.users || null;
   const [users, setUser] = useState([]);
   const navigate = useNavigate();
 
@@ -50,7 +50,7 @@ export const MyProfil = () => {
       </div>
 
       <div className="user_menu">
-        {menu.map((menu, index) => {
+        {menu?.map((menu, index) => {
           return (
             <Link to={menu.path} key={index}>
               <span>{menu.icon}</span>
