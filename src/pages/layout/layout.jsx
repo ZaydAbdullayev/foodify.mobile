@@ -54,37 +54,47 @@ export const Layout = () => {
             : "navigator"
         }
       >
-        {menu?.map((menuItem, index) => (
-          <Link
-            to={menuItem?.ticket ? location : menuItem?.path}
-            key={menuItem?.id}
-            className="label"
-          >
-            <span
-              style={{ position: "relative" }}
-              onClick={menuItem?.ticket && (() => setOpen(!open))}
+        {menu?.map((menu, index) => {
+          return (
+            <Link
+              to={menu?.ticket ? location : menu?.path}
+              key={menu?.id}
+              className="label"
             >
-              {menuItem?.icon}
-              {menuItem?.ticket && (
-                <span style={count ? {} : { display: "none" }}>{count}</span>
-              )}
-            </span>
-            <p>{menuItem?.name}</p>
-            <img
-              src={active}
-              alt=""
-              className={
-                location === menuItem?.path
-                  ? "navigator_item active_menu"
-                  : "navigator_item"
-              }
-            />
-          </Link>
-        ))}
+              <span
+                style={{ position: "relative" }}
+                onClick={menu?.ticket && (() => setOpen(!open))}
+              >
+                {menu?.icon}
+                {menu?.ticket && (
+                  <span style={count ? {} : { display: "none" }}>{count}</span>
+                )}
+              </span>
+              <p>{menu?.name}</p>
+              <img
+                src={active}
+                alt=""
+                className={
+                  location === menu?.path ||
+                  (location === `/catalog/${location.split("/").pop()}` &&
+                    index === 0) ||
+                  (location.startsWith("/my/fav") && index === 3) ||
+                  (location.startsWith("/my/profile") && index === 4)
+                    ? "navigator_item active_menu"
+                    : "navigator_item"
+                }
+              />
+            </Link>
+          );
+        })}
       </aside>
 
-      <div className={open ? "cart open_cart" : "cart"}>
-        <b onTouchStart={handleTouchStart} onTouchEnd={handleTouchEnd}>
+      <div
+        className={open ? "cart open_cart" : "cart"}
+        onTouchStart={handleTouchStart}
+        onTouchEnd={handleTouchEnd}
+      >
+        <b>
           {open ? (
             <BsChevronCompactDown onClick={() => setOpen(false)} />
           ) : (
