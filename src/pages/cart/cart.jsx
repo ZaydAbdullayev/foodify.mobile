@@ -100,7 +100,7 @@ export const Cart = memo(() => {
                           })
                         }
                       >
-                        -
+                        –
                       </button>
                       <span>{item.quantity}</span>
                       <button

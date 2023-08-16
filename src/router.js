@@ -15,7 +15,7 @@ import { Foods } from "./pages/foods/foods";
 import { MyFavFood } from "./pages/myFavoriteFood/myFavoriteFood";
 
 export const Router = () => {
-  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 920);
 
   useEffect(() => {
     const handleResize = () => {
