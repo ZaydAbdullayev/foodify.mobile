@@ -27,6 +27,7 @@ export const Catalog = () => {
   const name = shop?.username?.split("_").join(" ");
   const [selectedCategory, setSelectedCategory] = useState("");
   const user_id = user?.users?.id;
+  // console.log(state);
 
   useEffect(() => {
     ApiGetService.fetching(`get/restaurant/${id}`)
@@ -64,7 +65,6 @@ export const Catalog = () => {
   useEffect(() => {
     ApiGetService.fetching(`get/favRes/${user_id}/${id}`)
       .then((res) => {
-        console.log(res?.data?.innerData);
         setState(res?.data?.innerData);
       })
       .catch((err) => console.log(err));
@@ -81,20 +81,20 @@ export const Catalog = () => {
     };
 
     if (state === 1) {
+      ApiService.fetching("add/favRes", shop_data)
+        .then((res) => {
+          setUpdate(!update);
+          enqueueSnackbar("Restoran yoqtirilganlarga qo'shildi", {
+            variant: "success",
+          });
+        })
+        .catch((err) => console.log(err));
+    } else {
       ApiDeleteService.fetching(`remove/restaurant/${user_id}/${id}`)
         .then((res) => {
           setUpdate(!update);
           enqueueSnackbar("Restoran yoqtirilganlardan o'chirildi", {
             variant: "warning",
-          });
-        })
-        .catch((err) => console.log(err));
-    } else {
-      ApiService.fetching("add/favRes", shop_data)
-        .then((res) => {
-          setUpdate(!update);
-          enqueueSnackbar("Restoran Yoqtirilganlarga qo'shildi", {
-            variant: "success",
           });
         })
         .catch((err) => console.log(err));
@@ -115,7 +115,7 @@ export const Catalog = () => {
             <span>
               <button
                 className="restoran_btn"
-                onClick={() => addToLike(state === 1 ? 0 : 1)}
+                onClick={() => addToLike(state === 0 ? 1 : 0)}
                 style={state === 1 ? { color: "#9e0d0d" } : {}}
               >
                 {state === 1 ? <MdFavorite /> : <MdOutlineFavoriteBorder />}

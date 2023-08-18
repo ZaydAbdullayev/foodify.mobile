@@ -13,7 +13,8 @@ import { Payment } from "./payment/payment";
 import { MyOrders } from "./pages/myOrders/myOrders";
 import { Foods } from "./pages/foods/foods";
 import { MyFavFood } from "./pages/myFavoriteFood/myFavoriteFood";
-// import { Map } from "./components/map/map";
+import { MapBox } from "./components/map/map";
+import { NoResult, NotFound } from "./components/notFound/notFound";
 
 export const Router = () => {
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 920);
@@ -61,7 +62,10 @@ export const Router = () => {
           <Route path="/catalog/:id" element={<Catalog />} />
           <Route path="/all/foods" element={<Foods />} />
           <Route path="/my/profile" element={<MyProfil />}>
-            <Route path="send/gift" element={<h1>sovga yuborish</h1>} />
+            <Route
+              path="send/gift"
+              element={<h1>Boshqa kishi uchun xarid qilish</h1>}
+            />
             <Route path="delivery" element={<h1>Yetkazib ebrish</h1>} />
             <Route path="my/family" element={<h1>Oilaviy</h1>} />
             <Route path="work" element={<h1>Ishxonalarim</h1>} />
@@ -73,7 +77,8 @@ export const Router = () => {
           <Route path="/payment/:id" element={<Payment />} />
           <Route path="/signin" element={<Signin />} />
           <Route path="/login" element={<Login />} />
-          {/* <Route path="/map" element={<Map />} /> */}
+          <Route path="/map" element={<MapBox />} />
+          <Route path="*" element={<NotFound />} />
         </Route>
       </Routes>
     </>

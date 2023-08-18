@@ -50,7 +50,7 @@ export const Foods = () => {
             <figure
               className="food_body_item"
               key={item?.id}
-              onClick={() => navigate(`/catalog/${item?.restaurant}`)}
+              onClick={() => navigate(`/catalog/${item?.restaurant}#lavash`)}
             >
               <img src={item?.img} alt="" />
               <figcaption>

@@ -15,8 +15,8 @@
 .header {
     width: 100%;
     height: 150px;
-    background: var(--cl2);
-    backdrop-filter: blur(5px);
+    background: #fff2;
+    backdrop-filter: blur(10px);
 }
 
 .navigation_panel {
@@ -140,7 +140,7 @@
 .navigator_item {
     width: 120%;
     position: absolute;
-    top: 0;
+    top: 0%;
     left: -10%;
     background: none;
     z-index: -9;
@@ -148,7 +148,7 @@
 }
 
 .active_menu {
-    top: -50%;
+    top: -48%;
 }
 
 .cart {

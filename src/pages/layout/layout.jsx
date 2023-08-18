@@ -45,13 +45,15 @@ export const Layout = () => {
       </main>
       <aside
         className={
-          location === "/all/foods"
-            ? "navigator food"
+          location === "/all/foods" // ? "navigator food"
+            ? "navigator food" // : location === "/all/foods"  // ? "navigator food"
             : location.startsWith("/my/fav/") // ? "navigator fav"
             ? "navigator like" // : location.startsWith("/my/fav/")  //  ? "navigator fav"
             : location.startsWith("/my/profile") //  ? "navigator profil"
-            ? "navigator profil"
-            : "navigator"
+            ? "navigator profil" //  : location.startsWith("/my/profile")  //  ? "navigator profil"
+            : location === "/my/orders" //  ? "navigator profil"
+            ? "navigator profil" //  : location.startsWith("/my/profile")  //  ? "navigator profil"
+            : "navigator" //  : location.startsWith("/my/profile")  //  ? "navigator profil"
         }
       >
         {menu?.map((menu, index) => {
@@ -78,8 +80,10 @@ export const Layout = () => {
                   location === menu?.path ||
                   (location === `/catalog/${location.split("/").pop()}` &&
                     index === 0) ||
+                  (location.startsWith("/map") && index === 0) ||
                   (location.startsWith("/my/fav") && index === 3) ||
-                  (location.startsWith("/my/profile") && index === 4)
+                  (location.startsWith("/my/profile") && index === 4) ||
+                  (location === "/my/orders" && index === 4)
                     ? "navigator_item active_menu"
                     : "navigator_item"
                 }

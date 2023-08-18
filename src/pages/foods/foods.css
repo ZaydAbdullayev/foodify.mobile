@@ -145,6 +145,7 @@
     .category>p {
         min-width: 100px;
         height: 100px;
+        font-size: var(--fs5);
     }
 
     .category>p>img {
