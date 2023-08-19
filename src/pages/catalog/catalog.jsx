@@ -74,10 +74,8 @@ export const Catalog = () => {
     const shop_data = {
       id: id,
       state: state,
-      username: name,
       user_id: user_id,
       rating: shop?.rating,
-      img: shop?.img,
     };
 
     if (state === 1) {

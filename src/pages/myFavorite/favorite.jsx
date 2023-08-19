@@ -11,6 +11,7 @@ export const MyFavorite = () => {
   const navigate = useNavigate();
   const [shop, setShop] = useState([]);
   const [update, setUpdate] = useState(false);
+  console.log(shop);
 
   useEffect(() => {
     ApiGetService.fetching(`get/favRes/${id}`)

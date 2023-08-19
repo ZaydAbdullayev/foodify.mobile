@@ -154,7 +154,7 @@ export const CatalogCard = memo(({ restaurantId, category }) => {
                     onClick={() => {
                       if (item && item?.status === 1) {
                         addToCart({
-                          ...item,
+                          id: item?.id,
                           quantity: 1,
                           user_id: user_id,
                         });
