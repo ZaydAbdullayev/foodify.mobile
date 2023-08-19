@@ -4,7 +4,12 @@ import { ApiGetService } from "../../services/api.service";
 import { NumericFormat } from "react-number-format";
 import { useNavigate } from "react-router-dom";
 
-import { BsFillCartCheckFill, BsFillHouseCheckFill } from "react-icons/bs";
+import {
+  BsFillCartCheckFill,
+  BsFillHouseCheckFill,
+  BsBagXFill,
+  BsBagCheckFill,
+} from "react-icons/bs";
 import { LuChefHat } from "react-icons/lu";
 import { TbTruckDelivery } from "react-icons/tb";
 import { ImArrowLeft2 } from "react-icons/im";
@@ -50,9 +55,13 @@ export const MyOrders = () => {
             <div className="order_info">
               <span>Buyurtma IDsi №: {order?.id}</span>
               <label style={!change ? { display: "none" } : {}}>
-                So'rovni tasdiqlash:{" "}
-                <b>
-                  <AiOutlineCheck />
+                Buyurtmani:{" "}
+                <b style={{ background: "#38b000" }}>
+                  <BsBagXFill />
+                </b>
+                yoki
+                <b style={{ background: "#ff0000da" }}>
+                  <BsBagCheckFill />
                 </b>
               </label>
             </div>
