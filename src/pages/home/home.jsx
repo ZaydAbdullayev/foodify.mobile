@@ -3,6 +3,7 @@ import "./home.css";
 import { useNavigate } from "react-router-dom";
 import { ApiGetService } from "../../services/api.service";
 import { Navbar } from "../../components/navbar/navbar";
+import { useSelector } from "react-redux";
 
 import { BsTaxiFrontFill, BsFillStarFill } from "react-icons/bs";
 import { MdDeliveryDining } from "react-icons/md";
@@ -11,6 +12,7 @@ import pin from "../../components/assets/images/pin.png";
 export const Home = () => {
   const [restaurant, setRestaurant] = useState([]);
   const navigate = useNavigate();
+  const search_data = useSelector((state) => state.search);
 
   useEffect(() => {
     ApiGetService.fetching("get/restaurants")
@@ -26,6 +28,10 @@ export const Home = () => {
     navigate(`/catalog/${id}`);
   };
 
+  const filterRestaurant = restaurant.filter((item) => {
+    return item?.username?.toLowerCase().includes(search_data?.toLowerCase());
+  });
+
   return (
     <div className="home_page">
       <div className="header">
@@ -33,7 +39,8 @@ export const Home = () => {
           <label>
             <span>Hozirgi manzil</span>
             <select name="location">
-              <option value="cordinate">Do'stlikshox Ko'chasi</option>
+              {/* take location from user in input */}
+              
             </select>
           </label>
           <button onClick={() => navigate("/map")}>
@@ -93,7 +100,7 @@ export const Home = () => {
         </div>
       </div>
       <div className="restaurant_box">
-        {restaurant?.map((shop) => {
+        {filterRestaurant?.map((shop) => {
           return (
             <figure
               onClick={() => viewShop(shop?.id)}

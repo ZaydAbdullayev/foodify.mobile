@@ -4,6 +4,7 @@ import { reModal } from "./modal";
 import { reLocation } from "./map";
 import { rePrice } from "./price";
 import { reLoading } from "./loading";
+import { reSearch } from "./search";
 
 export const store = configureStore({
   reducer: combineReducers({
@@ -12,5 +13,6 @@ export const store = configureStore({
     location: reLocation,
     price: rePrice,
     loading: reLoading,
+    search: reSearch,
   }),
 });

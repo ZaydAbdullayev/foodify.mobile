@@ -233,7 +233,7 @@
     left: -150px;
 }
 
-.btn {
+.btn_notfound {
     position: absolute;
     top: 80%;
     left: 50%;
@@ -248,7 +248,7 @@
     transition: all 0.3s ease;
 }
 
-.btn:hover {
+.btn_notfound:hover {
     background: var(--cl7);
     color: var(--cl2);
 }

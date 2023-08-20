@@ -5,13 +5,13 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { BsEye, BsEyeSlash } from "react-icons/bs";
 import { IoIosCloseCircle } from "react-icons/io";
 import { ApiService } from "../../services/api.service";
-import { useSnackbar } from "notistack";
+import { enqueueSnackbar } from "notistack";
 
 export const Signin = () => {
   const navigate = useNavigate();
-  const { enqueueSnackbar } = useSnackbar();
   const [show, setShow] = useState(true);
   const [pass, setPass] = useState({});
+  const [err, setErr] = useState(false);
   const { pass1, pass2 } = pass;
 
   const handleShow = () => {
@@ -35,7 +35,11 @@ export const Signin = () => {
           enqueueSnackbar(msg, { variant: "success" });
           navigate("/login");
         })
-        .catch((err) => {});
+        .catch((err) => {
+          setErr(false);
+          const msg = "Bu username allaqachon mavjud!!!";
+          enqueueSnackbar(msg, { variant: "warning" });
+        });
     }
   };
 
@@ -55,10 +59,11 @@ export const Signin = () => {
           <input
             type="text"
             name="username"
-            placeholder="Foydalanuvchi ismi"
+            placeholder={err ? err : "Foydalanuvchi ismi"}
             required
             autoComplete="off"
             autoCapitalize="off"
+            style={err ? { border: "2px solid tomato" } : {}}
           />
           <PatternFormat
             format="+998 ## ### ## ##"
@@ -122,7 +127,6 @@ export const Login = () => {
   const navigate = useNavigate();
   const [show, setShow] = useState(true);
   const [err, setErr] = useState(false);
-  const { enqueueSnackbar } = useSnackbar();
 
   const handleShow = () => {
     setShow(!show);

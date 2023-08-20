@@ -28,7 +28,7 @@ export const NotFound = () => {
             <div className="handle-sub"></div>
           </div>
         </div>
-        <Link to="/" className="btn">
+        <Link to="/" className="btn_notfound">
           Bosh sahifaga qaytish{" "}
         </Link>
       </div>

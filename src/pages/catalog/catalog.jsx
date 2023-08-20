@@ -1,4 +1,4 @@
-import React, { useState, useEffect, Fragment } from "react";
+import React, { useState, useEffect, Fragment, useRef } from "react";
 import "./catalog.css";
 import { CatalogCard } from "../../components/cProductCard/cProductCard";
 import { ProductMenu } from "../../components/productMenu/productMenu";
@@ -25,9 +25,11 @@ export const Catalog = () => {
   const [state, setState] = useState([]);
   const [update, setUpdate] = useState(false);
   const name = shop?.username?.split("_").join(" ");
-  const [selectedCategory, setSelectedCategory] = useState("");
   const user_id = user?.users?.id;
-  // console.log(state);
+  const [selectedCategory, setSelectedCategory] = useState(null);
+  const [previousCategory, setPreviousCategory] = useState(null);
+
+  const categoryRefs = useRef({});
 
   useEffect(() => {
     ApiGetService.fetching(`get/restaurant/${id}`)
@@ -100,7 +102,17 @@ export const Catalog = () => {
   };
 
   const handleCategoryClick = (category) => {
+    setPreviousCategory(selectedCategory);
     setSelectedCategory(category);
+
+    // Eğer bir önceki kategori varsa ve onun referansı varsa,
+    // onun konumuna kaydırma yap
+    if (previousCategory && categoryRefs.current[previousCategory]) {
+      categoryRefs.current[previousCategory].scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+    }
   };
 
   return (
@@ -168,9 +180,13 @@ export const Catalog = () => {
         </div>
 
         <div className="restoran_product">
-          {uniqueCategories?.map((category) => (
-            <Fragment key={category}>
-              <h1 id={category} style={selectedCategory === category ? {} : {}}>
+          {uniqueCategories?.map((category, index) => (
+            <Fragment key={index}>
+              <h1
+                id={category}
+                key={category}
+                ref={(element) => (categoryRefs.current[category] = element)}
+              >
                 {category}
               </h1>
               <CatalogCard restaurantId={id} category={category} />
