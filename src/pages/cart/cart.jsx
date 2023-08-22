@@ -11,11 +11,12 @@ import {
 import { acUpdateCard } from "../../redux/cart";
 import { useNavigate, useParams } from "react-router-dom";
 import { acPrice } from "../../redux/price";
+import { enqueueSnackbar } from "notistack";
 
 import empty from "../../components/assets/images/empty-cart.gif";
 import { BsTaxiFrontFill, BsTaxiFront, BsInfoCircle } from "react-icons/bs";
 
-export const Cart = memo(() => {
+export const Cart = memo(({ setOpen }) => {
   const user = JSON?.parse(localStorage.getItem("customer")) || [];
   const [cart, setCart] = useState([]);
   const [total, setTotal] = useState(0);
@@ -28,30 +29,29 @@ export const Cart = memo(() => {
   useEffect(() => {
     ApiGetService.fetching(`cart/get/products/${user_id}`)
       .then((res) => {
-        setCart(res?.data?.data);
-        const total_price = CalculateTotalPrice(res?.data?.data);
+        setCart(res?.data?.cartItems);
+        const total_price = CalculateTotalPrice(res?.data?.cartItems);
         setTotal(total_price ? total_price : 0);
         dispatch(acPrice(total_price ? total_price : 0));
       })
       .catch((err) => {
         console.log(err);
       });
-  }, [dispatch, updateCard, user_id]);
+  }, [updateCard, dispatch, user_id]);
 
   const updateCart = (item) => {
-    if (item?.quantity > 0) {
-      ApiUpdateService.fetching(`update/cart/${user_id}/${item?.id}`, item)
-        .then((res) => {
-          dispatch(acUpdateCard());
-        })
-        .catch((err) => console.log(err));
-    } else {
-      ApiDeleteService.fetching(`remove/cartItem/${user_id}/${item?.id}`)
-        .then((res) => {
-          dispatch(acUpdateCard());
-        })
-        .catch((err) => console.log(err));
-    }
+    const service = item?.quantity > 0 ? ApiUpdateService : ApiDeleteService;
+    const endpoint =
+      item?.quantity > 0
+        ? `update/cart/${user_id}/${item?.id}`
+        : `remove/cartItem/${user_id}/${item?.id}`;
+
+    service
+      .fetching(endpoint, item)
+      .then((res) => {
+        dispatch(acUpdateCard());
+      })
+      .catch((err) => console.log(err));
   };
 
   const payment = () => {
@@ -65,6 +65,8 @@ export const Cart = memo(() => {
       ApiDeleteService.fetching(`empty/cart/${user_id}`)
         .then((res) => {
           dispatch(acUpdateCard());
+          enqueueSnackbar("savatingiz tozalandi", { variant: "warning" });
+          setOpen(false);
         })
         .catch((err) => console.log(err));
     }

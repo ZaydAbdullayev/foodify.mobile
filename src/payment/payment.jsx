@@ -63,8 +63,8 @@ export const Payment = () => {
   useEffect(() => {
     ApiGetService.fetching(`cart/get/products/${user_id}`)
       .then((res) => {
-        setCart(res?.data?.data);
-        const total_price = CalculateTotalPrice(res?.data?.data);
+        setCart(res?.data?.cartItems);
+        const total_price = CalculateTotalPrice(res?.data?.cartItems);
         setTotal(total_price);
       })
       .catch((err) => {

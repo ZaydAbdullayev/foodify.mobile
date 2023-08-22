@@ -9,11 +9,5 @@ export const reCardUpdate = (state = false, action) => {
   }
 };
 
-export const acUpdateCard = () => {
-  return { type: "UPDATE_CARD" };
-};
-
-export const acUpdate = (payload) => ({
-  type: "TRUE",
-  payload,
-});
+export const acUpdateCard = (payload) => ({ type: "UPDATE_CARD", payload });
+export const acUpdate = (payload) => ({ type: "TRUE", payload });

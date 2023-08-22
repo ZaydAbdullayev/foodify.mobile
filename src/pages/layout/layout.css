@@ -104,6 +104,10 @@
     left: 29%;
 }
 
+.card::after {
+    left: 49%;
+}
+
 .like::after {
     left: 69%;
 }

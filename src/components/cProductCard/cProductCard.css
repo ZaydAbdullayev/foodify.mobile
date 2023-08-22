@@ -67,18 +67,43 @@
     overflow: hidden;
 }
 
-.add_effect {
-    animation: test 1s ease alternate;
+.on_effect button {
+    animation: on 1s ease alternate;
+    white-space: nowrap;
+    overflow: hidden;
 }
 
-@keyframes test {
+.off_effect button {
+    animation: off 1s ease alternate;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+@keyframes on {
     0% {
+        height: 35px;
         width: 0;
         opacity: 0.2;
     }
 
     100% {
+        height: 35px;
         width: 100%;
+        opacity: 1;
+    }
+}
+
+
+@keyframes off {
+    0% {
+        height: 35px;
+        width: 100%;
+        opacity: 0.2;
+    }
+
+    100% {
+        height: 35px;
+        width: 0;
         opacity: 1;
     }
 }
@@ -106,10 +131,10 @@
     background: linear-gradient(to left, #424242, #696464, #222121);
 }
 
-.btn_box>:last-child:active {
+/* .btn_box>:last-child:active {
     background: linear-gradient(to right, #eee, #ddd, #ddd);
     opacity: 0.5;
-}
+} */
 
 .like_btn {
     position: absolute;

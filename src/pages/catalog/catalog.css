@@ -146,11 +146,15 @@
     }
 
     .restoran_delivery>button {
-        padding: 2% 3%;
+        padding: 3% 3% 1%;
     }
 
     .restoran_info_box {
         gap: var(--gap3);
+    }
+
+    .restoran_btn {
+        padding: 3% 3% 1%;
     }
 }
 

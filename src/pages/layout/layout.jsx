@@ -33,7 +33,7 @@ export const Layout = () => {
 
   const handleTouchEnd = (e) => {
     const endY = e.changedTouches[0].clientY;
-    if (startY - endY < 150 + "px") {
+    if (startY - endY < 100 + "px") {
       setOpen(false);
     }
   };
@@ -53,6 +53,8 @@ export const Layout = () => {
             ? "navigator profil" //  : location.startsWith("/my/profile")  //  ? "navigator profil"
             : location === "/my/orders" //  ? "navigator profil"
             ? "navigator profil" //  : location.startsWith("/my/profile")  //  ? "navigator profil"
+            : location === `/payment/${location.split("/").pop()}`
+            ? "navigator card"
             : "navigator" //  : location.startsWith("/my/profile")  //  ? "navigator profil"
         }
       >
@@ -83,7 +85,9 @@ export const Layout = () => {
                   (location.startsWith("/map") && index === 0) ||
                   (location.startsWith("/my/fav") && index === 3) ||
                   (location.startsWith("/my/profile") && index === 4) ||
-                  (location === "/my/orders" && index === 4)
+                  (location === "/my/orders" && index === 4) ||
+                  (location === `/payment/${location.split("/").pop()}` &&
+                    index === 2)
                     ? "navigator_item active_menu"
                     : "navigator_item"
                 }
@@ -93,19 +97,19 @@ export const Layout = () => {
         })}
       </aside>
 
-      <div
-        className={open ? "cart open_cart" : "cart"}
-        onTouchStart={handleTouchStart}
-        onTouchEnd={handleTouchEnd}
-      >
+      <div className={open ? "cart open_cart" : "cart"}>
         <b>
           {open ? (
-            <BsChevronCompactDown onClick={() => setOpen(false)} />
+            <BsChevronCompactDown
+              onClick={() => setOpen(false)}
+              onTouchStart={handleTouchStart}
+              onTouchEnd={handleTouchEnd}
+            />
           ) : (
             <BsChevronCompactUp />
           )}
         </b>
-        <Cart />
+        <Cart setOpen={setOpen} />
       </div>
     </div>
   );

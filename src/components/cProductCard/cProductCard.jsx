@@ -22,6 +22,7 @@ export const CatalogCard = memo(({ restaurantId, category }) => {
   const [favorite, setFavorite] = useState(false);
   const user_id = user?.users?.id;
   const navigate = useNavigate();
+  const [effect, setEffect] = useState(false);
 
   useMemo(() => {
     setUser(JSON.parse(localStorage.getItem("customer")) || false);
@@ -38,7 +39,7 @@ export const CatalogCard = memo(({ restaurantId, category }) => {
   useEffect(() => {
     ApiGetService.fetching(`cart/get/products/${user_id}`)
       .then((res) => {
-        setCart(res?.data?.data);
+        setCart(res?.data?.cartItems);
       })
       .catch((err) => {
         console.log(err);
@@ -46,13 +47,14 @@ export const CatalogCard = memo(({ restaurantId, category }) => {
   }, [updateCard, user_id]);
 
   const addToCart = (item) => {
+    setEffect(item.id);
     if (user?.token) {
       ApiService.fetching("add/toCart", item)
         .then((res) => {
+          dispatch(acUpdateCard());
           enqueueSnackbar("Mahsulot savatga muvoffaqiyatli qo'shildi!", {
             variant: "success",
           });
-          dispatch(acUpdateCard());
         })
         .catch((err) => console.log(err));
     } else {
@@ -121,7 +123,7 @@ export const CatalogCard = memo(({ restaurantId, category }) => {
                 <span>{item?.description || ""}</span>
               </div>
               {existingCartItem ? (
-                <div className="btn_box add_effect">
+                <div className="btn_box on_effect">
                   {quantity > 0 && (
                     <span
                       className="span"
@@ -146,7 +148,9 @@ export const CatalogCard = memo(({ restaurantId, category }) => {
                 </div>
               ) : (
                 <div
-                  className="btn_box"
+                  className={
+                    effect === item.id ? "btn_box off_effect" : "btn_box"
+                  }
                   style={existingCartItem ? {} : { justifyContent: "center" }}
                 >
                   <button

@@ -102,15 +102,13 @@ export const Catalog = () => {
   };
 
   const handleCategoryClick = (category) => {
-    setPreviousCategory(selectedCategory);
     setSelectedCategory(category);
 
-    // Eğer bir önceki kategori varsa ve onun referansı varsa,
-    // onun konumuna kaydırma yap
-    if (previousCategory && categoryRefs.current[previousCategory]) {
-      categoryRefs.current[previousCategory].scrollIntoView({
+    if (categoryRefs.current[category]) {
+      const categoryRef = categoryRefs.current[category];
+      categoryRef.scrollIntoView({
         behavior: "smooth",
-        block: "start",
+        block: "center",
       });
     }
   };
@@ -164,8 +162,7 @@ export const Catalog = () => {
           <HiArrowNarrowRight />
           <ProductMenu>
             {uniqueCategories.map((category) => (
-              <a
-                href={`#${category}`}
+              <p
                 key={category}
                 style={{ letterSpacing: "2px" }}
                 onClick={() => handleCategoryClick(category)}
@@ -174,7 +171,7 @@ export const Catalog = () => {
                 }
               >
                 {category}
-              </a>
+              </p>
             ))}
           </ProductMenu>
         </div>
