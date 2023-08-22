@@ -32,6 +32,8 @@ export const Home = () => {
     return item?.username?.toLowerCase().includes(search_data?.toLowerCase());
   });
 
+  const locationOptions = ["Option 1", "Option 2", "Option 3"];
+
   return (
     <div className="home_page">
       <div className="header">
@@ -39,8 +41,14 @@ export const Home = () => {
           <label>
             <span>Hozirgi manzil</span>
             <select name="location">
-              {/* take location from user in input */}
-              
+              {locationOptions.map((option, index) => (
+                <option key={index} value={option}>
+                  {option}
+                </option>
+              ))}
+              <option value="wq">
+                <span>+</span> Yangi manzil
+              </option>
             </select>
           </label>
           <button onClick={() => navigate("/map")}>
@@ -136,7 +144,7 @@ export const Home = () => {
                     </span>{" "}
                     |
                     <span
-                      title="Bepul yetkazib berish 10 000 sumdan boshlab istalhan yerga bepul"
+                      title="Bepul yetkazib berish 20 000 sumdan boshlab istalhan yerga bepul"
                       className="free_delivery"
                     >
                       <MdDeliveryDining />{" "}

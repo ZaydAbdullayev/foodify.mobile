@@ -59,6 +59,15 @@
     color: var(--cl1);
 }
 
+.navigation_panel>label>select option {
+    width: 100%;
+    padding: 2% 0;
+    background: #333;
+    color: var(--cl1);
+    border-radius: 20px;
+    font-size: var(--fs5);
+}
+
 .layout>main {
     width: 100%;
     height: calc(100dvh - var(--vh1));
