@@ -13,8 +13,9 @@ import { Payment } from "./payment/payment";
 import { MyOrders } from "./pages/myOrders/myOrders";
 import { Foods } from "./pages/foods/foods";
 import { MyFavFood } from "./pages/myFavoriteFood/myFavoriteFood";
-import { MapBox } from "./components/map/map";
-import { NoResult, NotFound } from "./components/notFound/notFound";
+// import { MapBox } from "./components/map/map";
+import { NotFound } from "./components/notFound/notFound";
+import { LocationMap } from "./components/mapbox/mapbox";
 
 export const Router = () => {
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 920);
@@ -77,7 +78,7 @@ export const Router = () => {
           <Route path="/payment/:id" element={<Payment />} />
           <Route path="/signin" element={<Signin />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/map" element={<MapBox />} />
+          <Route path="/map" element={<LocationMap />} />
           <Route path="*" element={<NotFound />} />
         </Route>
       </Routes>

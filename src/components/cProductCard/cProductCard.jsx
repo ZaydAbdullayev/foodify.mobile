@@ -12,6 +12,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { acUpdateCard } from "../../redux/cart";
 import { MdOutlineFavoriteBorder, MdFavorite } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
+import { ImgService } from "../../services/image.service";
 
 export const CatalogCard = memo(({ restaurantId, category }) => {
   const [user, setUser] = useState([]);
@@ -146,7 +147,7 @@ export const CatalogCard = memo(({ restaurantId, category }) => {
                 : {}
             }
           >
-            <img src={item?.img} alt="images" />
+            <ImgService src={item?.img} fallbackSrc alt="images" />
             <figcaption className="product_info">
               <div>
                 <NumericFormat

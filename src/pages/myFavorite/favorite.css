@@ -9,12 +9,16 @@
 }
 
 .my_favorite>h1 {
+   position: sticky;
+   top: 0;
+   z-index: 99;
    inline-size: 100%;
    padding: 4% 0;
    text-align: center;
    background: var(--cl2);
    font-size: var(--fs1);
    border-radius: 0 0 30px 30px;
+   backdrop-filter: blur(10px);
 
 }
 

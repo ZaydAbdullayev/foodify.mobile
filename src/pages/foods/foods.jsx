@@ -3,6 +3,7 @@ import "./foods.css";
 import { ApiGetService } from "../../services/api.service";
 import { NumericFormat } from "react-number-format";
 import { useNavigate } from "react-router-dom";
+import { ImgService } from "../../services/image.service";
 
 export const Foods = () => {
   const [products, setProducts] = useState([]);
@@ -50,9 +51,9 @@ export const Foods = () => {
             <figure
               className="food_body_item"
               key={item?.id}
-              onClick={() => navigate(`/catalog/${item?.restaurant}#lavash`)}
+              onClick={() => navigate(`/catalog/${item?.restaurant}`)}
             >
-              <img src={item?.img} alt="" />
+              <ImgService src={item?.img} fallbackSrc alt="images" />
               <figcaption>
                 <pre>
                   <p>{item?.name}</p>

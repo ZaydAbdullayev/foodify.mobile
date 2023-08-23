@@ -13,6 +13,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { acUpdateCard } from "../../redux/cart";
 import { MdOutlineFavoriteBorder, MdFavorite } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
+import { ImgService } from "../../services/image.service";
 
 export const MyFavFood = () => {
   const [user, setUser] = useState([]);
@@ -23,23 +24,22 @@ export const MyFavFood = () => {
   const [favorite, setFavorite] = useState(false);
   const user_id = user?.users?.id;
   const navigate = useNavigate();
-
   useMemo(() => {
     setUser(JSON?.parse(localStorage?.getItem("customer")) || false);
   }, []);
 
   useEffect(() => {
-    ApiGetService.fetching(`get/favFoods/${user_id}}`)
+    ApiGetService.fetching(`get/favFoods/${user_id}`)
       .then((res) => {
-        setProduct(res?.data?.data);
+        setProduct(res?.data?.innerData);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {});
   }, [updateCard, user_id]);
 
   useEffect(() => {
     ApiGetService.fetching(`cart/get/products/${user_id}`)
       .then((res) => {
-        setCart(res?.data?.data);
+        setCart(res?.data?.cartItem);
       })
       .catch((err) => {});
   }, [updateCard, user_id]);
@@ -84,7 +84,7 @@ export const MyFavFood = () => {
     <div className="my_favorite">
       <h1>Sevimli Ovqatlarim</h1>
       <div className="food_fav">
-        {data?.map((item) => {
+        {product?.map((item) => {
           const existingCartItem = cart?.find(
             (cartItem) => cartItem?.id === item?.id
           );
@@ -102,7 +102,7 @@ export const MyFavFood = () => {
                   : {}
               }
             >
-              <img src={item?.img} alt="images" />
+              <ImgService src={item?.img} fallbackSrc alt="images" />
               <figcaption className="product_info">
                 <div>
                   <NumericFormat
@@ -178,60 +178,3 @@ export const MyFavFood = () => {
     </div>
   );
 };
-
-const data = [
-  {
-    id: "g5r4ef4",
-    name: "shashlik",
-    img: "",
-    price: "9876",
-    description: "shashliklar",
-    status: 1,
-    quantity: 2,
-  },
-  {
-    id: "g5r4ef4",
-    name: "shashlik",
-    img: "",
-    price: "9876",
-    description: "shashliklar",
-    status: 1,
-    quantity: 2,
-  },
-  {
-    id: "g5r4ef4",
-    name: "shashlik",
-    img: "",
-    price: "9876",
-    description: "shashliklar",
-    status: 1,
-    quantity: 2,
-  },
-  {
-    id: "g5r4ef4",
-    name: "shashlik",
-    img: "",
-    price: "9876",
-    description: "shashliklar",
-    status: 1,
-    quantity: 2,
-  },
-  {
-    id: "g5r4ef4",
-    name: "shashlik",
-    img: "",
-    price: "9876",
-    description: "shashliklar",
-    status: 1,
-    quantity: 2,
-  },
-  {
-    id: "g5r4ef4",
-    name: "shashlik",
-    img: "",
-    price: "9876",
-    description: "shashliklar",
-    status: 1,
-    quantity: 2,
-  },
-];

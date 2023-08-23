@@ -158,9 +158,9 @@ export const Catalog = () => {
         <div className="product_filter">
           <HiArrowNarrowRight />
           <ProductMenu>
-            {uniqueCategories.map((category) => (
+            {uniqueCategories.map((category, index) => (
               <p
-                key={category}
+                key={index}
                 style={{ letterSpacing: "2px" }}
                 onClick={() => handleCategoryClick(category)}
                 className={
@@ -178,7 +178,6 @@ export const Catalog = () => {
             <Fragment key={index}>
               <h1
                 id={category}
-                key={category}
                 ref={(element) => (categoryRefs.current[category] = element)}
               >
                 {category}

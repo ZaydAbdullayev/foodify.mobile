@@ -46,9 +46,7 @@ export const Home = () => {
                   {option}
                 </option>
               ))}
-              <option value="wq">
-                <span>+</span> Yangi manzil
-              </option>
+              <option value="wq">+Yangi manzil</option>
             </select>
           </label>
           <button onClick={() => navigate("/map")}>
