@@ -29,31 +29,29 @@ export const MyFavFood = () => {
   }, []);
 
   useEffect(() => {
-    ApiGetService.fetching("get/products")
+    ApiGetService.fetching(`get/favFoods/${user_id}}`)
       .then((res) => {
         setProduct(res?.data?.data);
       })
       .catch((err) => console.log(err));
-  }, [updateCard]);
+  }, [updateCard, user_id]);
 
   useEffect(() => {
     ApiGetService.fetching(`cart/get/products/${user_id}`)
       .then((res) => {
         setCart(res?.data?.data);
       })
-      .catch((err) => {
-        console.log(err);
-      });
+      .catch((err) => {});
   }, [updateCard, user_id]);
 
   const addToCart = (item) => {
     if (user.token) {
       ApiService.fetching("add/toCart", item)
         .then((res) => {
+          dispatch(acUpdateCard());
           enqueueSnackbar("Mahsulot savatga muvoffaqiyatli qo'shildi!", {
             variant: "success",
           });
-          dispatch(acUpdateCard());
         })
         .catch((err) => console.log(err));
     } else {

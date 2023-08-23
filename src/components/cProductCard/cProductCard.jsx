@@ -19,11 +19,11 @@ export const CatalogCard = memo(({ restaurantId, category }) => {
   const [cart, setCart] = useState([]);
   const updateCard = useSelector((state) => state.updateCard);
   const dispatch = useDispatch();
-  const [favorite, setFavorite] = useState(false);
   const user_id = user?.users?.id;
   const navigate = useNavigate();
   const [effect, setEffect] = useState(false);
-
+  const [update, setUpdate] = useState(false);
+  const [food, setFood] = useState([]);
   useMemo(() => {
     setUser(JSON.parse(localStorage.getItem("customer")) || false);
   }, []);
@@ -41,10 +41,16 @@ export const CatalogCard = memo(({ restaurantId, category }) => {
       .then((res) => {
         setCart(res?.data?.cartItems);
       })
-      .catch((err) => {
-        console.log(err);
-      });
+      .catch((err) => {});
   }, [updateCard, user_id]);
+
+  useEffect(() => {
+    ApiGetService.fetching(`get/favFoods/${user_id}`)
+      .then((res) => {
+        setFood(res?.data?.innerData);
+      })
+      .catch((err) => console.log(err));
+  }, [user_id, update]);
 
   const addToCart = (item) => {
     setEffect(item.id);
@@ -73,17 +79,45 @@ export const CatalogCard = memo(({ restaurantId, category }) => {
       .fetching(endpoint, item)
       .then((res) => {
         dispatch(acUpdateCard());
-        enqueueSnackbar("Mahsulot savatga muvoffaqiyatli qo'shildi!", {
-          variant: "success",
-        });
+        enqueueSnackbar(
+          item.quantity > 0
+            ? "Mahsulot savatga muvoffaqiyatli qo'shildi!"
+            : "Mahsulot savatdan o'chirildi!",
+          {
+            variant: item.quantity > 0 ? "success" : "warning",
+          }
+        );
       })
       .catch((err) => console.log(err));
   };
 
-  const addToLike = (id) => {
-    setFavorite(id);
-  };
+  const addToLike = (state) => {
+    const shop_data = {
+      id: state?.id,
+      state: state?.state,
+      user_id: user_id,
+    };
+    const service = state?.state === 1 ? ApiService : ApiDeleteService;
+    const endpoint =
+      state?.state === 1
+        ? "add/favFood"
+        : `remove/food/${user_id}/${state?.id}`;
 
+    service
+      .fetching(endpoint, shop_data)
+      .then((res) => {
+        setUpdate(!update);
+        enqueueSnackbar(
+          state?.state === 1
+            ? "Mahsulot yoqtirilganlarga qo'shildi"
+            : "Mahsulot yoqtirilganlardan o'chirildi",
+          {
+            variant: state?.state === 1 ? "success" : "warning",
+          }
+        );
+      })
+      .catch((err) => console.log(err));
+  };
   const filtered = product.filter((item) => {
     return item?.category === category;
   });
@@ -97,6 +131,10 @@ export const CatalogCard = memo(({ restaurantId, category }) => {
         const quantity = existingCartItem
           ? existingCartItem?.quantity
           : "Qo'shish";
+
+        const existingFood = food?.find(
+          (foodItem) => foodItem?.id === item?.id || false
+        );
 
         return (
           <figure
@@ -170,12 +208,18 @@ export const CatalogCard = memo(({ restaurantId, category }) => {
                 </div>
               )}
             </figcaption>
-            <button className="like_btn" onClick={() => addToLike(item?.id)}>
-              {favorite === item?.id ? (
+            <button
+              className={existingFood ? "like_btn on_like" : "like_btn"}
+              onClick={() =>
+                addToLike({ id: item?.id, state: existingFood ? 0 : 1 })
+              }
+            >
+              <span>
                 <MdFavorite />
-              ) : (
+              </span>
+              <span>
                 <MdOutlineFavoriteBorder />
-              )}
+              </span>
             </button>
           </figure>
         );

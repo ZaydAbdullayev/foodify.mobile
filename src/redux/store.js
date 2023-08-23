@@ -1,7 +1,7 @@
 import { configureStore, combineReducers } from "@reduxjs/toolkit";
 import { reCardUpdate } from "./cart";
 import { reModal } from "./modal";
-import { reLocation } from "./map";
+import { reLocation } from "./location";
 import { rePrice } from "./price";
 import { reLoading } from "./loading";
 import { reSearch } from "./search";

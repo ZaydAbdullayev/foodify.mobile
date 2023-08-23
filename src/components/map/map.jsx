@@ -1,9 +1,12 @@
 import React, { memo, useState, useEffect } from "react";
 import "./map.css";
+import { useDispatch } from "react-redux";
+import { acLocation } from "../../redux/location";
 
 export const MapBox = memo(() => {
   const [location, setLocation] = useState();
   const [message, setMessage] = useState("");
+  const dispatch = useDispatch();
 
   useEffect(() => {
     setMessage(
@@ -19,6 +22,7 @@ export const MapBox = memo(() => {
     setLocation(
       `https://www.google.com/maps/place/${pos?.coords?.latitude},${pos?.coords?.longitude}`
     );
+    
   };
 
   function olmadi(hata) {
@@ -36,7 +40,7 @@ export const MapBox = memo(() => {
           id="harita"
           src={location}
           title="find location"
-          allowFullScreen=""
+          allowFullScreen="off"
           loading="lazy"
           referrerPolicy="no-referrer-when-downgrade"
         ></iframe>

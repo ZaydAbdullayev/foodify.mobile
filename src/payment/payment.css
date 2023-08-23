@@ -423,36 +423,3 @@
     border: none;
     border-radius: 10px;
 }
-
-@media(max-width: 770px) {
-    .payment_info_box {
-        height: 110px;
-    }
-
-    .payment_count_box>button {
-        width: 45px;
-        height: 45px;
-    }
-
-    .card_item {
-        width: 400px;
-        height: 250px;
-    }
-}
-
-@media(max-width: 570px) {
-    .whose_order>button {
-        padding: 3%;
-    }
-}
-
-@media(max-width: 450px) {
-    .payment_box>div {
-        padding: 5% 3%;
-    }
-
-    .card_item {
-        width: 100%;
-        height: 230px;
-    }
-}

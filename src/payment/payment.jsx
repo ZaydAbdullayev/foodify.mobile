@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useMemo } from "react";
 import "./payment.css";
+import "./pyment.media.css";
 import { useSelector, useDispatch } from "react-redux";
 import {
   ApiGetService,
@@ -34,6 +35,7 @@ export const Payment = () => {
   const [cart, setCart] = useState([]);
   const [total, setTotal] = useState(0);
   const updateCard = useSelector((state) => state.updateCard);
+  const location = useSelector((state) => state.location);
   const [write, setWrite] = useState(false);
   const [adress_info, setAdress_info] = useState({});
   const [active, setActive] = useState(0);
@@ -45,6 +47,7 @@ export const Payment = () => {
   const id = useParams()?.id;
   const { enqueueSnackbar } = useSnackbar();
   const navigate = useNavigate();
+  console.log(location);
 
   const payment_data = {
     address: adress_info?.home,
@@ -67,9 +70,7 @@ export const Payment = () => {
         const total_price = CalculateTotalPrice(res?.data?.cartItems);
         setTotal(total_price);
       })
-      .catch((err) => {
-        console.log(err);
-      });
+      .catch((err) => {});
 
     ApiGetService.fetching(`get/restaurant/${id}`)
       .then((res) => {

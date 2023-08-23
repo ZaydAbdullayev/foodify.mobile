@@ -34,9 +34,7 @@ export const Cart = memo(({ setOpen }) => {
         setTotal(total_price ? total_price : 0);
         dispatch(acPrice(total_price ? total_price : 0));
       })
-      .catch((err) => {
-        console.log(err);
-      });
+      .catch((err) => {});
   }, [updateCard, dispatch, user_id]);
 
   const updateCart = (item) => {

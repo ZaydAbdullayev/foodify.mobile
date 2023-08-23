@@ -27,7 +27,6 @@ export const Catalog = () => {
   const name = shop?.username?.split("_").join(" ");
   const user_id = user?.users?.id;
   const [selectedCategory, setSelectedCategory] = useState(null);
-  const [previousCategory, setPreviousCategory] = useState(null);
 
   const categoryRefs = useRef({});
 
@@ -79,26 +78,24 @@ export const Catalog = () => {
       user_id: user_id,
       rating: shop?.rating,
     };
+    const service = state === 1 ? ApiService : ApiDeleteService;
+    const endpoint =
+      state === 1 ? "add/favRes" : `remove/restaurant/${user_id}/${id}`;
 
-    if (state === 1) {
-      ApiService.fetching("add/favRes", shop_data)
-        .then((res) => {
-          setUpdate(!update);
-          enqueueSnackbar("Restoran yoqtirilganlarga qo'shildi", {
-            variant: "success",
-          });
-        })
-        .catch((err) => console.log(err));
-    } else {
-      ApiDeleteService.fetching(`remove/restaurant/${user_id}/${id}`)
-        .then((res) => {
-          setUpdate(!update);
-          enqueueSnackbar("Restoran yoqtirilganlardan o'chirildi", {
-            variant: "warning",
-          });
-        })
-        .catch((err) => console.log(err));
-    }
+    service
+      .fetching(endpoint, shop_data)
+      .then((res) => {
+        setUpdate(!update);
+        enqueueSnackbar(
+          state === 1
+            ? "Restoran yoqtirilganlarga qo'shildi"
+            : "Restoran yoqtirilganlardan o'chirildi",
+          {
+            variant: state === 1 ? "success" : "warning",
+          }
+        );
+      })
+      .catch((err) => console.log(err));
   };
 
   const handleCategoryClick = (category) => {
