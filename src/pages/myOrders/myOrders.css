@@ -161,7 +161,7 @@
 
     >b {
         font-size: var(--fs7);
-        color: #aaa;
+        color: #ccc;
     }
 }
 
@@ -215,6 +215,22 @@
     .order_body>div {
         flex-direction: column;
         align-items: flex-start;
+    }
+}
+
+@media(max-width: 430px) {
+    .my_orders {
+        padding: 0;
+        gap: 30px;
+    }
+
+    .my_orders>pre {
+        padding: var(--pd2);
+        line-height: 1.4;
+    }
+
+    .orders_item {
+        border-radius: 0;
     }
 }
 

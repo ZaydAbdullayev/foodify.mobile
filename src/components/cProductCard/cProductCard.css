@@ -50,7 +50,7 @@
 }
 
 .product_info>:first-child>:last-child {
-    color: var(--cl5);
+    color: #ccc;
 }
 
 .btn_box {
@@ -146,7 +146,7 @@
     align-items: center;
     justify-content: flex-end;
     border: none;
-    background: var(--cl4);
+    background: var(--cl7);
     border-radius: 15px;
     font-size: var(--fs4);
     color: var(--cl1);
@@ -216,6 +216,14 @@
 
 @media(max-width: 360px) {
     .catalog_product {
-        height: 240px;
+        height: 250px;
+    }
+
+    .product_info>:first-child>:nth-child(1) {
+        font-size: calc(var(--fs4) - 2px);
+    }
+
+    .product_info>:first-child>span {
+        font-size: calc(var(--fs5) - 2px);
     }
 }

@@ -3,6 +3,7 @@ import "./myOrders.css";
 import { ApiGetService } from "../../services/api.service";
 import { NumericFormat } from "react-number-format";
 import { useNavigate } from "react-router-dom";
+import { ImgService } from "../../services/image.service";
 
 import {
   BsFillCartCheckFill,
@@ -13,7 +14,6 @@ import {
 import { LuChefHat } from "react-icons/lu";
 import { TbTruckDelivery } from "react-icons/tb";
 import { ImArrowLeft2 } from "react-icons/im";
-import { AiOutlineCheck } from "react-icons/ai";
 
 export const MyOrders = () => {
   const user = JSON?.parse(localStorage?.getItem("customer")) || [];
@@ -101,7 +101,7 @@ export const MyOrders = () => {
               {products?.map((product) => {
                 return (
                   <figure className="order_body__item" key={product?.id}>
-                    <img src={product?.img} alt="" />
+                    <ImgService src={product?.img} fallbackSrc alt="" />
                     <figcaption>
                       <pre>
                         <p>{product?.name}</p>

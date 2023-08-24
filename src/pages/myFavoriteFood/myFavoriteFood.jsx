@@ -34,7 +34,7 @@ export const MyFavFood = () => {
         setProduct(res?.data?.innerData);
       })
       .catch((err) => {});
-  }, [updateCard, user_id]);
+  }, [favorite, user_id]);
 
   useEffect(() => {
     ApiGetService.fetching(`cart/get/products/${user_id}`)
@@ -78,7 +78,12 @@ export const MyFavFood = () => {
   };
 
   const addToLike = (id) => {
-    setFavorite(id);
+    ApiDeleteService.fetching(`remove/food/${user_id}/${id}`).then((res) => {
+      setFavorite(!favorite);
+      enqueueSnackbar("mahsulot yoqtirilganlardan o'chirildi", {
+        variant: "warning",
+      });
+    });
   };
   return (
     <div className="my_favorite">
@@ -164,12 +169,16 @@ export const MyFavFood = () => {
                   </div>
                 )}
               </figcaption>
-              <button className="like_btn" onClick={() => addToLike(item?.id)}>
-                {favorite === item?.id ? (
+              <button
+                className="like_btn on_like"
+                onClick={() => addToLike(item?.id)}
+              >
+                <span>
                   <MdFavorite />
-                ) : (
+                </span>
+                <span>
                   <MdOutlineFavoriteBorder />
-                )}
+                </span>
               </button>
             </figure>
           );
