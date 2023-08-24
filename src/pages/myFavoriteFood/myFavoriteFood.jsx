@@ -172,6 +172,7 @@ export const MyFavFood = () => {
               <button
                 className="like_btn on_like"
                 onClick={() => addToLike(item?.id)}
+                style={{ color: "var(--cl1)" }}
               >
                 <span>
                   <MdFavorite />
