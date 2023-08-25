@@ -38,6 +38,4 @@
 
 .food_menu>ul>p:hover {
     background: #333;
-    color: var(--cl3);
-    border-radius: 5px;
 }

@@ -1,42 +1,36 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import "./favorite.css";
 import { FiStar } from "react-icons/fi";
 import { BsStarFill } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
-import { ApiGetService, ApiUpdateService } from "../../services/api.service";
+import {
+  useGetFavResQuery,
+  useUpdateFavResMutation,
+} from "../../services/fav.service";
+import { enqueueSnackbar as es } from "notistack";
 
 export const MyFavorite = () => {
   const user = JSON?.parse(localStorage?.getItem("customer")) || [];
   const id = user?.users?.id;
   const navigate = useNavigate();
-  const [shop, setShop] = useState([]);
-  const [update, setUpdate] = useState(false);
-  console.log(shop);
+  const { data: shop = [] } = useGetFavResQuery(id);
+  const [updateFavRes] = useUpdateFavResMutation();
 
-  useEffect(() => {
-    ApiGetService.fetching(`get/favRes/${id}`)
-      .then((res) => {
-        setShop(res?.data?.innerData);
-      })
-      .catch((err) => console.log(err));
-    window.scrollTo(0, 0);
-  }, [id, update]);
-
-  const giveRaiting = (data) => {
-    ApiUpdateService.fetching(`update/favRes/${id}/${data?.id}`, {
-      state: data?.state,
-    })
-      .then((res) => {
-        setUpdate(!update);
-      })
-      .catch((err) => console.log(err));
+  const giveRaiting = async (raiting) => {
+    const rdata = {
+      raiting: raiting?.state,
+      id: raiting?.id,
+      user_id: id,
+    };
+    const { data } = await updateFavRes(rdata);
+    if (data) return es("Bahoyingiz uchun rahmat!!!", { variant: "success" });
   };
 
   return (
     <div className="my_favorite">
       <h1>Men yoqtirgan restoranlar</h1>
       <div className="fovorite_card">
-        {shop?.map((item) => {
+        {shop?.innerData?.map((item) => {
           return (
             <div key={item?.id} className="fovorite_item">
               <figure>

@@ -1,139 +1,127 @@
-import React, { useState, useEffect, useMemo, memo } from "react";
+import React, { useState, useMemo, memo } from "react";
 import "./cProductCard.css";
 import { NumericFormat } from "react-number-format";
-import {
-  ApiService,
-  ApiUpdateService,
-  ApiGetService,
-  ApiDeleteService,
-} from "../../services/api.service";
-import { enqueueSnackbar } from "notistack";
-import { useSelector, useDispatch } from "react-redux";
-import { acUpdateCard } from "../../redux/cart";
-import { MdOutlineFavoriteBorder, MdFavorite } from "react-icons/md";
+import { enqueueSnackbar as es } from "notistack";
 import { useNavigate } from "react-router-dom";
 import { ImgService } from "../../services/image.service";
+import {
+  useGetCartProductQuery,
+  useAddCartMutation,
+  useDeleteCartByIdMutation,
+  useUpdateCartByIdMutation,
+} from "../../services/cart.service";
+import {
+  useGetFavFoodQuery,
+  useAddFavFoodMutation,
+  useDeleteFavFoodMutation,
+} from "../../services/food.service";
+import { useGetResProductsQuery } from "../../services/fav.service";
+
+import { MdOutlineFavoriteBorder, MdFavorite } from "react-icons/md";
 
 export const CatalogCard = memo(({ restaurantId, category }) => {
   const [user, setUser] = useState([]);
-  const [product, setProduct] = useState([]);
-  const [cart, setCart] = useState([]);
-  const updateCard = useSelector((state) => state.updateCard);
-  const dispatch = useDispatch();
   const user_id = user?.users?.id;
   const navigate = useNavigate();
   const [effect, setEffect] = useState(false);
-  const [update, setUpdate] = useState(false);
-  const [food, setFood] = useState([]);
   useMemo(() => {
     setUser(JSON.parse(localStorage.getItem("customer")) || false);
   }, []);
+  const { data: cartProduct = [] } = useGetCartProductQuery(user_id);
+  const { data: resProduct = [] } = useGetResProductsQuery(restaurantId);
+  const { data: favFood = [] } = useGetFavFoodQuery(user_id);
+  const [deleteCart] = useDeleteCartByIdMutation();
+  const [updateCartById] = useUpdateCartByIdMutation();
+  const [addCart] = useAddCartMutation();
+  const [addFavFood] = useAddFavFoodMutation();
+  const [deleteFavFood] = useDeleteFavFoodMutation();
 
-  useEffect(() => {
-    ApiGetService.fetching(`get/products/${restaurantId}`)
-      .then((res) => {
-        setProduct(res?.data?.innerData);
-      })
-      .catch((err) => console.log(err));
-  }, [updateCard, restaurantId]);
-
-  useEffect(() => {
-    ApiGetService.fetching(`cart/get/products/${user_id}`)
-      .then((res) => {
-        setCart(res?.data?.cartItems);
-      })
-      .catch((err) => {});
-  }, [updateCard, user_id]);
-
-  useEffect(() => {
-    ApiGetService.fetching(`get/favFoods/${user_id}`)
-      .then((res) => {
-        setFood(res?.data?.innerData);
-      })
-      .catch((err) => console.log(err));
-  }, [user_id, update]);
-
-  const addToCart = (item) => {
+  const addToCart = async (item) => {
     setEffect(item.id);
     if (user?.token) {
-      ApiService.fetching("add/toCart", item)
-        .then((res) => {
-          dispatch(acUpdateCard());
-          enqueueSnackbar("Mahsulot savatga muvoffaqiyatli qo'shildi!", {
-            variant: "success",
-          });
-        })
-        .catch((err) => console.log(err));
+      const { error, data } = await addCart(item);
+      if (error)
+        return es("Savatga qo'shishda muammo yuz berdi", {
+          variant: "warning",
+        });
+      if (data)
+        es("Mahsulot savatga muvoffaqiyatli qo'shildi!", {
+          variant: "success",
+        });
     } else {
       navigate("/signin");
     }
   };
 
-  const updateCart = (item) => {
-    const service = item?.quantity > 0 ? ApiUpdateService : ApiDeleteService;
-    const endpoint =
-      item?.quantity > 0
-        ? `update/cart/${user_id}/${item?.id}`
-        : `remove/cartItem/${user_id}/${item?.id}`;
+  const updateCart = async (item) => {
+    const endpoint = `/remove/cartItem/${user_id}/${item?.id}`;
 
-    service
-      .fetching(endpoint, item)
-      .then((res) => {
-        dispatch(acUpdateCard());
-        enqueueSnackbar(
-          item.quantity > 0
-            ? "Mahsulot savatga muvoffaqiyatli qo'shildi!"
-            : "Mahsulot savatdan o'chirildi!",
-          {
-            variant: item.quantity > 0 ? "success" : "warning",
-          }
-        );
-      })
-      .catch((err) => console.log(err));
+    const Udata = {
+      item,
+      user_id,
+    };
+
+    if (item?.quantity > 0) {
+      const { error, data } = await updateCartById(Udata);
+      if (error)
+        return es("Savatga qo'shishda muammo yuz berdi", { variant: "error" });
+      if (data)
+        es("Mahsulot savatga muvoffaqiyatli qo'shildi!", {
+          variant: "success",
+        });
+      console.log(data);
+    } else {
+      const { error, data } = await deleteCart(endpoint);
+      if (error)
+        return es("Savatdan o'chirishda muammo yuz berdi", {
+          variant: "error",
+        });
+      if (data) es("Mahsulot savatdan o'chirildi!", { variant: "warning" });
+    }
   };
 
-  const addToLike = (state) => {
-    const shop_data = {
+  const addToLike = async (state) => {
+    const food_data = {
       id: state?.id,
       state: state?.state,
       user_id: user_id,
     };
-    const service = state?.state === 1 ? ApiService : ApiDeleteService;
-    const endpoint =
-      state?.state === 1
-        ? "add/favFood"
-        : `remove/food/${user_id}/${state?.id}`;
 
-    service
-      .fetching(endpoint, shop_data)
-      .then((res) => {
-        setUpdate(!update);
-        enqueueSnackbar(
-          state?.state === 1
-            ? "Mahsulot yoqtirilganlarga qo'shildi"
-            : "Mahsulot yoqtirilganlardan o'chirildi",
-          {
-            variant: state?.state === 1 ? "success" : "warning",
-          }
-        );
-      })
-      .catch((err) => console.log(err));
+    if (state?.state === 1) {
+      const { error, data } = await addFavFood(food_data);
+      if (error)
+        return es("Yoqtirilganlarga qo'shishda muammo yuz berdi", {
+          variant: "error",
+        });
+      if (data)
+        es("Yoqtirilganlarga muvoffaqiyatli qo'shildi!", {
+          variant: "success",
+        });
+    } else {
+      const { error, data } = await deleteFavFood(food_data);
+      if (error)
+        return es("Yoqtirilganlardan o'chirishda muammo yuz berdi", {
+          variant: "error",
+        });
+      if (data) es("Yoqtiganlardan o'chirildi!", { variant: "warning" });
+    }
   };
-  const filtered = product.filter((item) => {
+
+  const filtered = resProduct?.innerData?.filter((item) => {
     return item?.category === category;
   });
 
   return (
     <>
       {filtered?.map((item) => {
-        const existingCartItem = cart?.find(
+        const existingCartItem = cartProduct?.cartItems?.find(
           (cartItem) => cartItem?.id === item?.id
         );
         const quantity = existingCartItem
           ? existingCartItem?.quantity
           : "Qo'shish";
 
-        const existingFood = food?.find(
+        const existingFood = favFood?.innerData?.find(
           (foodItem) => foodItem?.id === item?.id || false
         );
 

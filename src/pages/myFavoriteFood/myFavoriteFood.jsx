@@ -1,96 +1,87 @@
-import React, { useEffect, useState, useMemo } from "react";
+import React, { useState, useMemo } from "react";
 import "./myFavoriteFood.css";
 import "../../components/cProductCard/cProductCard.css";
 import { NumericFormat } from "react-number-format";
-import {
-  ApiService,
-  ApiUpdateService,
-  ApiGetService,
-  ApiDeleteService,
-} from "../../services/api.service";
-import { enqueueSnackbar } from "notistack";
-import { useSelector, useDispatch } from "react-redux";
-import { acUpdateCard } from "../../redux/cart";
+import { enqueueSnackbar as es } from "notistack";
 import { MdOutlineFavoriteBorder, MdFavorite } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
 import { ImgService } from "../../services/image.service";
 
+import {
+  useAddCartMutation,
+  useDeleteCartByIdMutation,
+  useUpdateCartByIdMutation,
+  useGetCartProductQuery,
+} from "../../services/cart.service";
+
+import {
+  useGetFavFoodQuery,
+  useDeleteFavFoodMutation,
+} from "../../services/food.service";
+
 export const MyFavFood = () => {
   const [user, setUser] = useState([]);
-  const [product, setProduct] = useState([]);
-  const [cart, setCart] = useState([]);
-  const updateCard = useSelector((state) => state.updateCard);
-  const dispatch = useDispatch();
-  const [favorite, setFavorite] = useState(false);
   const user_id = user?.users?.id;
   const navigate = useNavigate();
   useMemo(() => {
     setUser(JSON?.parse(localStorage?.getItem("customer")) || false);
   }, []);
+  const { data: cart = [] } = useGetCartProductQuery(user_id);
+  const { data: product = [] } = useGetFavFoodQuery(user_id);
+  const [deleteCart] = useDeleteCartByIdMutation();
+  const [updateCartById] = useUpdateCartByIdMutation();
+  const [addCart] = useAddCartMutation();
+  const [deleteFavFood] = useDeleteFavFoodMutation();
 
-  useEffect(() => {
-    ApiGetService.fetching(`get/favFoods/${user_id}`)
-      .then((res) => {
-        setProduct(res?.data?.innerData);
-      })
-      .catch((err) => {});
-  }, [favorite, user_id]);
-
-  useEffect(() => {
-    ApiGetService.fetching(`cart/get/products/${user_id}`)
-      .then((res) => {
-        setCart(res?.data?.cartItem);
-      })
-      .catch((err) => {});
-  }, [updateCard, user_id]);
-
-  const addToCart = (item) => {
-    if (user.token) {
-      ApiService.fetching("add/toCart", item)
-        .then((res) => {
-          dispatch(acUpdateCard());
-          enqueueSnackbar("Mahsulot savatga muvoffaqiyatli qo'shildi!", {
-            variant: "success",
-          });
-        })
-        .catch((err) => console.log(err));
+  const addToCart = async (item) => {
+    if (user?.token) {
+      const { error, data } = await addCart(item);
+      if (error) return es("Xatolik uzberdi", { variant: "warning" });
+      if (data)
+        es("Mahsulot savatga muvoffaqiyatli qo'shildi!", {
+          variant: "success",
+        });
     } else {
       navigate("/signin");
     }
   };
 
-  const updateCart = (item) => {
-    const service = item?.quantity > 0 ? ApiUpdateService : ApiDeleteService;
-    const endpoint =
-      item?.quantity > 0
-        ? `update/cart/${user_id}/${item?.id}`
-        : `remove/cartItem/${user_id}/${item?.id}`;
+  const updateCart = async (item) => {
+    const endpoint = `/remove/cartItem/${user_id}/${item?.id}`;
 
-    service
-      .fetching(endpoint, item)
-      .then((res) => {
-        dispatch(acUpdateCard());
-        enqueueSnackbar("Mahsulot savatga muvoffaqiyatli qo'shildi!", {
+    const Udata = {
+      item,
+      user_id,
+    };
+
+    if (item?.quantity > 0) {
+      const { data } = await updateCartById(Udata);
+      if (data)
+        es("Mahsulot savatga muvoffaqiyatli qo'shildi!", {
           variant: "success",
         });
-      })
-      .catch((err) => console.log(err));
+    } else {
+      const { data } = await deleteCart(endpoint);
+      if (data) es("Mahsulot savatdan o'chirildi!", { variant: "warning" });
+    }
   };
 
-  const addToLike = (id) => {
-    ApiDeleteService.fetching(`remove/food/${user_id}/${id}`).then((res) => {
-      setFavorite(!favorite);
-      enqueueSnackbar("mahsulot yoqtirilganlardan o'chirildi", {
-        variant: "warning",
-      });
-    });
+  const addToLike = async (state) => {
+    const food_data = {
+      id: state?.id,
+      state: state?.state,
+      user_id: user_id,
+    };
+    const { data } = await deleteFavFood(food_data);
+    if (data) es("Yoqtiganlardan o'chirildi!", { variant: "warning" });
   };
+  
   return (
     <div className="my_favorite">
       <h1>Sevimli Ovqatlarim</h1>
       <div className="food_fav">
-        {product?.map((item) => {
-          const existingCartItem = cart?.find(
+        {product?.innerData?.map((item) => {
+          const existingCartItem = cart?.innerData?.find(
             (cartItem) => cartItem?.id === item?.id
           );
           const quantity = existingCartItem

@@ -1,28 +1,28 @@
 import React, { useState, useEffect } from "react";
 import "./foods.css";
-import { ApiGetService } from "../../services/api.service";
 import { NumericFormat } from "react-number-format";
 import { useNavigate } from "react-router-dom";
 import { ImgService } from "../../services/image.service";
+import { useGetfilterByCategoryMutation } from "../../services/product.service";
 
 export const Foods = () => {
   const [products, setProducts] = useState([]);
   const navigate = useNavigate();
+  const [getfilterByCategory] = useGetfilterByCategoryMutation();
 
   const totalProductCount = products?.reduce((count) => {
     return count + 1;
   }, 0);
 
-  useEffect(() => filterCategory(), []);
-
-  const filterCategory = (name) => {
+  const filterCategory = async (name) => {
     const category = name ? name : "all";
-    ApiGetService.fetching(`filter/byCategory/${category}`)
-      .then((res) => {
-        setProducts(res?.data?.innerData);
-      })
-      .catch((err) => console.log(err));
+    const { data = [] } = await getfilterByCategory(category);
+    setProducts(data?.innerData);
   };
+
+  useEffect(() => {
+    filterCategory();
+  }, []);
 
   return (
     <div className="foods_box">
@@ -115,7 +115,8 @@ const category = [
   },
   {
     id: 23456,
-    name: "kebab",
+    name: "shashliklar",
     img: require("./assets/kebab.png"),
+    visibility: "kebab",
   },
 ];

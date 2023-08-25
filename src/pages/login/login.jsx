@@ -6,6 +6,7 @@ import { BsEye, BsEyeSlash } from "react-icons/bs";
 import { IoIosCloseCircle } from "react-icons/io";
 import { ApiService } from "../../services/api.service";
 import { enqueueSnackbar } from "notistack";
+import { unstable_HistoryRouter } from "react-router-dom";
 
 export const Signin = () => {
   const navigate = useNavigate();
@@ -19,7 +20,7 @@ export const Signin = () => {
   };
 
   const closeModal = () => {
-    navigate("/");
+    navigate(-1);
   };
 
   const handleSubmit = (e) => {

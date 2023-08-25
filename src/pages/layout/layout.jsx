@@ -2,9 +2,8 @@ import React, { useState, useEffect } from "react";
 import "./layout.css";
 import { Outlet, Link, useLocation } from "react-router-dom";
 import { Cart } from "../cart/cart";
-import { ApiGetService } from "../../services/api.service";
 import { menu } from "./menu";
-import { useSelector } from "react-redux";
+import { useGetCartCountQuery } from "../../services/cart.service";
 
 import { BsChevronCompactDown, BsChevronCompactUp } from "react-icons/bs";
 import active from "./active_11.png";
@@ -12,16 +11,9 @@ import active from "./active_11.png";
 export const Layout = () => {
   const location = useLocation().pathname;
   const [open, setOpen] = useState(false);
-  const [count, setCount] = useState(0);
   const user = JSON?.parse(localStorage?.getItem("customer")) || null;
   const id = user?.users?.id;
-  const updateCard = useSelector((state) => state.updateCard);
-
-  useEffect(() => {
-    ApiGetService.fetching(`cart/count/products/${id}`)
-      .then((res) => setCount(res?.data?.innerData))
-      .catch((err) => console.log(err));
-  }, [id, updateCard]);
+  const { data: count = null } = useGetCartCountQuery(id);
 
   useEffect(() => setOpen(false), [location]);
 
@@ -71,7 +63,9 @@ export const Layout = () => {
               >
                 {menu?.icon}
                 {menu?.ticket && (
-                  <span style={count ? {} : { display: "none" }}>{count}</span>
+                  <span style={count?.innerData ? {} : { display: "none" }}>
+                    {count?.innerData}
+                  </span>
                 )}
               </span>
               <p>{menu?.name}</p>

@@ -3,7 +3,7 @@ import "./catalog.css";
 import { CatalogCard } from "../../components/cProductCard/cProductCard";
 import { ProductMenu } from "../../components/productMenu/productMenu";
 import { useParams } from "react-router-dom";
-import { enqueueSnackbar } from "notistack";
+import { enqueueSnackbar as es } from "notistack";
 import {
   MdOutlineFavoriteBorder,
   MdOutlineAccessTimeFilled,
@@ -11,51 +11,36 @@ import {
 } from "react-icons/md";
 import { BsInfoCircle, BsFillStarFill } from "react-icons/bs";
 import {
-  ApiDeleteService,
-  ApiGetService,
-  ApiService,
-} from "../../services/api.service";
-import { HiArrowNarrowRight } from "react-icons/hi";
+  useAddFavResMutation,
+  useDeleteFavResMutation,
+  useGetFavStateQuery,
+  useGetFavDataQuery,
+} from "../../services/fav.service";
+import { useGetAllProductQuery } from "../../services/product.service";
 
 export const Catalog = () => {
   const user = JSON.parse(localStorage.getItem("customer")) || [];
-  const [shop, setShop] = useState([]);
   const id = useParams()?.id;
-  const [category, setCategory] = useState([]);
-  const [state, setState] = useState([]);
-  const [update, setUpdate] = useState(false);
-  const name = shop?.username?.split("_").join(" ");
   const user_id = user?.users?.id;
+  const endpoint = `get/favRes/${user_id}/${id}`;
   const [selectedCategory, setSelectedCategory] = useState(null);
-
+  const { data: shop = [] } = useGetFavDataQuery(id);
+  const { data: category = [] } = useGetAllProductQuery();
+  const { data: favState = [] } = useGetFavStateQuery(endpoint);
+  const [addFavRes] = useAddFavResMutation();
+  const [deleteFavRes] = useDeleteFavResMutation();
+  const name = shop?.innerData?.username?.split("_").join(" ");
   const categoryRefs = useRef({});
 
-  useEffect(() => {
-    ApiGetService.fetching(`get/restaurant/${id}`)
-      .then((res) => {
-        setShop(res?.data?.innerData);
-      })
-      .catch((err) => console.log(err));
-    window.scrollTo(0, 0);
-  }, [id]);
-
-  useEffect(() => {
-    ApiGetService.fetching("get/products")
-      .then((res) => {
-        setCategory(res?.data?.data);
-      })
-      .catch((err) => console.log(err));
-  }, []);
-
   const categoryes = category
-    ? category.filter((item) =>
+    ? category?.data?.filter((item) =>
         item?.restaurant === id ? item?.category : null
       )
     : [];
 
   const getUniqueCategories = () => {
     const uniqueCategories = new Set();
-    categoryes.forEach((item) => {
+    categoryes?.forEach((item) => {
       uniqueCategories.add(item?.category);
     });
     return Array.from(uniqueCategories);
@@ -63,39 +48,32 @@ export const Catalog = () => {
 
   const uniqueCategories = getUniqueCategories();
 
-  useEffect(() => {
-    ApiGetService.fetching(`get/favRes/${user_id}/${id}`)
-      .then((res) => {
-        setState(res?.data?.innerData);
-      })
-      .catch((err) => console.log(err));
-  }, [id, user_id, update]);
-
-  const addToLike = (state) => {
+  const addToLike = async (state) => {
     const shop_data = {
       id: id,
       state: state,
       user_id: user_id,
-      rating: shop?.rating,
+      rating: shop?.innerData?.rating,
     };
-    const service = state === 1 ? ApiService : ApiDeleteService;
-    const endpoint =
-      state === 1 ? "add/favRes" : `remove/restaurant/${user_id}/${id}`;
 
-    service
-      .fetching(endpoint, shop_data)
-      .then((res) => {
-        setUpdate(!update);
-        enqueueSnackbar(
-          state === 1
-            ? "Restoran yoqtirilganlarga qo'shildi"
-            : "Restoran yoqtirilganlardan o'chirildi",
-          {
-            variant: state === 1 ? "success" : "warning",
-          }
-        );
-      })
-      .catch((err) => console.log(err));
+    if (state === 1) {
+      const { error, data } = await addFavRes(shop_data);
+      if (error)
+        return es("Yoqtirilganlarga qo'shishda muammo yuz berdi", {
+          variant: "error",
+        });
+      if (data)
+        es("Yoqtirilganlarga muvoffaqiyatli qo'shildi!", {
+          variant: "success",
+        });
+    } else {
+      const { error, data } = await deleteFavRes(shop_data);
+      if (error)
+        return es("Yoqtirilganlardan o'chirishda muammo yuz berdi", {
+          variant: "error",
+        });
+      if (data) es("Yoqtiganlardan o'chirildi!", { variant: "warning" });
+    }
   };
 
   const handleCategoryClick = (category) => {
@@ -115,15 +93,19 @@ export const Catalog = () => {
       {/* =========== show product section ============= */}
       <div className="product_show">
         <figure className="about_restoran" key={id}>
-          <img src={shop?.img} alt="restotaunt_img" />
+          <img src={shop?.innerData?.img} alt="restotaunt_img" />
           <figcaption className="about_restoran_item">
             <span>
               <button
                 className="restoran_btn"
-                onClick={() => addToLike(state === 0 ? 1 : 0)}
-                style={state === 1 ? { color: "#9e0d0d" } : {}}
+                onClick={() => addToLike(favState?.innerData === 0 ? 1 : 0)}
+                style={favState?.innerData === 1 ? { color: "#9e0d0d" } : {}}
               >
-                {state === 1 ? <MdFavorite /> : <MdOutlineFavoriteBorder />}
+                {favState?.innerData === 1 ? (
+                  <MdFavorite />
+                ) : (
+                  <MdOutlineFavoriteBorder />
+                )}
               </button>
             </span>
             <div className="restoran_info_box">
@@ -134,7 +116,8 @@ export const Catalog = () => {
                     <MdOutlineAccessTimeFilled />
                   </span>
                   <p>
-                    {shop?.delivery_time_from} - {shop?.delivery_time_till}
+                    {shop?.innerData?.delivery_time_from} -{" "}
+                    {shop?.innerData?.delivery_time_till}
                     <span>daqiqa</span>
                   </p>
                 </div>
@@ -143,7 +126,7 @@ export const Catalog = () => {
                     <BsFillStarFill />
                   </span>
                   <p>
-                    {shop?.rating}
+                    {shop?.innerData?.rating}
                     <span>4.5</span>
                   </p>
                 </div>
@@ -156,7 +139,6 @@ export const Catalog = () => {
         </figure>
 
         <div className="product_filter">
-          <HiArrowNarrowRight />
           <ProductMenu>
             {uniqueCategories.map((category, index) => (
               <p

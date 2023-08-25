@@ -1,72 +1,71 @@
-import React, { memo, useState, useEffect } from "react";
+import React, { memo } from "react";
 import "./cart.css";
 import { NumericFormat } from "react-number-format";
 import { CalculateTotalPrice } from "../../services/calc.service";
-import { useSelector, useDispatch } from "react-redux";
-import {
-  ApiUpdateService,
-  ApiDeleteService,
-  ApiGetService,
-} from "../../services/api.service";
-import { acUpdateCard } from "../../redux/cart";
 import { useNavigate, useParams } from "react-router-dom";
-import { acPrice } from "../../redux/price";
-import { enqueueSnackbar } from "notistack";
+import { enqueueSnackbar as es } from "notistack";
+import { ImgService } from "../../services/image.service";
+import {
+  useGetCartProductQuery,
+  useDeleteCartByIdMutation,
+  useUpdateCartByIdMutation,
+} from "../../services/cart.service";
 
 import empty from "../../components/assets/images/empty-cart.gif";
 import { BsTaxiFrontFill, BsTaxiFront, BsInfoCircle } from "react-icons/bs";
 
 export const Cart = memo(({ setOpen }) => {
   const user = JSON?.parse(localStorage.getItem("customer")) || [];
-  const [cart, setCart] = useState([]);
-  const [total, setTotal] = useState(0);
-  const updateCard = useSelector((state) => state.updateCard);
-  const dispatch = useDispatch();
   const navigate = useNavigate();
   const id = useParams()?.id;
   const user_id = user?.users?.id;
+  const { data = [] } = useGetCartProductQuery(user_id);
+  const [deleteCartById] = useDeleteCartByIdMutation();
+  const [updateCartById] = useUpdateCartByIdMutation();
+  const total_price = CalculateTotalPrice(data?.cartItems);
 
-  useEffect(() => {
-    ApiGetService.fetching(`cart/get/products/${user_id}`)
-      .then((res) => {
-        setCart(res?.data?.cartItems);
-        const total_price = CalculateTotalPrice(res?.data?.cartItems);
-        setTotal(total_price ? total_price : 0);
-        dispatch(acPrice(total_price ? total_price : 0));
-      })
-      .catch((err) => {});
-  }, [updateCard, dispatch, user_id]);
+  const updateCart = async (item) => {
+    const endpoint = `/remove/cartItem/${user_id}/${item?.id}`;
 
-  const updateCart = (item) => {
-    const service = item?.quantity > 0 ? ApiUpdateService : ApiDeleteService;
-    const endpoint =
-      item?.quantity > 0
-        ? `update/cart/${user_id}/${item?.id}`
-        : `remove/cartItem/${user_id}/${item?.id}`;
+    const Udata = {
+      item,
+      user_id,
+    };
 
-    service
-      .fetching(endpoint, item)
-      .then((res) => {
-        dispatch(acUpdateCard());
-      })
-      .catch((err) => console.log(err));
+    if (item?.quantity > 0) {
+      const { error, data } = await updateCartById(Udata);
+      if (error)
+        return es("Savatga qo'shishda muammo yuz berdi", { variant: "error" });
+      if (data)
+        es("Mahsulot savatga muvoffaqiyatli qo'shildi!", {
+          variant: "success",
+        });
+    } else {
+      const { error, data } = await deleteCartById(endpoint);
+      if (error)
+        return es("Savatdan o'chirishda muammo yuz berdi", {
+          variant: "error",
+        });
+      if (data) es("Mahsulot savatdan o'chirildi!", { variant: "warning" });
+    }
   };
 
   const payment = () => {
     navigate(`/payment/${id}`);
   };
 
-  const handleDelCart = () => {
+  const handleDelCart = async () => {
     const confirm = window.confirm("Cart tozalansinmi");
+    const endpoint = `empty/cart/${user_id}`;
 
     if (confirm) {
-      ApiDeleteService.fetching(`empty/cart/${user_id}`)
-        .then((res) => {
-          dispatch(acUpdateCard());
-          enqueueSnackbar("savatingiz tozalandi", { variant: "warning" });
-          setOpen(false);
-        })
-        .catch((err) => console.log(err));
+      const { error, data } = await deleteCartById(endpoint);
+      if (error)
+        return es("Savatdan o'chirishda muammo yuz berdi", {
+          variant: "error",
+        });
+      if (data) es("Mahsulot savatdan o'chirildi!", { variant: "warning" });
+      setOpen(false);
     }
   };
 
@@ -81,10 +80,10 @@ export const Cart = memo(({ setOpen }) => {
         {/* =========== Cart body section ======= */}
         <div className="cart_body">
           <div className="cart_body_box last">
-            {cart?.map((item) => {
+            {data?.cartItems?.map((item) => {
               return (
                 <div className="cart_body__item" key={item?.name}>
-                  <img src={item?.img} alt="product_photo" />
+                  <ImgService src={item?.img} fallbackSrc alt="product_photo" />
                   <div className="item_info__box">
                     <div className="info">
                       <p style={{ lineHeight: "1.5" }}>{item?.name}</p>
@@ -120,11 +119,13 @@ export const Cart = memo(({ setOpen }) => {
             })}
           </div>
 
-          {cart?.length ? (
+          {data?.cartItems?.length ? (
             <div
               className="service_price"
               style={
-                cart?.length === 1 ? {} : { borderTop: "1px solid #3333334b" }
+                data?.cartItems?.length === 1
+                  ? {}
+                  : { borderTop: "1px solid #3333334b" }
               }
             >
               <p>Xizmat xaqi:</p>
@@ -142,7 +143,7 @@ export const Cart = memo(({ setOpen }) => {
       </div>
 
       {/* =========== delivery section ============ */}
-      {!cart?.length ? (
+      {!data?.cartItems?.length ? (
         <div className="cart_delivery">
           <label className="free">
             <span style={{ paddingRight: "5%" }}>
@@ -165,7 +166,7 @@ export const Cart = memo(({ setOpen }) => {
           <button onClick={() => payment()}>
             Jami to'lov:{" "}
             <NumericFormat
-              value={total}
+              value={total_price || 0}
               suffix=" sum"
               thousandSeparator=" "
               displayType="text"

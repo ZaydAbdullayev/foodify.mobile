@@ -15,16 +15,6 @@
     overflow: hidden;
     z-index: 999;
     margin-top: -30px;
-
-    & svg {
-        position: absolute;
-        top: 50%;
-        right: 3%;
-        transform: translate(0, -50%);
-        font-size: var(--fs2);
-        color: var(--cl1);
-        z-index: 9999;
-    }
 }
 
 /* ============== product show section =========== */

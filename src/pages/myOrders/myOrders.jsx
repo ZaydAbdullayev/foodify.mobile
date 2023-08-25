@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import "./myOrders.css";
-import { ApiGetService } from "../../services/api.service";
 import { NumericFormat } from "react-number-format";
 import { useNavigate } from "react-router-dom";
 import { ImgService } from "../../services/image.service";
+import { useGetOrdersQuery } from "../../services/product.service";
 
 import {
   BsFillCartCheckFill,
@@ -17,23 +17,15 @@ import { ImArrowLeft2 } from "react-icons/im";
 
 export const MyOrders = () => {
   const user = JSON?.parse(localStorage?.getItem("customer")) || [];
-  const [orders, setOrdres] = useState([]);
   const id = user?.users?.id;
   const navigate = useNavigate();
+  const { data: orders = [] } = useGetOrdersQuery(id);
 
   const compareByReceivedAt = (a, b) => {
     const dateA = new Date(a.receivedAt);
     const dateB = new Date(b.receivedAt);
     return dateB - dateA;
   };
-
-  useEffect(() => {
-    ApiGetService.fetching(`get/myOrders/${id}`)
-      .then((res) => {
-        setOrdres(res?.data?.innerData);
-      })
-      .catch((err) => console.log(err));
-  }, [id]);
 
   return (
     <div className="my_orders">
@@ -43,7 +35,7 @@ export const MyOrders = () => {
         </span>
         <p>Mening Buyurtmalarim</p>
       </pre>
-      {orders?.sort(compareByReceivedAt)?.map((order) => {
+      {orders?.innerData?.sort(compareByReceivedAt)?.map((order) => {
         const products = JSON.parse(order?.product_data);
         const change = products?.find(({ status }) => status === "3");
         const time = order?.receivedAt
