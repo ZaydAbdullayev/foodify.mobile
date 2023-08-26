@@ -52,17 +52,6 @@ export const universalAPi = createApi({
         },
       }),
     }),
-
-    // path for get all user's has been orders "/get/orders/:user_id"
-    getOrders: builder.query({
-      query: (id) => ({
-        url: `get/myOrders/${id}`,
-        method: "GET",
-        headers: {
-          Authorization: `Bearer ${user?.token}`,
-        },
-      }),
-    }),
   }),
 });
 
@@ -71,5 +60,4 @@ export const {
   useGetAllRestaurantQuery,
   useGetPopularResQuery,
   useGetfilterByCategoryMutation,
-  useGetOrdersQuery,
 } = universalAPi;

@@ -67,44 +67,37 @@
     overflow: hidden;
 }
 
-.on_effect button {
+.on_effect :where(button, span) {
     animation: on 1s ease alternate;
-    white-space: nowrap;
-    overflow: hidden;
+    text-align: center;
 }
 
-.off_effect button {
+.off_effect :where(button, span) {
     animation: off 1s ease alternate;
-    white-space: nowrap;
-    overflow: hidden;
+    text-align: center;
 }
 
 @keyframes on {
     0% {
-        height: 35px;
-        width: 0;
+        transform: translateX(100%) rotate(999deg);
         opacity: 0.2;
     }
 
     100% {
-        height: 35px;
-        width: 100%;
+        transform: translateX(0%) rotate(0deg);
         opacity: 1;
     }
 }
 
-
 @keyframes off {
     0% {
-        height: 35px;
-        width: 100%;
-        opacity: 0.2;
+        transform: translateX(0%) rotate(0deg);
+        opacity: 1;
     }
 
     100% {
-        height: 35px;
-        width: 0;
-        opacity: 1;
+        transform: translateX(100%) rotate(999deg);
+        opacity: 0.2;
     }
 }
 
@@ -118,9 +111,9 @@
 }
 
 .btn_box>span {
+    inline-size: calc(100% / 3);
     padding: 4% 0;
     font-size: var(--fs4);
-    inline-size: calc(100% / 3);
     height: 100%;
     color: var(--cl1);
     text-align: center;

@@ -37,7 +37,6 @@ export const CatalogCard = memo(({ restaurantId, category }) => {
   const [deleteFavFood] = useDeleteFavFoodMutation();
 
   const addToCart = async (item) => {
-    setEffect(item.id);
     if (user?.token) {
       const { error, data } = await addCart(item);
       if (error)
@@ -71,6 +70,7 @@ export const CatalogCard = memo(({ restaurantId, category }) => {
         });
       console.log(data);
     } else {
+      setEffect(item.id);
       const { error, data } = await deleteCart(endpoint);
       if (error)
         return es("Savatdan o'chirishda muammo yuz berdi", {
@@ -150,7 +150,13 @@ export const CatalogCard = memo(({ restaurantId, category }) => {
                 <span>{item?.description || ""}</span>
               </div>
               {existingCartItem ? (
-                <div className="btn_box on_effect">
+                <div
+                  className={
+                    effect === item.id
+                      ? "btn_box off_effect"
+                      : "btn_box on_effect"
+                  }
+                >
                   {quantity > 0 && (
                     <span
                       className="span"
@@ -175,9 +181,7 @@ export const CatalogCard = memo(({ restaurantId, category }) => {
                 </div>
               ) : (
                 <div
-                  className={
-                    effect === item.id ? "btn_box off_effect" : "btn_box"
-                  }
+                  className="btn_box"
                   style={existingCartItem ? {} : { justifyContent: "center" }}
                 >
                   <button

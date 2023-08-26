@@ -3,7 +3,7 @@ import "./myOrders.css";
 import { NumericFormat } from "react-number-format";
 import { useNavigate } from "react-router-dom";
 import { ImgService } from "../../services/image.service";
-import { useGetOrdersQuery } from "../../services/product.service";
+import { useGetOrderQuery } from "../../services/user.service";
 
 import {
   BsFillCartCheckFill,
@@ -19,7 +19,7 @@ export const MyOrders = () => {
   const user = JSON?.parse(localStorage?.getItem("customer")) || [];
   const id = user?.users?.id;
   const navigate = useNavigate();
-  const { data: orders = [] } = useGetOrdersQuery(id);
+  const { data: orders = [] } = useGetOrderQuery(id);
 
   const compareByReceivedAt = (a, b) => {
     const dateA = new Date(a.receivedAt);

@@ -5,7 +5,7 @@ const user = JSON?.parse(localStorage.getItem("customer")) || [];
 export const userAPi = createApi({
   reducerPath: "userApi",
   baseQuery: fetchBaseQuery({ baseUrl: base_url }),
-  tagTypes: ["product, restaurant"],
+  tagTypes: ["order"],
   endpoints: (builder) => ({
     // path for user's data "/get/user/:id"
     getUser: builder.query({
@@ -17,7 +17,34 @@ export const userAPi = createApi({
         },
       }),
     }),
+
+    // path  for user's resive order
+    resieveOrder: builder.mutation({
+      query: (body) => ({
+        url: "receive/order",
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${user?.token}`,
+        },
+        body,
+      }),
+      invalidatesTags: ["order"],
+    }),
+
+    // path for get all user's has been orders "/get/orders/:user_id"
+    getOrder: builder.query({
+      query: (id) => ({
+        url: `get/myOrders/${id}`,
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${user?.token}`,
+        },
+      }),
+      providesTags: ["order"],
+    }),
   }),
 });
 
-export const { useGetUserQuery } = userAPi;
+export const { useGetUserQuery, useGetOrderQuery, useResieveOrderMutation } =
+  userAPi;

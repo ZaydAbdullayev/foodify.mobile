@@ -1,21 +1,21 @@
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useState, useMemo } from "react";
 import "./payment.css";
 import "./pyment.media.css";
-import { useSelector, useDispatch } from "react-redux";
-import {
-  ApiGetService,
-  ApiUpdateService,
-  ApiDeleteService,
-  ApiService,
-} from "../services/api.service";
-import { useSnackbar } from "notistack";
+import { useSelector } from "react-redux";
+import { enqueueSnackbar as es } from "notistack";
 import { CalculateTotalPrice } from "../services/calc.service";
-import { acUpdateCard } from "../redux/cart";
 import { NumericFormat, PatternFormat } from "react-number-format";
 import { useParams, useNavigate } from "react-router-dom";
 import { SiHomeadvisor } from "react-icons/si";
 import { MdDelete } from "react-icons/md";
 import { ImArrowLeft2 } from "react-icons/im";
+import {
+  useGetCartProductQuery,
+  useDeleteCartByIdMutation,
+  useUpdateCartByIdMutation,
+} from "../services/cart.service";
+import { useGetFavDataQuery } from "../services/fav.service";
+import { useResieveOrderMutation } from "../services/user.service";
 
 const bankImages = {
   humo: require("../components/assets/images/humo.jpg"),
@@ -32,21 +32,21 @@ export const Payment = () => {
     () => JSON?.parse(localStorage?.getItem("customer")) || [],
     []
   );
-  const [cart, setCart] = useState([]);
-  const [total, setTotal] = useState(0);
-  const updateCard = useSelector((state) => state.updateCard);
   const location = useSelector((state) => state.location);
   const [write, setWrite] = useState(false);
   const [adress_info, setAdress_info] = useState({});
   const [active, setActive] = useState(0);
   const [open, setOpen] = useState(false);
   const [bg, setBg] = useState("");
-  const dispatch = useDispatch();
   const user_id = user?.users?.id;
-  const [shop, setShop] = useState(null);
   const id = useParams()?.id;
-  const { enqueueSnackbar } = useSnackbar();
   const navigate = useNavigate();
+  const { data: shop = null } = useGetFavDataQuery(id);
+  const { data: cart = [] } = useGetCartProductQuery(user_id);
+  const total = CalculateTotalPrice(cart?.cartItems);
+  const [deleteCartById] = useDeleteCartByIdMutation();
+  const [updateCartById] = useUpdateCartByIdMutation();
+  const [resieveOrder] = useResieveOrderMutation();
   console.log(location);
 
   const payment_data = {
@@ -54,7 +54,7 @@ export const Payment = () => {
     description: adress_info?.description,
     padyezd: adress_info?.padez,
     qavat: adress_info?.qavat,
-    product_data: JSON.stringify(cart),
+    product_data: JSON.stringify(cart.cartItems),
     payment: "token",
     price: total,
     user_id: user_id,
@@ -63,64 +63,52 @@ export const Payment = () => {
     longitude: "4567584985784938574934857",
   };
 
-  useEffect(() => {
-    ApiGetService.fetching(`cart/get/products/${user_id}`)
-      .then((res) => {
-        setCart(res?.data?.cartItems);
-        const total_price = CalculateTotalPrice(res?.data?.cartItems);
-        setTotal(total_price);
-      })
-      .catch((err) => {});
+  const updateCart = async (item) => {
+    const endpoint = `/remove/cartItem/${user_id}/${item?.id}`;
 
-    ApiGetService.fetching(`get/restaurant/${id}`)
-      .then((res) => {
-        setShop(res?.data?.innerData);
-      })
-      .catch((err) => console.log(err));
-  }, [updateCard, user_id, id]);
+    const Udata = {
+      item,
+      user_id,
+    };
 
-  const updateCart = (item) => {
-    const service = item?.quantity > 0 ? ApiUpdateService : ApiDeleteService;
-    const endpoint =
-      item?.quantity > 0
-        ? `update/cart/${user_id}/${item?.id}`
-        : `remove/cartItem/${user_id}/${item?.id}`;
-
-    service
-      .fetching(endpoint, item)
-      .then((res) => {
-        console.log(res);
-        dispatch(acUpdateCard());
-      })
-      .catch((err) => console.log(err));
-  };
-
-  const clearCart = () => {
-    const confirm = window.confirm("Savatingiz tozalansinmi?");
-    if (confirm) {
-      ApiDeleteService.fetching(`empty/cart/${user_id}`)
-        .then((res) => {
-          console.log(res);
-          dispatch(acUpdateCard());
-        })
-        .catch((err) => console.log(err));
+    if (item?.quantity > 0) {
+      const { error, data } = await updateCartById(Udata);
+      if (error) return es("Qandaydir muammo yuz berdi", { variant: "error" });
+      if (data)
+        es("Mahsulot savatga muvoffaqiyatli qo'shildi!", {
+          variant: "success",
+        });
+    } else {
+      const { error, data } = await deleteCartById(endpoint);
+      if (error) return es("Qandaydir muammo yuz berdi", { variant: "error" });
+      if (data) es("Mahsulot savatdan o'chirildi!", { variant: "warning" });
     }
   };
 
-  const handlePayment = () => {
-    ApiService.fetching("receive/order", payment_data)
-      .then((res) => {
-        const msg = "Buyurtmangiz restoranga yuborildi";
-        enqueueSnackbar(msg, { variant: "success" });
-        navigate("/my/orders");
-        ApiDeleteService.fetching(`empty/cart/${user_id}`)
-          .then((res) => {
-            console.log(res);
-            dispatch(acUpdateCard());
-          })
-          .catch((err) => console.log(err));
-      })
-      .catch((err) => console.log(err));
+  const clearCart = async () => {
+    const confirm = window.confirm("Cart tozalansinmi");
+    const endpoint = `empty/cart/${user_id}`;
+
+    if (confirm) {
+      const { error, data } = await deleteCartById(endpoint);
+      if (error) return es("Qandaydir muammo yuz berdi", { variant: "error" });
+      if (data) es("Mahsulot savatdan o'chirildi!", { variant: "warning" });
+      setOpen(false);
+    }
+  };
+
+  const handlePayment = async () => {
+    const { error, data } = await resieveOrder(payment_data);
+    const endpoint = `empty/cart/${user_id}`;
+
+    if (error) return es("Xatolik yuz berdi", { variant: "warning" });
+    if (data) {
+      es("Buyurtmangiz restoranga yuborildi", { variant: "success" });
+      navigate("/my/orders");
+      const { error, data } = await deleteCartById(endpoint);
+      if (error) return es("Qandaydir muammo yuz berdi", { variant: "error" });
+      if (data) es("Mahsulot savatdan o'chirildi!", { variant: "warning" });
+    }
   };
 
   return (
@@ -129,7 +117,7 @@ export const Payment = () => {
         <span onClick={() => navigate(-1)}>
           <ImArrowLeft2 />
         </span>
-        <h1>{shop?.username?.split("_")?.join(" ")}</h1>
+        <h1>{shop?.innerData?.username?.split("_")?.join(" ")}</h1>
       </pre>
       <div className="rigth_section">
         <p>Yetakazish shartlari</p>
@@ -260,7 +248,7 @@ export const Payment = () => {
             Jami to'lov:{" "}
             <NumericFormat
               displayType="text"
-              value={total}
+              value={total || 0}
               suffix=" so'm"
               thousandSeparator=" "
             />

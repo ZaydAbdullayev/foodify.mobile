@@ -1,4 +1,4 @@
-import React, { useState, useEffect, Fragment, useRef } from "react";
+import React, { useState, Fragment, useRef } from "react";
 import "./catalog.css";
 import { CatalogCard } from "../../components/cProductCard/cProductCard";
 import { ProductMenu } from "../../components/productMenu/productMenu";
@@ -17,6 +17,7 @@ import {
   useGetFavDataQuery,
 } from "../../services/fav.service";
 import { useGetAllProductQuery } from "../../services/product.service";
+import { ImgService } from "../../services/image.service";
 
 export const Catalog = () => {
   const user = JSON.parse(localStorage.getItem("customer")) || [];
@@ -45,7 +46,6 @@ export const Catalog = () => {
     });
     return Array.from(uniqueCategories);
   };
-
   const uniqueCategories = getUniqueCategories();
 
   const addToLike = async (state) => {
@@ -93,7 +93,11 @@ export const Catalog = () => {
       {/* =========== show product section ============= */}
       <div className="product_show">
         <figure className="about_restoran" key={id}>
-          <img src={shop?.innerData?.img} alt="restotaunt_img" />
+          <ImgService
+            src={shop?.innerData?.img}
+            fallbackSrcRes
+            alt="restotaunt_img"
+          />
           <figcaption className="about_restoran_item">
             <span>
               <button
