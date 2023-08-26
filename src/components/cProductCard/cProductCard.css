@@ -67,6 +67,23 @@
     overflow: hidden;
 }
 
+.effect {
+    animation: effect 2s ease alternate;
+    text-align: center;
+}
+
+@keyframes effect {
+    0% {
+        transform: rotateX(0deg);
+        opacity: 0.2;
+    }
+
+    100% {
+        transform: rotateX(360deg);
+        opacity: 1;
+    }
+}
+
 .on_effect :where(button, span) {
     animation: on 1s ease alternate;
     text-align: center;
