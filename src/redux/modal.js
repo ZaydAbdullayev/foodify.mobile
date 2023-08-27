@@ -4,6 +4,8 @@ export const reModal = (state = false, action) => {
       return true;
     case "CLOSE_MODAL":
       return false;
+    case "TOGGLE_MODAL":
+      return !state;
     default:
       return state;
   }
@@ -11,3 +13,4 @@ export const reModal = (state = false, action) => {
 
 export const acOpenMadal = (payload) => ({ type: "OPEN_MODAL", payload });
 export const acCloseModal = (payload) => ({ type: "CLOSE_MODAL", payload });
+export const acToggleModal = (payload) => ({ type: "TOGGLE_MODAL", payload });

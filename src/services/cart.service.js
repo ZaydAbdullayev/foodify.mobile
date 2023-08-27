@@ -66,8 +66,8 @@ export const cartAPi = createApi({
         headers: {
           Authorization: `Bearer ${user?.token}`,
         },
-        invalidatesTags: ["product"],
       }),
+      providesTags: ["product"],
     }),
   }),
 });

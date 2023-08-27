@@ -6,7 +6,6 @@ import { BsEye, BsEyeSlash } from "react-icons/bs";
 import { IoIosCloseCircle } from "react-icons/io";
 import { ApiService } from "../../services/api.service";
 import { enqueueSnackbar } from "notistack";
-import { unstable_HistoryRouter } from "react-router-dom";
 
 export const Signin = () => {
   const navigate = useNavigate();

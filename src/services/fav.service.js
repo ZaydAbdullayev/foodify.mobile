@@ -36,7 +36,7 @@ export const favoriteAPi = createApi({
     // path of get favorite restaurant by user id "/get/favRes/:user_id"
     getFavRes: builder.query({
       query: (id) => ({
-        url: `get/favRes${id}`,
+        url: `get/favRes/ ${id}`,
         method: "GET",
         headers: {
           Authorization: `Bearer ${user?.token}`,

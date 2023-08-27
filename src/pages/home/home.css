@@ -95,7 +95,7 @@
 
 .restaurant>label>span>svg {
     font-size: var(--fs3);
-    color: #fc0
+    color: #2ceb1a
 }
 
 .free_delivery {
@@ -106,7 +106,7 @@
 
 .free_delivery>svg {
     font-size: var(--fs3);
-    color: #fc0
+    color: #2ceb1a
 }
 
 @media(max-width: 770px) {

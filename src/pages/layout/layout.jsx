@@ -3,6 +3,7 @@ import "./layout.css";
 import { Outlet, Link, useLocation } from "react-router-dom";
 import { Cart } from "../cart/cart";
 import { menu } from "./menu";
+import { QuecklyFilter } from "../../components/navbar/navbar";
 import { useGetCartCountQuery } from "../../services/cart.service";
 
 import { BsChevronCompactDown, BsChevronCompactUp } from "react-icons/bs";
@@ -32,9 +33,12 @@ export const Layout = () => {
 
   return (
     <div className="layout">
+      {/* =========== show all section what place =============== */}
       <main>
         <Outlet />
       </main>
+
+      {/* =========== navugation panel for user ============= */}
       <aside
         className={
           location === "/all/foods" // ? "navigator food"
@@ -91,6 +95,7 @@ export const Layout = () => {
         })}
       </aside>
 
+      {/* ================ cart section ============== */}
       <div className={open ? "cart open_cart" : "cart"}>
         <b>
           {open ? (
@@ -105,6 +110,9 @@ export const Layout = () => {
         </b>
         <Cart setOpen={setOpen} />
       </div>
+
+      {/* =============== filter product and restaurant section ============ */}
+      <QuecklyFilter />
     </div>
   );
 };

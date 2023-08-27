@@ -44,6 +44,176 @@
     border-left: 1px solid var(--cl3);
 }
 
+/* =============== filter modal =============== */
+.filter_modal {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    max-width: 450px;
+    width: 100%;
+    height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background: #333;
+    transition: all 0.3s ease;
+    z-index: 99999;
+}
+
+.open_filter_modal {
+    right: 0;
+}
+
+.filter_header {
+    width: 100%;
+    padding: 2% 4%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid #ccc;
+}
+
+.filter_header :where(p, span) {
+    color: var(--cl1);
+    font-size: var(--fs4);
+    letter-spacing: 1px;
+}
+
+.filter_header>span>svg {
+    font-size: calc(var(--fs1) + 10px);
+}
+
+.filter_modal> :last-child {
+    padding: 4%;
+    border-top: 1px solid #ccc;
+}
+
+/* =============== filter modal body ===============  */
+.filter_body {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 2% 4%;
+    gap: var(--gap1);
+    overflow-y: auto;
+    flex: 1;
+}
+
+.filter_body>div {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--gap1);
+    color: var(--cl1);
+}
+
+.filter_body>div>h3 {
+    inline-size: 100%;
+    font-size: var(--fs1);
+    font-weight: 400;
+    line-height: 1.5;
+}
+
+/* ================= filter first item  ===============   */
+.filter_item_first>label {
+    width: 100%;
+    padding: 2% 0 2% 4%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid #cccc;
+}
+
+.filter_item_first>label>span {
+    font-size: var(--fs3);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.filter_item_first>label>span>svg {
+    font-size: var(--fs1);
+}
+
+.filter_item_first>label input {
+    width: 20px;
+    height: 20px;
+}
+
+.filter_item_first>label input:checked::after {
+    content: "•";
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: #333;
+    border: 3px solid #17fd02;
+    font-size: 45px;
+    transform: translate(-14%, -12%);
+    color: #17fd02;
+}
+
+.filter_item_first>:last-child {
+    border: none;
+    margin-bottom: 2%;
+}
+
+/* ================= filter second item  ===============   */
+.filter_item_second>label {
+    width: calc(100% / 4 - var(--gap1));
+    aspect-ratio: 1 / 1;
+    padding: 3%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 3px solid #ccc6;
+    border-radius: 50%;
+    font-size: var(--fs4);
+    color: var(--cl2);
+}
+
+
+.filter_item_second>label input {
+    display: none;
+}
+
+.filter_item_second>p {
+    inline-size: 100%;
+    font-size: var(--fs4);
+    padding-left: 3%;
+}
+
+.filter_item_second .active {
+    border-color: #17fd02;
+    color: #17fd02;
+    transition: all 0.5s ease;
+    background: #094d03;
+}
+
+
+/* ============ filter modal btn ============= */
+.filter_modal .filter_btn {
+    width: 100%;
+    height: 53px;
+    border: none;
+    background: #17fd02;
+    font-size: var(--fs3);
+    color: #333;
+    font-weight: 600;
+    border-radius: 10px;
+    transition: all 0.2s ease;
+}
+
+.filter_modal .filter_btn:active {
+    opacity: 0.4;
+}
+
+
+/* =============== media queries =============== */
+
 @media(max-width: 550px) {
     .navbar_box form {
         height: 45px;

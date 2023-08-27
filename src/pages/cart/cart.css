@@ -216,10 +216,10 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background: #FCE000;
+    background: #2ceb1a;
     color: #333;
-    font-size: var(--fs5);
-    font-weight: 600;
+    font-size: var(--fs4);
+    font-weight: 700;
     border: none;
     border-radius: 15px;
 }

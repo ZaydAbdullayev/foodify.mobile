@@ -42,6 +42,7 @@
 .login_header {
     border-radius: 10px;
     overflow: hidden;
+
 }
 
 .btn {
@@ -49,17 +50,17 @@
     padding: 3%;
     background: #eee;
     border: none;
-    font-size: var(--fs6);
+    font-size: var(--fs5);
     color: #aaa;
-}
-
-
-.login_header .active {
     max-width: 150px;
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;
-    background: #fce000 !important;
+}
+
+
+.login_header .active {
+    background: #2ceb1a !important;
     color: #555;
 }
 
@@ -84,7 +85,7 @@
 }
 
 .login_body :where(input, label>input):focus {
-    border: 3px solid #fce000;
+    border: 3px solid #2ceb1a
 }
 
 .login_body>label {
@@ -104,12 +105,13 @@
 .login_body>button {
     margin: 5% 0 1%;
     border: none;
-    background: #fce000;
+    background: #2ceb1a;
     font-weight: 600;
+    font-size: var(--fs5);
 }
 
 .login_body>button:active {
-    background: #fcdf00d7;
+    background: #138509;
 }
 
 .login_body>span {
@@ -136,7 +138,7 @@
     height: 100%;
     font-family: -apple-system, BlinkMacSystemFont, sans-serif;
     overflow: auto;
-    background: linear-gradient(315deg, #555 3%, #50480fa4 38%, #333 68%, #574e0b94 98%);
+    background: linear-gradient(315deg, #021600 3%, #267021a9 38%, #0a130aa4 68%, #285e258f 98%);
     animation: gradient 15s ease infinite;
     background-size: 400% 400%;
     background-attachment: fixed;

@@ -80,7 +80,7 @@ export const Home = () => {
                       <BsFillStarFill
                         style={
                           shop?.rating >= 5
-                            ? { color: "#15a302" }
+                            ? { color: "#094d03" }
                             : shop?.rating >= 3
                             ? { color: "#fc0" }
                             : { color: "#aaa" }

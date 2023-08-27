@@ -76,7 +76,9 @@ export const CatalogCard = memo(({ restaurantId, category }) => {
         return es("Savatdan o'chirishda muammo yuz berdi", {
           variant: "error",
         });
-      if (data) es("Mahsulot savatdan o'chirildi!", { variant: "warning" });
+      if (data) {
+        es("Mahsulot savatdan o'chirildi!", { variant: "warning" });
+      }
     }
   };
 

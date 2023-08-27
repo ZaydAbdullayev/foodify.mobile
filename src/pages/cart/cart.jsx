@@ -82,7 +82,7 @@ export const Cart = memo(({ setOpen }) => {
           <div className="cart_body_box last">
             {data?.cartItems?.map((item) => {
               return (
-                <div className="cart_body__item" key={item?.name}>
+                <div className="cart_body__item" key={item?.id}>
                   <ImgService src={item?.img} fallbackSrc alt="product_photo" />
                   <div className="item_info__box">
                     <div className="info">
