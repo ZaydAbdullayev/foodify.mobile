@@ -33,6 +33,8 @@ export const MyFavFood = () => {
   const [addCart] = useAddCartMutation();
   const [deleteFavFood] = useDeleteFavFoodMutation();
 
+  console.log(product?.innerData);
+
   const addToCart = async (item) => {
     if (user?.token) {
       const { error, data } = await addCart(item);
@@ -67,6 +69,7 @@ export const MyFavFood = () => {
   };
 
   const addToLike = async (state) => {
+    console.log(state?.id);
     const food_data = {
       id: state?.id,
       state: state?.state,
@@ -75,7 +78,7 @@ export const MyFavFood = () => {
     const { data } = await deleteFavFood(food_data);
     if (data) es("Yoqtiganlardan o'chirildi!", { variant: "warning" });
   };
-  
+
   return (
     <div className="my_favorite">
       <h1>Sevimli Ovqatlarim</h1>

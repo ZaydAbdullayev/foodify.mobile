@@ -60,6 +60,8 @@ export const CatalogCard = memo(({ restaurantId, category }) => {
       user_id,
     };
 
+    console.log(Udata);
+
     if (item?.quantity > 0) {
       const { error, data } = await updateCartById(Udata);
       if (error)

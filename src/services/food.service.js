@@ -33,7 +33,7 @@ export const favFoodAPi = createApi({
       providesTags: ["food"],
     }),
 
-    // update money path: "/admin/update/money/:id" (private) (PUT)
+    // update money path: "/admin/update/money/:id" (private) (PATCH)
     updateFavFood: builder.mutation({
       query: (data) => ({
         url: ` /update/money/${data?.id}`,
@@ -47,7 +47,7 @@ export const favFoodAPi = createApi({
       invalidatesTags: ["food"],
     }),
 
-    // delete money path: "/admin/delete/money/:id" (private) (DELETE)
+    // delete cart path: "/delete/cart/:user_id/:id" (private) (DELETE)
     deleteFavFood: builder.mutation({
       query: (endpoint) => ({
         url: `remove/food/${endpoint?.user_id}/${endpoint?.id}`,

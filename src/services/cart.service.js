@@ -33,7 +33,7 @@ export const cartAPi = createApi({
       providesTags: ["product"],
     }),
 
-    // update money path: "/admin/update/money/:id" (private) (PUT)
+    // update cart path: "/update/cart/:user_id/:id" (private) (PATCH)
     updateCartById: builder.mutation({
       query: (data) => ({
         url: `/update/cart/${data?.user_id}/${data?.item?.id}`,
@@ -47,7 +47,7 @@ export const cartAPi = createApi({
       invalidatesTags: ["product"],
     }),
 
-    // delete money path: "/admin/delete/money/:id" (private) (DELETE)
+    // delete cart path: "/delete/cart/:user_id/:id" (private) (DELETE)
     deleteCartById: builder.mutation({
       query: (endpoint) => ({
         url: endpoint,
@@ -59,6 +59,7 @@ export const cartAPi = createApi({
       invalidatesTags: ["product"],
     }),
 
+    // get cart count path: "/cart/count/products/:id" (private) (GET)
     getCartCount: builder.query({
       query: (id) => ({
         url: `cart/count/products/${id}`,

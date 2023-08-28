@@ -59,7 +59,7 @@ export const favoriteAPi = createApi({
       invalidatesTags: ["favorite"],
     }),
 
-    // delete money path: "/admin/delete/money/:id" (private) (DELETE)
+    // delete favorite restaurant "/delete/favRes/:user_id/:id"
     deleteFavRes: builder.mutation({
       query: (endpoint) => ({
         url: endpoint,

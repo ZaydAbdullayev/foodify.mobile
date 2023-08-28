@@ -16,7 +16,6 @@ export const universalAPi = createApi({
           Authorization: `Bearer ${user?.token}`,
         },
       }),
-      providesTags: ["product"],
     }),
 
     // path for get all restaurants
@@ -28,7 +27,6 @@ export const universalAPi = createApi({
           Authorization: `Bearer ${user?.token}`,
         },
       }),
-      providesTags: ["restaurant"],
     }),
 
     // path for get most popular restaurants
