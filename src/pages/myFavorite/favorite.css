@@ -17,8 +17,7 @@
    text-align: center;
    background: #333;
    font-size: var(--fs1);
-   border-radius: 0 0 30px 30px;
-
+   border-radius: 0 0 30px 30px; 
 }
 
 /* ======== profil_card ====== */

@@ -122,43 +122,59 @@
     .carusel_item>img {
         width: 105px;
     }
+}
 
-    @media(max-width: 550px) {
-        .restaurant>img {
-            height: 210px;
-        }
-
-        .carusel_item {
-            min-width: 80px;
-            height: 80px;
-        }
-
-        .carusel_item>img {
-            width: 80px;
-        }
+@media(max-width: 550px) {
+    .restaurant>img {
+        height: 210px;
     }
 
-    @media(max-width: 430px) {
-        .restaurant {
-            padding: 2% 2% 3%;
-            border-radius: 20px;
-        }
+    .carusel_item {
+        min-width: 80px;
+        height: 80px;
+    }
 
-        .restaurant>img {
-            height: 170px;
-        }
+    .carusel_item>img {
+        width: 80px;
+    }
+}
 
-        .carusel_item>img {
-            width: 70px;
-        }
+@media(max-width: 430px) {
+    .restaurant {
+        padding: 2% 2% 3%;
+        border-radius: 20px;
+    }
 
-        .carusel_item {
-            min-width: 70px;
-            height: 70px;
-        }
+    .restaurant>img {
+        height: 170px;
+    }
 
-        .free_delivery>span {
-            display: none;
-        }
+    .carusel_item>img {
+        width: 70px;
+    }
+
+    .carusel_item {
+        min-width: 70px;
+        height: 70px;
+    }
+
+    .free_delivery>span {
+        display: none;
+    }
+}
+
+@media (max-width: 360px) {
+    .restaurant>label>div>h1 {
+        max-width: 270px;
+        font-size: var(--fs2);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+}
+
+@media (max-width: 320px) {
+    .restaurant>label>div>h1 {
+        max-width: 230px;
     }
 }

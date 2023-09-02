@@ -1,9 +1,16 @@
 import "./notfound.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
+import { ImArrowLeft2 } from "react-icons/im";
 
 export const NotFound = () => {
+  const navigate = useNavigate();
+  const location = useLocation().pathname.substring(0, 11);
+
   return (
     <div className="not_found_box">
+      <span className="backword" onClick={() => navigate(location)}>
+        <ImArrowLeft2 />
+      </span>
       <div className="container">
         <div className="caption">
           <div className="hat-cont">

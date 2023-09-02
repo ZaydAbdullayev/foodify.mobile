@@ -12,6 +12,14 @@
     color: var(--cl1);
 }
 
+.backword {
+    position: fixed;
+    top: 15px;
+    left: 20px;
+    font-size: var(--fs1);
+    color: var(--cl1);
+}
+
 .container {
     width: 80%;
     height: 60%;
@@ -277,8 +285,125 @@
     }
 }
 
-@media only screen and (min-width: 1000px) {
+@media (min-width: 920px) {
     .pan-wrapper {
         left: 22%;
+    }
+}
+
+@media (max-width: 770px) {
+    .handle {
+        left: 245px;
+        top: 250px;
+    }
+
+    .handle-sub {
+        left: 210px;
+        top: 240px;
+    }
+}
+
+@media (max-width: 600px) {
+    .handle {
+        left: 230px;
+        top: 230px;
+    }
+
+    .handle-sub {
+        left: 200px;
+        top: 220px;
+    }
+}
+
+@media (max-width: 500px) {
+    .handle {
+        width: 30px;
+        height: 100px;
+        left: 138px;
+        top: 140px;
+    }
+
+    .handle-sub {
+        width: 20px;
+        height: 40px;
+        left: 115px;
+        top: 130px;
+    }
+
+    .center::after,
+    .center::before {
+        font-size: 150px;
+    }
+
+    .head-text {
+        font-size: 50px;
+    }
+
+    .btn_notfound {
+        width: 100%;
+        padding: 3vw 4vw;
+        font-size: 20px;
+    }
+}
+
+@media (max-width: 390px) {
+    .handle {
+        width: 25px;
+        height: 90px;
+        left: 130px;
+        top: 130px;
+    }
+
+    .handle-sub {
+        width: 15px;
+        height: 30px;
+        left: 107px;
+        top: 120px;
+    }
+
+    .center::after,
+    .center::before {
+        font-size: 140px;
+    }
+
+    .head-text {
+        font-size: 40px;
+    }
+}
+
+@media (max-width: 360px) {
+    .handle {
+        left: 115px;
+        top: 115px;
+    }
+
+    .handle-sub {
+        left: 95px;
+        top: 110px;
+    }
+}
+
+@media (max-width: 320px) {
+    .handle {
+        width: 20px;
+        height: 80px;
+        left: 100px;
+        top: 100px;
+    }
+
+    .handle-sub {
+        width: 10px;
+        height: 20px;
+        left: 85px;
+        top: 100px;
+    }
+
+    .btn_notfound {
+        width: 100%;
+        top: 100%;
+        padding: 2vw 3vw;
+        font-size: 16px;
+        letter-spacing: 2px;
+        font-weight: 400;
     }
 }

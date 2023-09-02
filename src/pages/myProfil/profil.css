@@ -198,15 +198,15 @@
 
 @media(max-width: 360px) {
    .short_path>figure {
-      height: 95px;
+      height: 85px;
    }
 
    .short_path>figure>img {
-      height: 30px;
+      height: 27px;
    }
 
    .short_path>:first-child>img {
-      height: 45px;
+      height: 42px;
    }
 
    .short_path>:nth-child(1)>span {

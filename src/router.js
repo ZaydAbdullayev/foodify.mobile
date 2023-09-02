@@ -16,6 +16,7 @@ import { MyFavFood } from "./pages/myFavoriteFood/myFavoriteFood";
 // import { MapBox } from "./components/map/map";
 import { NotFound } from "./components/notFound/notFound";
 import { LocationMap } from "./components/mapbox/mapbox";
+import { ProfilFile } from "./pages/myProfil/profil";
 
 export const Router = () => {
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 920);
@@ -62,15 +63,13 @@ export const Router = () => {
           <Route index element={<Home />} />
           <Route path="/catalog/:id" element={<Catalog />} />
           <Route path="/all/foods" element={<Foods />} />
-          <Route path="/my/profile" element={<MyProfil />}>
-            <Route
-              path="send/gift"
-              element={<h1>Boshqa kishi uchun xarid qilish</h1>}
-            />
+          <Route path="/my/profile" element={<ProfilFile />}>
+            <Route index element={<MyProfil />} />
+            {/* <Route path="send/gift" element={<h1>Sovga yuborish</h1>} />
             <Route path="delivery" element={<h1>Yetkazib ebrish</h1>} />
             <Route path="my/family" element={<h1>Oilaviy</h1>} />
             <Route path="work" element={<h1>Ishxonalarim</h1>} />
-            <Route path="help" element={<h1>Help</h1>} />
+            <Route path="help" element={<h1>Help</h1>} /> */}
           </Route>
           <Route path="/my/fav/res" element={<MyFavorite />} />
           <Route path="/my/fav/food" element={<MyFavFood />} />

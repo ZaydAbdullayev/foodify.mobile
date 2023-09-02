@@ -1,7 +1,6 @@
 import React from "react";
 import "./profil.css";
-import { useNavigate } from "react-router-dom";
-import { Link } from "react-router-dom";
+import { useNavigate, Link, Outlet } from "react-router-dom";
 import { useGetUserQuery } from "../../services/user.service";
 
 import delivery from "./old delivery.png";
@@ -95,3 +94,11 @@ const menu = [
     icon: <MdHelp />,
   },
 ];
+
+export const ProfilFile = () => {
+  return (
+    <div className="page">
+      <Outlet />
+    </div>
+  );
+};
