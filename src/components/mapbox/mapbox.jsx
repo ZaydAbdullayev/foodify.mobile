@@ -1,67 +1,96 @@
-import React from "react";
-import {
-  MapContainer,
-  TileLayer,
-  Marker,
-  Popup,
-  LayersControl,
-  LayerGroup,
-  Circle,
-  Rectangle,
-  FeatureGroup,
-} from "react-leaflet";
+import React, { useState, memo } from "react";
+import "./home.css";
+import { YMaps, Map, Placemark, Polyline } from "@pbe/react-yandex-maps";
+import { ImArrowLeft2 } from "react-icons/im";
+import { useNavigate } from "react-router-dom";
 
-const center = [51.505, -0.09];
-const rectangle = [
-  [51.49, -0.08],
-  [51.5, -0.06],
-];
+import pin from "../../assets/img/black pin.png";
+import { MdOutlineMyLocation } from "react-icons/md";
 
-export const LocationMap = () => {
+export const Home = memo(() => {
+  const [clickedCoordinates, setClickedCoordinates] = useState(null);
+  const navigate = useNavigate();
+
+  const center = clickedCoordinates?.length
+    ? [...clickedCoordinates]
+    : [41.002534933524345, 71.67760873138532];
+
+  const handleMapClick = (e) => {
+    const coordinates = e.get("coords");
+    setClickedCoordinates(coordinates);
+  };
+
+  const getCurrentLocation = () => {
+    navigator.geolocation.getCurrentPosition((position) => {
+      const { latitude, longitude } = position.coords;
+      setClickedCoordinates([latitude, longitude]);
+
+      window.navigator.vibrate(200);
+    });
+  };
+
   return (
-    <MapContainer center={center} zoom={13} scrollWheelZoom={false}>
-      <TileLayer
-        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-      />
-      <LayersControl position="topright">
-        <LayersControl.Overlay name="Marker with popup">
-          <Marker position={center}>
-            <Popup>
-              A pretty CSS3 popup. <br /> Easily customizable.
-            </Popup>
-          </Marker>
-        </LayersControl.Overlay>
-        <LayersControl.Overlay checked name="Layer group with circles">
-          <LayerGroup>
-            <Circle
-              center={center}
-              pathOptions={{ fillColor: "blue" }}
-              radius={200}
+    <YMaps>
+      <div className="map_box">
+        {/* My awesome application with maps!{" "}
+        <span>{clickedCoordinates?.join(", ")}</span> */}
+        <span className="backword" onClick={() => navigate("/")}>
+          <ImArrowLeft2 />
+        </span>
+        <Map
+          defaultState={{
+            center: center,
+            zoom: 17,
+            controls: [],
+          }}
+          instanceRef={(ref) => {
+            if (ref) {
+              ref?.behaviors?.disable(["scrollZoom"]);
+            }
+          }}
+          onClick={handleMapClick}
+          className="map_item"
+        >
+          {clickedCoordinates && (
+            <Placemark
+              geometry={[...clickedCoordinates]}
+              options={{
+                iconLayout: "default#image",
+                iconImageSize: [40, 40],
+                iconImageHref: pin,
+              }}
             />
-            <Circle
-              center={center}
-              pathOptions={{ fillColor: "red" }}
-              radius={100}
-              stroke={false}
-            />
-            <LayerGroup>
-              <Circle
-                center={[51.51, -0.08]}
-                pathOptions={{ color: "green", fillColor: "green" }}
-                radius={100}
-              />
-            </LayerGroup>
-          </LayerGroup>
-        </LayersControl.Overlay>
-        <LayersControl.Overlay name="Feature group">
-          <FeatureGroup pathOptions={{ color: "purple" }}>
-            <Popup>Popup in FeatureGroup</Popup>
-            <Circle center={[51.51, -0.06]} radius={200} />
-            <Rectangle bounds={rectangle} />
-          </FeatureGroup>
-        </LayersControl.Overlay>
-      </LayersControl>
-    </MapContainer>
+          )}
+
+          <Polyline
+            geometry={[
+              [40.96299228337921, 71.68732205954962],
+              [40.96481401312289, 71.63891355124882],
+              [40.98615050219515, 71.59908811179571],
+              [41.00383890153776, 71.58363858786991],
+              [41.01502174453666, 71.60698453513555],
+              [41.02360262929261, 71.62140409079963],
+              [41.026722671736955, 71.64818326560429],
+              [41.03036253299224, 71.67667905417852],
+              [41.015541830223775, 71.68869535056524],
+              [41.006439733364445, 71.69933835593633],
+              [40.99447505056397, 71.70483151999882],
+              [40.97782489477923, 71.71204129783082],
+              [40.96160154909337, 71.6880053606493],
+              [40.96299228337921, 71.68732205954962],
+            ]}
+            options={{
+              balloonCloseButton: false,
+              strokeColor: "#000",
+              strokeWidth: 4,
+              strokeOpacity: 0.5,
+            }}
+          />
+        </Map>
+        <button onClick={getCurrentLocation}>
+          <MdOutlineMyLocation />
+        </button>
+      </div>
+    </YMaps>
   );
-};
+});
