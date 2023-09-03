@@ -4,7 +4,7 @@ import { YMaps, Map, Placemark, Polyline } from "@pbe/react-yandex-maps";
 import { ImArrowLeft2 } from "react-icons/im";
 import { useNavigate } from "react-router-dom";
 
-import pin from "../../assets/img/black pin.png";
+import pin from "../assets/images/black pin.png";
 import { MdOutlineMyLocation } from "react-icons/md";
 
 export const Home = memo(() => {
