@@ -7,7 +7,7 @@ export const favoriteAPi = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: base_url }),
   tagTypes: ["favorite"],
   endpoints: (builder) => ({
-    // add to favorite "/add/toCart/:user_id/;id"
+    // add to favorite "/add/toCart/:user_id/;id" 
     addFavRes: builder.mutation({
       query: (body) => ({
         url: "add/favRes",
@@ -41,8 +41,8 @@ export const favoriteAPi = createApi({
         headers: {
           Authorization: `Bearer ${user?.token}`,
         },
-        providesTags: ["favorite"],
       }),
+      providesTags: ["favorite"],
     }),
 
     // update restaurant  by user's  gave raiting "/update/money/:id" (private) (PATCH)
@@ -54,7 +54,7 @@ export const favoriteAPi = createApi({
           "Content-Type": "application/json",
           Authorization: `Bearer ${user?.token}`,
         },
-        body: data.raiting,
+        body: { rating: data?.rating },
       }),
       invalidatesTags: ["favorite"],
     }),

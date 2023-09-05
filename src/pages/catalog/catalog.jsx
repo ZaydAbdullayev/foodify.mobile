@@ -81,7 +81,7 @@ export const Catalog = () => {
 
     if (categoryRefs.current[category]) {
       const categoryRef = categoryRefs.current[category];
-      categoryRef.scrollIntoView({ behavior: "smooth", block: "start" });
+      categoryRef.scrollIntoView({ behavior: "smooth", block: "center" });
     }
   };
 
@@ -128,7 +128,7 @@ export const Catalog = () => {
                   </span>
                   <p>
                     {shop?.innerData?.rating}
-                    <span>4.5</span>
+                    <span>{shop?.innerData?.views}</span>
                   </p>
                 </div>
                 <button className="restoran_btn" style={{ color: "#000" }}>

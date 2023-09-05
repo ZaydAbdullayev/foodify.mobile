@@ -17,10 +17,10 @@ export const MyFavorite = () => {
   const { data: shop = [] } = useGetFavResQuery(id);
   const [updateFavRes] = useUpdateFavResMutation();
 
-  const giveRaiting = async (raiting) => {
+  const giveRaiting = async (rating) => {
     const rdata = {
-      raiting: raiting?.state,
-      id: raiting?.id,
+      rating: rating?.state,
+      id: rating?.id,
       user_id: id,
     };
     const { data } = await updateFavRes(rdata);
@@ -34,7 +34,7 @@ export const MyFavorite = () => {
         {shop?.innerData?.map((item) => {
           return (
             <div key={item?.id} className="fovorite_item">
-              <figure>
+              <figure onClick={() => navigate(`/catalog/${item?.id}`)}>
                 <ImgService src={item?.img} fallbackSrcRes alt="" />
               </figure>
               <div className="res_raiting">
@@ -42,33 +42,33 @@ export const MyFavorite = () => {
                 <div className="give_raiting">
                   <span
                     onClick={() => giveRaiting({ id: item?.id, state: 1 })}
-                    style={item?.state >= 1 ? { color: "#fc0" } : {}}
+                    style={item?.rating >= 1 ? { color: "#fc0" } : {}}
                   >
-                    {item?.state >= 1 ? <BsStarFill /> : <FiStar />}
+                    {item?.rating >= 1 ? <BsStarFill /> : <FiStar />}
                   </span>
                   <span
                     onClick={() => giveRaiting({ id: item?.id, state: 2 })}
-                    style={item?.state >= 2 ? { color: "#fc0" } : {}}
+                    style={item?.rating >= 2 ? { color: "#fc0" } : {}}
                   >
-                    {item?.state >= 2 ? <BsStarFill /> : <FiStar />}
+                    {item?.rating >= 2 ? <BsStarFill /> : <FiStar />}
                   </span>
                   <span
                     onClick={() => giveRaiting({ id: item?.id, state: 3 })}
-                    style={item?.state >= 3 ? { color: "#fc0" } : {}}
+                    style={item?.rating >= 3 ? { color: "#fc0" } : {}}
                   >
-                    {item?.state >= 3 ? <BsStarFill /> : <FiStar />}
+                    {item?.rating >= 3 ? <BsStarFill /> : <FiStar />}
                   </span>
                   <span
                     onClick={() => giveRaiting({ id: item?.id, state: 4 })}
-                    style={item?.state >= 4 ? { color: "#fc0" } : {}}
+                    style={item?.rating >= 4 ? { color: "#fc0" } : {}}
                   >
-                    {item?.state >= 4 ? <BsStarFill /> : <FiStar />}
+                    {item?.rating >= 4 ? <BsStarFill /> : <FiStar />}
                   </span>
                   <span
                     onClick={() => giveRaiting({ id: item?.id, state: 5 })}
-                    style={item?.state >= 5 ? { color: "#fc0" } : {}}
+                    style={item?.rating >= 5 ? { color: "#fc0" } : {}}
                   >
-                    {item?.state >= 5 ? <BsStarFill /> : <FiStar />}
+                    {item?.rating >= 5 ? <BsStarFill /> : <FiStar />}
                   </span>
                 </div>
               </div>
