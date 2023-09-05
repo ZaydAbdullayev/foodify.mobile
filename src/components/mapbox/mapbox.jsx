@@ -1,15 +1,18 @@
 import React, { useState, memo } from "react";
-import "./home.css";
+import "./mapbox.css";
 import { YMaps, Map, Placemark, Polyline } from "@pbe/react-yandex-maps";
 import { ImArrowLeft2 } from "react-icons/im";
 import { useNavigate } from "react-router-dom";
+import { acLocation } from "../../redux/location";
+import { useDispatch } from "react-redux";
 
 import pin from "../assets/images/black pin.png";
 import { MdOutlineMyLocation } from "react-icons/md";
 
-export const Home = memo(() => {
+export const LocationMap = memo(() => {
   const [clickedCoordinates, setClickedCoordinates] = useState(null);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const center = clickedCoordinates?.length
     ? [...clickedCoordinates]
@@ -24,17 +27,23 @@ export const Home = memo(() => {
     navigator.geolocation.getCurrentPosition((position) => {
       const { latitude, longitude } = position.coords;
       setClickedCoordinates([latitude, longitude]);
-
-      window.navigator.vibrate(200);
     });
+  };
+
+  const addLoaction = () => {
+    dispatch(acLocation(clickedCoordinates));
   };
 
   return (
     <YMaps>
-      <div className="map_box">
+      <div className="map_container">
         {/* My awesome application with maps!{" "}
         <span>{clickedCoordinates?.join(", ")}</span> */}
-        <span className="backword" onClick={() => navigate("/")}>
+        <span
+          className="backword"
+          onClick={() => navigate("/")}
+          style={{ color: "#333" }}
+        >
           <ImArrowLeft2 />
         </span>
         <Map
@@ -43,13 +52,8 @@ export const Home = memo(() => {
             zoom: 17,
             controls: [],
           }}
-          instanceRef={(ref) => {
-            if (ref) {
-              ref?.behaviors?.disable(["scrollZoom"]);
-            }
-          }}
           onClick={handleMapClick}
-          className="map_item"
+          className="map_container__map"
         >
           {clickedCoordinates && (
             <Placemark
@@ -87,9 +91,12 @@ export const Home = memo(() => {
             }}
           />
         </Map>
-        <button onClick={getCurrentLocation}>
-          <MdOutlineMyLocation />
-        </button>
+        <div className="geolocation">
+          <button onClick={addLoaction}>Locatsiyani tasdiqlash</button>
+          <button onClick={getCurrentLocation}>
+            <MdOutlineMyLocation />
+          </button>
+        </div>
       </div>
     </YMaps>
   );

@@ -1,10 +1,10 @@
-.map_box {
+.map_container {
     width: 100%;
-    height: 100dvh;
+    height: 100%;
     color: #fff;
 }
 
-.map_item {
+.map_container__map {
     width: 100%;
     height: 100%;
     display: flex;
@@ -13,16 +13,39 @@
     cursor: pointer;
 }
 
-.map_box>button {
+.geolocation {
     position: fixed;
-    bottom: 20px;
-    right: 20px;
-    width: 60px;
-    height: 60px;
-    background: none;
+    bottom: 80px;
+    right: 0;
+    width: 100%;
+    height: 50px;
+    padding: 0 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.geolocation button {
+    color: #fff;
+}
+
+.geolocation> :first-child {
+    width: calc(100% - 70px);
+    height: 100%;
+    border-radius: 15px;
     border: none;
-    font-size: 50px;
+    background: #333;
+    font-size: var(--fs4);
+}
+
+.geolocation>:last-child {
+    width: 50px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    font-size: 35px;
     background: #333;
     border-radius: 50%;
-    color: #fff;
 }

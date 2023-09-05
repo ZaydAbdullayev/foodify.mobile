@@ -4,6 +4,7 @@
     display: flex;
     gap: var(--gap1);
     background: var(--cl7);
+    padding-bottom: 11%;
 }
 
 /* ============== Product filter section ======= */
@@ -172,4 +173,5 @@
     text-transform: capitalize;
     border-bottom: 1px solid var(--cl5);
     transition: all 0.3s ease;
+    padding-top: 9%;
 }

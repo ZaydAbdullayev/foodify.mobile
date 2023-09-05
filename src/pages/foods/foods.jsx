@@ -4,11 +4,16 @@ import { NumericFormat } from "react-number-format";
 import { useNavigate } from "react-router-dom";
 import { ImgService } from "../../services/image.service";
 import { useGetfilterByCategoryMutation } from "../../services/product.service";
+import { acToggleModal } from "../../redux/modal";
+import { useDispatch } from "react-redux";
+
+import { LuSettings2 } from "react-icons/lu";
 
 export const Foods = () => {
   const [products, setProducts] = useState([]);
   const navigate = useNavigate();
   const [getfilterByCategory] = useGetfilterByCategoryMutation();
+  const dispatch = useDispatch();
 
   const totalProductCount = products?.reduce((count) => {
     return count + 1;
@@ -24,9 +29,18 @@ export const Foods = () => {
     filterCategory();
   }, []);
 
+  const handleOpen = () => {
+    dispatch(acToggleModal());
+  };
+
   return (
     <div className="foods_box">
-      <h1>Foods</h1>
+      <h1>
+        <p style={{ flex: "1" }}>Foods</p>
+        <span onClick={handleOpen}>
+          <LuSettings2 />
+        </span>
+      </h1>
       <div className="category">
         {category?.map((category) => {
           return (

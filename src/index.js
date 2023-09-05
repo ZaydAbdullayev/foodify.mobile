@@ -16,6 +16,7 @@ root.render(
         vertical: "top",
         horizontal: "center",
       }}
+      autoHideDuration={1800}
     >
       <BrowserRouter>
         <Router />

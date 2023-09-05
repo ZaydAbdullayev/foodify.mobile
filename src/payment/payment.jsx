@@ -200,7 +200,7 @@ export const Payment = () => {
           </span>
         </p>
         <div>
-          {cart?.map((item) => {
+          {cart?.cartItems?.map((item) => {
             return (
               <div className="cart_body__item payment_body" key={item?.name}>
                 <div className="payment_info_box">

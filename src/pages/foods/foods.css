@@ -8,8 +8,15 @@
 }
 
 .foods_box>h1 {
+    inline-size: 100%;
+    display: flex;
+    align-items: center;
     font-size: calc(var(--fs1) + 10px);
     margin: 5% 0 0 5%;
+}
+
+.foods_box>h1>span {
+    padding-right: 10%;
 }
 
 .category {

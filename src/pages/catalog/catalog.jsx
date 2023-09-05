@@ -81,10 +81,7 @@ export const Catalog = () => {
 
     if (categoryRefs.current[category]) {
       const categoryRef = categoryRefs.current[category];
-      categoryRef.scrollIntoView({
-        behavior: "smooth",
-        block: "center",
-      });
+      categoryRef.scrollIntoView({ behavior: "smooth", block: "start" });
     }
   };
 
