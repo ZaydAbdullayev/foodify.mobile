@@ -21,11 +21,13 @@ export const MyOrders = () => {
   const navigate = useNavigate();
   const { data: orders = [] } = useGetOrderQuery(id);
 
-  const compareByReceivedAt = (a, b) => {
-    const dateA = new Date(a.receivedAt);
-    const dateB = new Date(b.receivedAt);
-    return dateB - dateA;
-  };
+  // const compareByReceivedAt = (a, b) => {
+  //   if (orders?.innerData?.length > 0) {
+  //     const dateA = new Date(a.receivedAt);
+  //     const dateB = new Date(b.receivedAt);
+  //     return dateB - dateA;
+  //   }
+  // };
 
   return (
     <div className="my_orders animate__animated animate__fadeIn">
@@ -35,7 +37,7 @@ export const MyOrders = () => {
         </span>
         <p>Mening Buyurtmalarim</p>
       </pre>
-      {orders?.innerData?.sort(compareByReceivedAt)?.map((order) => {
+      {orders?.innerData?.map((order) => {
         const products = JSON.parse(order?.product_data);
         const change = products?.find(({ status }) => status === "3");
         const time = order?.receivedAt

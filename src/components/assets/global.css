@@ -69,7 +69,7 @@ img {
 }
 
 .animate__animated.animate__bounce {
-    --animate-duration: 0.5s;
+    --animate-duration: 0.4s;
 }
 
 @keyframes mtanimation {
