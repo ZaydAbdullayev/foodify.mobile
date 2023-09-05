@@ -36,7 +36,7 @@ export const LocationMap = memo(() => {
 
   return (
     <YMaps>
-      <div className="map_container">
+      <div className="map_container animate__animated animate__fadeIn">
         {/* My awesome application with maps!{" "}
         <span>{clickedCoordinates?.join(", ")}</span> */}
         <span

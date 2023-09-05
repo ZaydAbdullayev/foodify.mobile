@@ -8,6 +8,7 @@ import {
   useUpdateFavResMutation,
 } from "../../services/fav.service";
 import { enqueueSnackbar as es } from "notistack";
+import { ImgService } from "../../services/image.service";
 
 export const MyFavorite = () => {
   const user = JSON?.parse(localStorage?.getItem("customer")) || [];
@@ -27,14 +28,14 @@ export const MyFavorite = () => {
   };
 
   return (
-    <div className="my_favorite">
+    <div className="my_favorite animate__animated animate__fadeIn">
       <h1>Men yoqtirgan restoranlar</h1>
       <div className="fovorite_card">
         {shop?.innerData?.map((item) => {
           return (
             <div key={item?.id} className="fovorite_item">
               <figure>
-                <img src={item?.img} alt="" />
+                <ImgService src={item?.img} fallbackSrcRes alt="" />
               </figure>
               <div className="res_raiting">
                 <p style={{ flex: "1" }}>{item?.username}</p>

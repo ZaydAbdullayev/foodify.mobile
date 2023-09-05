@@ -30,7 +30,7 @@ export const Home = () => {
   const locationOptions = ["Option 1", "Option 2", "Option 3"];
 
   return (
-    <div className="home_page">
+    <div className="home_page animate__animated animate__fadeIn">
       <div className="header">
         <div className="navigation_panel">
           <label>

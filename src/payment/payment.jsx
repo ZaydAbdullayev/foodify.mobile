@@ -112,7 +112,7 @@ export const Payment = () => {
   };
 
   return (
-    <div className="payment_box">
+    <div className="payment_box animate__animated animate__fadeIn">
       <pre>
         <span onClick={() => navigate(-1)}>
           <ImArrowLeft2 />

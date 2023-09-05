@@ -71,7 +71,7 @@ export const Cart = memo(({ setOpen }) => {
 
   return (
     <div className="cart_box">
-      <div className="cart_show_product">
+      <div className="cart_show_product animate__animated animate__fadeIn">
         <div>
           <p>Savat</p>
           <button onClick={handleDelCart}>tozalash</button>

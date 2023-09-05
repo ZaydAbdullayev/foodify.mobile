@@ -24,6 +24,7 @@
     justify-content: space-between;
     border-bottom: 1px solid var(--cl5);
     font-size: var(--fs5);
+    padding-bottom: 3%;
 }
 
 .cart_show_product>:first-child>button {

@@ -10,7 +10,7 @@ import default_img from "../../components/assets/images/default-img.png";
 import { HiGift } from "react-icons/hi";
 import { IoIosCar, IoIosPeople } from "react-icons/io";
 import { MdAddHomeWork, MdHelp } from "react-icons/md";
-import { CgLogOut } from "react-icons/cg";
+import { BiLogOutCircle } from "react-icons/bi";
 
 export const MyProfil = () => {
   const customer = JSON?.parse(localStorage?.getItem("customer")) || null;
@@ -24,7 +24,7 @@ export const MyProfil = () => {
   };
 
   return (
-    <div className="my_profil">
+    <div className="my_profil animate__animated animate__fadeIn">
       <div className="user_info">
         <h1 style={{ textTransform: "capitalize" }}>
           {users?.innerData?.username || "Username"}
@@ -58,7 +58,7 @@ export const MyProfil = () => {
         })}
         <button onClick={logout}>
           <span>
-            <CgLogOut />
+            <BiLogOutCircle />
           </span>{" "}
           Hisobdan chiqish
         </button>

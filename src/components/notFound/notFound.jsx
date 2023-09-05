@@ -7,7 +7,7 @@ export const NotFound = () => {
   const location = useLocation().pathname.substring(0, 11);
 
   return (
-    <div className="not_found_box">
+    <div className="not_found_box animate__animated animate__fadeIn">
       <span className="backword" onClick={() => navigate(location)}>
         <ImArrowLeft2 />
       </span>

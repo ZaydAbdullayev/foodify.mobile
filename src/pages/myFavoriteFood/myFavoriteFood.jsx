@@ -80,7 +80,7 @@ export const MyFavFood = () => {
   };
 
   return (
-    <div className="my_favorite">
+    <div className="my_favorite animate__animated animate__fadeIn">
       <h1>Sevimli Ovqatlarim</h1>
       <div className="food_fav">
         {product?.innerData?.map((item) => {

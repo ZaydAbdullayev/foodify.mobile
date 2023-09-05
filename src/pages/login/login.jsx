@@ -44,7 +44,7 @@ export const Signin = () => {
   };
 
   return (
-    <div className="login_container">
+    <div className="login_container animate__animated animate__fadeIn">
       <div className="login">
         <h1>Foodify</h1>
         <div className="login_header">

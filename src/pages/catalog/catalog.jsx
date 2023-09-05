@@ -86,7 +86,7 @@ export const Catalog = () => {
   };
 
   return (
-    <div className="catalog_page">
+    <div className="catalog_page animate__animated animate__fadeIn">
       {/* =========== show product section ============= */}
       <div className="product_show">
         <figure className="about_restoran" key={id}>

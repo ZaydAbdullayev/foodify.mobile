@@ -15,9 +15,12 @@
    padding: var(--pd6);
 
    >h1 {
-      inline-size: calc(100% - 100px);
+      inline-size: calc(100% - 60px);
       color: var(--cl1);
       font-size: calc(var(--fs1) + 10px);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
    }
 
 }
@@ -85,7 +88,7 @@
    border-radius: 30px 30px 0 0;
 }
 
-.user_menu> :where(a, button) {
+.user_menu> :where(a) {
    inline-size: 100%;
    padding: 0 5%;
    display: flex;
@@ -109,6 +112,14 @@
 
 
 .user_menu>button {
+   inline-size: 100%;
+   padding: 0 5%;
+   display: flex;
+   align-items: center;
+   font-size: var(--fs4);
+   color: var(--cl1);
+   letter-spacing: 0.2rem;
+   transition: all 0.3s ease;
    background: none;
    border: none;
 }
