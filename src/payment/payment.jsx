@@ -255,7 +255,7 @@ export const Payment = () => {
           </p>
         </div>
       </div>
-      <div className="payment_postcard">
+      {/* <div className="payment_postcard">
         <div className="payment_header" onClick={() => setOpen(false)}>
           <div
             className={active === 1 ? "payment_item active" : "payment_item"}
@@ -350,7 +350,7 @@ export const Payment = () => {
             </figure>
           </div>
         )}
-      </div>
+      </div> */}
       <button onClick={handlePayment} className="payment_btn">
         Buyurtma berish
       </button>
