@@ -26,6 +26,9 @@ export const Cart = memo(({ setOpen }) => {
 
   const updateCart = async (item) => {
     const endpoint = `/remove/cartItem/${user_id}/${item?.id}`;
+    if (data?.cartItems?.length === 1 && data?.cartItems[0]?.quantity === 1) {
+      window.location.reload();
+    }
 
     const Udata = {
       item,
@@ -47,6 +50,9 @@ export const Cart = memo(({ setOpen }) => {
           variant: "error",
         });
       if (data) es("Mahsulot savatdan o'chirildi!", { variant: "warning" });
+      if (data?.cartItems?.length === 1 && data?.cartItems[0]?.quantity === 1) {
+        window.location.reload();
+      }
     }
   };
 
@@ -66,7 +72,7 @@ export const Cart = memo(({ setOpen }) => {
         });
       if (data) es("Mahsulot savatdan o'chirildi!", { variant: "warning" });
       setOpen(false);
-      if (data?.cartItems?.length === 0) window.location.reload();
+      window.location.reload();
     }
   };
 

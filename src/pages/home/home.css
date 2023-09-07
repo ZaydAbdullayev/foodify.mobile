@@ -5,7 +5,6 @@
     flex-direction: column;
     overflow-y: auto;
     background: var(--cl7);
-    overscroll-behavior: initial;
 }
 
 .restaurant_carusel {

@@ -60,8 +60,6 @@ export const CatalogCard = memo(({ restaurantId, category }) => {
       user_id,
     };
 
-    console.log(Udata);
-
     if (item?.quantity > 0) {
       const { error, data } = await updateCartById(Udata);
       if (error)
@@ -70,7 +68,6 @@ export const CatalogCard = memo(({ restaurantId, category }) => {
         es("Mahsulot savatga muvoffaqiyatli qo'shildi!", {
           variant: "success",
         });
-      console.log(data);
     } else {
       setEffect(item.id);
       const { error, data } = await deleteCart(endpoint);
@@ -80,6 +77,12 @@ export const CatalogCard = memo(({ restaurantId, category }) => {
         });
       if (data) {
         es("Mahsulot savatdan o'chirildi!", { variant: "warning" });
+      }
+      if (
+        cartProduct?.cartItems?.length === 1 &&
+        cartProduct?.cartItems[0]?.quantity === 1
+      ) {
+        window.location.reload();
       }
     }
   };
@@ -131,13 +134,10 @@ export const CatalogCard = memo(({ restaurantId, category }) => {
 
         return (
           <figure
-            className="catalog_product"
-            key={item?.id}
-            style={
-              item?.status === 0
-                ? { opacity: "0.4", cursor: "not-allowed" }
-                : {}
+            className={
+              item?.status === 0 ? "catalog_product none" : "catalog_product"
             }
+            key={item?.id}
           >
             <ImgService src={item?.img} fallbackSrc alt="images" />
             <figcaption className="product_info">

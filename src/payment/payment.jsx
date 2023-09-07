@@ -4,7 +4,7 @@ import "./pyment.media.css";
 import { useSelector } from "react-redux";
 import { enqueueSnackbar as es } from "notistack";
 import { CalculateTotalPrice } from "../services/calc.service";
-import { NumericFormat, PatternFormat } from "react-number-format";
+import { NumericFormat} from "react-number-format";
 import { useParams, useNavigate } from "react-router-dom";
 import { SiHomeadvisor } from "react-icons/si";
 import { MdDelete } from "react-icons/md";
@@ -17,15 +17,7 @@ import {
 import { useGetFavDataQuery } from "../services/fav.service";
 import { useResieveOrderMutation } from "../services/user.service";
 
-const bankImages = {
-  humo: require("../components/assets/images/humo.jpg"),
-  visa: require("../components/assets/images/Visa_Inc.-Logo.wine.png"),
-  click: require("../components/assets/images/Click-01.png"),
-  mastercard: require("../components/assets/images/Mastercard-Logo.wine.png"),
-  uzum: require("../components/assets/images/UZUM_BANK-01.png"),
-  payme: require("../components/assets/images/payme-01.png"),
-  uzcard: require("../components/assets/images/Uzcard_Logo-700x367.png"),
-};
+
 
 export const Payment = () => {
   const user = useMemo(
@@ -35,9 +27,6 @@ export const Payment = () => {
   const location = useSelector((state) => state.location);
   const [write, setWrite] = useState(false);
   const [adress_info, setAdress_info] = useState({});
-  const [active, setActive] = useState(0);
-  const [open, setOpen] = useState(false);
-  const [bg, setBg] = useState("");
   const user_id = user?.users?.id;
   const id = useParams()?.id;
   const navigate = useNavigate();
@@ -82,6 +71,9 @@ export const Payment = () => {
       const { error, data } = await deleteCartById(endpoint);
       if (error) return es("Qandaydir muammo yuz berdi", { variant: "error" });
       if (data) es("Mahsulot savatdan o'chirildi!", { variant: "warning" });
+      if (cart?.cartItems?.length === 1 && cart?.cartItems[0]?.quantity === 1) {
+        window.location.reload();
+      }
     }
   };
 
@@ -93,7 +85,7 @@ export const Payment = () => {
       const { error, data } = await deleteCartById(endpoint);
       if (error) return es("Qandaydir muammo yuz berdi", { variant: "error" });
       if (data) es("Mahsulot savatdan o'chirildi!", { variant: "warning" });
-      setOpen(false);
+      window.location.reload();
     }
   };
 
@@ -254,102 +246,7 @@ export const Payment = () => {
           </p>
         </div>
       </div>
-      {/* <div className="payment_postcard">
-        <div className="payment_header" onClick={() => setOpen(false)}>
-          <div
-            className={active === 1 ? "payment_item active" : "payment_item"}
-            onClick={() => setActive(1)}
-          >
-            <img src={bankImages.humo} alt="bank" />
-            <img src={bankImages.uzcard} alt="bank" />
-            <p>Sum cards (0%)</p>
-          </div>
-          <div
-            className={active === 2 ? "payment_item active" : "payment_item"}
-            onClick={() => setActive(2)}
-          >
-            <img src={bankImages.visa} alt="bank" />
-            <img src={bankImages.mastercard} alt="bank" />
-            <p>Sum cards (0%)</p>
-          </div>
-          <div
-            className={active === 3 ? "payment_item active" : "payment_item"}
-            onClick={() => setActive(3)}
-          >
-            <img src={bankImages.payme} alt="bank" />
-            <img src={bankImages.click} alt="bank" />
-            <img src={bankImages.uzum} alt="bank" />
-            <p>Sum cards (0%)</p>
-          </div>
-        </div>
-
-        {active === 1 ? (
-          <form
-            className="payment_body2"
-            style={{
-              flexDirection: "column",
-              position: "relative",
-              overflow: "hidden",
-            }}
-          >
-            <div className="add_card" onClick={() => setOpen(true)}>
-              ADD card +
-            </div>
-            <div
-              className={
-                bg === "9"
-                  ? "card_item humo"
-                  : bg === "4"
-                  ? "card_item visa"
-                  : bg === "8"
-                  ? "card_item uzcard"
-                  : "card_item"
-              }
-              style={open ? { top: "50%" } : {}}
-            >
-              <PatternFormat
-                format="#### #### #### ####"
-                displayType="input"
-                name="card_name"
-                required
-                autoComplete="off"
-                placeholder="Karta raqami"
-                onChange={(e) => setBg(e.target.value.substring(0, 1))}
-              />
-              <PatternFormat
-                format="##/##"
-                displayType="input"
-                name="card_month"
-                required
-                placeholder="Amal qiladigan muddati"
-                autoComplete="off"
-              />
-              <button className="payment_btn">To'lash</button>
-            </div>
-          </form>
-        ) : active === 2 ? (
-          ""
-        ) : (
-          <div className="payment_body2">
-            <figure className="app_item">
-              <img src={bankImages.click} alt="bank" />
-              <p>(comission 0%)</p>
-            </figure>
-            <figure className="app_item">
-              <img src={bankImages.payme} alt="bank" />
-              <p>(comission 0%)</p>
-            </figure>
-            <figure className="app_item">
-              <img src={bankImages.uzum} alt="bank" />
-              <p>(comission 0%)</p>
-            </figure>
-            <figure className="app_item">
-              <img src={bankImages.click} alt="bank" />
-              <p>(comission 0%)</p>
-            </figure>
-          </div>
-        )}
-      </div> */}
+      
       <button onClick={handlePayment} className="payment_btn">
         Buyurtma berish
       </button>
