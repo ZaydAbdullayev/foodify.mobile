@@ -62,32 +62,32 @@ export const MyOrders = () => {
             <div className="orders_stution">
               <span>
                 <BsFillCartCheckFill
-                  style={order?.status >= 1 ? { color: "#38b000" } : {}}
+                  style={order?.status >= 1 ? { color: "#2ceb1a" } : {}}
                 />
                 {/* <span>Buyurtmangiz qabul qilinishi kutilmoqda...</span> */}
               </span>{" "}
               <p
-                style={order?.status >= 1 ? { background: "#38b000" } : {}}
+                style={order?.status >= 1 ? { background: "#2ceb1a" } : {}}
               ></p>{" "}
               <span>
                 <LuChefHat
-                  style={order?.status >= 2 ? { color: "#38b000" } : {}}
+                  style={order?.status >= 2 ? { color: "#2ceb1a" } : {}}
                 />
               </span>{" "}
               <p
-                style={order?.status >= 2 ? { background: "#38b000" } : {}}
+                style={order?.status >= 2 ? { background: "#2ceb1a" } : {}}
               ></p>{" "}
               <span>
                 <TbTruckDelivery
-                  style={order?.status >= 3 ? { color: "#38b000" } : {}}
+                  style={order?.status >= 3 ? { color: "#2ceb1a" } : {}}
                 />
               </span>{" "}
               <p
-                style={order?.status >= 3 ? { background: "#38b000" } : {}}
+                style={order?.status >= 3 ? { background: "#2ceb1a" } : {}}
               ></p>{" "}
               <span>
                 <BsFillHouseCheckFill
-                  style={order?.status >= 4 ? { color: "#38b000" } : {}}
+                  style={order?.status >= 4 ? { color: "#2ceb1a" } : {}}
                 />
               </span>
             </div>

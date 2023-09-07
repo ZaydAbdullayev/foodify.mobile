@@ -105,9 +105,8 @@ export const Payment = () => {
     if (data) {
       es("Buyurtmangiz restoranga yuborildi", { variant: "success" });
       navigate("/my/orders");
-      const { error, data } = await deleteCartById(endpoint);
-      if (error) return es("Qandaydir muammo yuz berdi", { variant: "error" });
-      if (data) es("Mahsulot savatdan o'chirildi!", { variant: "warning" });
+      const { error } = await deleteCartById(endpoint);
+      if (error) return console.log(error);
     }
   };
 

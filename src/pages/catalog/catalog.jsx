@@ -60,7 +60,7 @@ export const Catalog = () => {
       const { error, data } = await addFavRes(shop_data);
       if (error)
         return es("Yoqtirilganlarga qo'shishda muammo yuz berdi", {
-          variant: "error",
+          variant: "warning",
         });
       if (data)
         es("Yoqtirilganlarga muvoffaqiyatli qo'shildi!", {
@@ -68,6 +68,7 @@ export const Catalog = () => {
         });
     } else {
       const { error, data } = await deleteFavRes(shop_data);
+      console.log(shop_data);
       if (error)
         return es("Yoqtirilganlardan o'chirishda muammo yuz berdi", {
           variant: "error",

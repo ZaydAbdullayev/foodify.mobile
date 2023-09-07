@@ -7,7 +7,7 @@ export const favoriteAPi = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: base_url }),
   tagTypes: ["favorite"],
   endpoints: (builder) => ({
-    // add to favorite "/add/toCart/:user_id/;id" 
+    // add to favorite "/add/toCart/:user_id/;id"
     addFavRes: builder.mutation({
       query: (body) => ({
         url: "add/favRes",
@@ -62,7 +62,7 @@ export const favoriteAPi = createApi({
     // delete favorite restaurant "/delete/favRes/:user_id/:id"
     deleteFavRes: builder.mutation({
       query: (endpoint) => ({
-        url: endpoint,
+        url: `remove/restaurant/${endpoint?.user_id}/${endpoint?.id}`,
         method: "DELETE",
         headers: {
           Authorization: `Bearer ${user?.token}`,
