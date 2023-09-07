@@ -30,7 +30,7 @@ export const MyOrders = () => {
   // };
 
   return (
-    <div className="my_orders animate__animated animate__fadeIn">
+    <div className="my_orders">
       <pre>
         <span onClick={() => navigate(-1)}>
           <ImArrowLeft2 />

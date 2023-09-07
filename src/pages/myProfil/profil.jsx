@@ -24,7 +24,7 @@ export const MyProfil = () => {
   };
 
   return (
-    <div className="my_profil animate__animated animate__fadeIn">
+    <div className="my_profil">
       <div className="user_info">
         <h1 style={{ textTransform: "capitalize" }}>
           {users?.innerData?.username || "Username"}

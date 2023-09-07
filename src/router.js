@@ -33,6 +33,23 @@ export const Router = () => {
     };
   }, []);
 
+    // useEffect(() => {
+    //   const handleScroll = () => {
+    //     // Sayfanın en üstünden aşağı kaydırıldığında sayfayı yeniden yükle
+    //     if (window.scrollY === 0) {
+    //       window.location.reload();
+    //     }
+    //   };
+
+    //   // Scroll olayını dinlemek için bir dinleyici ekleyin
+    //   window.addEventListener("scroll", handleScroll);
+
+    //   // Komponent temizlendiğinde dinleyiciyi kaldırın
+    //   return () => {
+    //     window.removeEventListener("scroll", handleScroll);
+    //   };
+    // }, []);
+
   // useEffect(() => {
   //   if (isMobile) {
   //     window.location.href = `https://mobile.foodify.uz`;

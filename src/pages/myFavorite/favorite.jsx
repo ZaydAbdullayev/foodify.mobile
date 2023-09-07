@@ -28,7 +28,7 @@ export const MyFavorite = () => {
   };
 
   return (
-    <div className="my_favorite animate__animated animate__fadeIn">
+    <div className="my_favorite">
       <h1>Men yoqtirgan restoranlar</h1>
       <div className="fovorite_card">
         {shop?.innerData?.map((item) => {

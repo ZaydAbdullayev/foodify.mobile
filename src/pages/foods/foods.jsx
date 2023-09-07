@@ -34,7 +34,7 @@ export const Foods = () => {
   };
 
   return (
-    <div className="foods_box animate__animated animate__fadeIn">
+    <div className="foods_box">
       <h1>
         <p style={{ flex: "1" }}>Foods</p>
         <span onClick={handleOpen}>

@@ -66,12 +66,13 @@ export const Cart = memo(({ setOpen }) => {
         });
       if (data) es("Mahsulot savatdan o'chirildi!", { variant: "warning" });
       setOpen(false);
+      if (data?.cartItems?.length === 0) window.location.reload();
     }
   };
 
   return (
     <div className="cart_box">
-      <div className="cart_show_product animate__animated animate__fadeIn">
+      <div className="cart_show_product">
         <div>
           <p>Savat</p>
           <button onClick={handleDelCart}>tozalash</button>
