@@ -5,6 +5,7 @@ import { Cart } from "../cart/cart";
 import { menu } from "./menu";
 import { QuecklyFilter } from "../../components/navbar/navbar";
 import { useGetCartCountQuery } from "../../services/cart.service";
+import { Message } from "../../components/nothification/message";
 
 import { BsChevronCompactDown, BsChevronCompactUp } from "react-icons/bs";
 import active from "./active_11.png";
@@ -113,6 +114,9 @@ export const Layout = () => {
 
       {/* =============== filter product and restaurant section ============ */}
       <QuecklyFilter />
+
+      {/* =============== message section ============ */}
+      <Message />
     </div>
   );
 };
