@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./home.css";
 import { useNavigate } from "react-router-dom";
 import { Navbar } from "../../components/navbar/navbar";
@@ -18,6 +18,18 @@ export const Home = () => {
   const search_data = useSelector((state) => state.search);
   const { data: restaurant = [] } = useGetAllRestaurantQuery();
   const { data: popular = [] } = useGetPopularResQuery();
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY === 0) {
+        window.location.reload();
+      }
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
 
   function viewShop(id) {
     navigate(`/catalog/${id}`);
