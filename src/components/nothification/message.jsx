@@ -1,8 +1,14 @@
 import React, { useState } from "react";
 import "./message.css";
+import io from "socket.io-client";
+
+const socket = io("http://localhost:5005");
 
 export const Message = (props) => {
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(false);
+
+  socket.on("/get/message", (data) => setOpen(data));
+
   return (
     <div className={open ? "message_body open" : "message_body"}>
       <div className="message_content">

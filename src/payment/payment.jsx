@@ -4,20 +4,20 @@ import "./pyment.media.css";
 import { useSelector } from "react-redux";
 import { enqueueSnackbar as es } from "notistack";
 import { CalculateTotalPrice } from "../services/calc.service";
-import { NumericFormat} from "react-number-format";
+import { NumericFormat } from "react-number-format";
 import { useParams, useNavigate } from "react-router-dom";
-import { SiHomeadvisor } from "react-icons/si";
-import { MdDelete } from "react-icons/md";
-import { ImArrowLeft2 } from "react-icons/im";
+import oi from "socket.io-client";
 import {
   useGetCartProductQuery,
   useDeleteCartByIdMutation,
   useUpdateCartByIdMutation,
 } from "../services/cart.service";
 import { useGetFavDataQuery } from "../services/fav.service";
-import { useResieveOrderMutation } from "../services/user.service";
+import { SiHomeadvisor } from "react-icons/si";
+import { MdDelete } from "react-icons/md";
+import { ImArrowLeft2 } from "react-icons/im";
 
-
+const socket = oi("https://backup1.foodify.uz");
 
 export const Payment = () => {
   const user = useMemo(
@@ -35,18 +35,16 @@ export const Payment = () => {
   const total = CalculateTotalPrice(cart?.cartItems);
   const [deleteCartById] = useDeleteCartByIdMutation();
   const [updateCartById] = useUpdateCartByIdMutation();
-  const [resieveOrder] = useResieveOrderMutation();
-  console.log(location);
 
   const payment_data = {
     address: adress_info?.home,
     description: adress_info?.description,
     padyezd: adress_info?.padez,
     qavat: adress_info?.qavat,
-    product_data: JSON.stringify(cart.cartItems),
+    product_data: JSON.stringify(cart?.cartItems),
     payment: "token",
-    price: total,
-    user_id: user_id,
+    price: total || 0,
+    user_id: user_id || 0,
     restaurant_id: id,
     latitude: "4567584985784938574934857",
     longitude: "4567584985784938574934857",
@@ -89,17 +87,8 @@ export const Payment = () => {
     }
   };
 
-  const handlePayment = async () => {
-    const { error, data } = await resieveOrder(payment_data);
-    const endpoint = `empty/cart/${user_id}`;
-
-    if (error) return es("Xatolik yuz berdi", { variant: "warning" });
-    if (data) {
-      es("Buyurtmangiz restoranga yuborildi", { variant: "success" });
-      navigate("/my/orders");
-      const { error } = await deleteCartById(endpoint);
-      if (error) return console.log(error);
-    }
+  const resieveOrderS = () => {
+    socket.emit("/order", payment_data);
   };
 
   return (
@@ -246,8 +235,8 @@ export const Payment = () => {
           </p>
         </div>
       </div>
-      
-      <button onClick={handlePayment} className="payment_btn">
+
+      <button onClick={resieveOrderS} className="payment_btn">
         Buyurtma berish
       </button>
     </div>
