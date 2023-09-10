@@ -10,13 +10,13 @@ import pin from "../assets/images/black pin.png";
 import { MdOutlineMyLocation } from "react-icons/md";
 
 export const LocationMap = memo(() => {
-  const [clickedCoordinates, setClickedCoordinates] = useState(null);
+  const currentCoords = JSON.parse(localStorage.getItem("coords"));
+  const center = currentCoords || [41.002534933524345, 71.67760873138532];
+  const [clickedCoordinates, setClickedCoordinates] = useState(
+    currentCoords || null
+  );
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
-  const center = clickedCoordinates?.length
-    ? [...clickedCoordinates]
-    : [41.002534933524345, 71.67760873138532];
 
   const handleMapClick = (e) => {
     const coordinates = e.get("coords");
@@ -26,8 +26,9 @@ export const LocationMap = memo(() => {
   const getCurrentLocation = () => {
     navigator.geolocation.getCurrentPosition((position) => {
       const { latitude, longitude } = position.coords;
-      setClickedCoordinates([latitude, longitude]);
+      localStorage.setItem("coords", JSON.stringify([latitude, longitude]));
     });
+    window.location.reload();
   };
 
   const addLoaction = () => {
@@ -37,8 +38,6 @@ export const LocationMap = memo(() => {
   return (
     <YMaps>
       <div className="map_container animate__animated animate__fadeIn">
-        {/* My awesome application with maps!{" "}
-        <span>{clickedCoordinates?.join(", ")}</span> */}
         <span
           className="backword"
           onClick={() => navigate("/")}

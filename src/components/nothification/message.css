@@ -1,5 +1,5 @@
 .message_body {
-    width: 80%;
+    width: 90%;
     padding: 5%;
     background: #87ae73;
     color: #fff;
@@ -12,9 +12,10 @@
     align-items: flex-end;
     gap: 10px;
     z-index: 100;
-    font-size: var(--fs4);
+    font-size: var(--fs5);
     transition: all 0.5s ease;
     transition-timing-function: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    letter-spacing: 1px;
 }
 
 .open {

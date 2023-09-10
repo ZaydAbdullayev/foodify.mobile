@@ -6,7 +6,7 @@ import { enqueueSnackbar as es } from "notistack";
 import { CalculateTotalPrice } from "../services/calc.service";
 import { NumericFormat } from "react-number-format";
 import { useParams, useNavigate } from "react-router-dom";
-import oi from "socket.io-client";
+import { io } from "socket.io-client";
 import {
   useGetCartProductQuery,
   useDeleteCartByIdMutation,
@@ -17,7 +17,7 @@ import { SiHomeadvisor } from "react-icons/si";
 import { MdDelete } from "react-icons/md";
 import { ImArrowLeft2 } from "react-icons/im";
 
-const socket = oi("https://backup1.foodify.uz");
+const socket = io("http://localhost:80");
 
 export const Payment = () => {
   const user = useMemo(
@@ -35,12 +35,14 @@ export const Payment = () => {
   const total = CalculateTotalPrice(cart?.cartItems);
   const [deleteCartById] = useDeleteCartByIdMutation();
   const [updateCartById] = useUpdateCartByIdMutation();
+  const endpoint = `empty/cart/${user_id}`;
+  console.log(location);
 
   const payment_data = {
-    address: adress_info?.home,
-    description: adress_info?.description,
-    padyezd: adress_info?.padez,
-    qavat: adress_info?.qavat,
+    address: adress_info?.home || "",
+    description: adress_info?.description || "",
+    padyezd: adress_info?.padez || "",
+    qavat: adress_info?.qavat || "",
     product_data: JSON.stringify(cart?.cartItems),
     payment: "token",
     price: total || 0,
@@ -77,7 +79,6 @@ export const Payment = () => {
 
   const clearCart = async () => {
     const confirm = window.confirm("Cart tozalansinmi");
-    const endpoint = `empty/cart/${user_id}`;
 
     if (confirm) {
       const { error, data } = await deleteCartById(endpoint);
@@ -87,8 +88,12 @@ export const Payment = () => {
     }
   };
 
-  const resieveOrderS = () => {
+  const resieveOrderS = async () => {
     socket.emit("/order", payment_data);
+    const { error, data } = await deleteCartById(endpoint);
+    if (error) return es("Qandaydir muammo yuz berdi", { variant: "error" });
+    if (data) es("Mahsulot savatdan o'chirildi!", { variant: "warning" });
+    navigate("/my/orders");
   };
 
   return (

@@ -2,19 +2,45 @@ import React, { useState } from "react";
 import "./message.css";
 import io from "socket.io-client";
 
-const socket = io("http://localhost:5005");
+const socket = io("http://localhost:80");
 
 export const Message = (props) => {
   const [open, setOpen] = useState(false);
+  const [message, setMessage] = useState("");
 
-  socket.on("/get/message", (data) => setOpen(data));
+  socket.on("/get/message", (data) => {
+    setOpen(data.status);
+    setMessage(data.variant);
+    socket.off("/get/message");
+  });
 
   return (
-    <div className={open ? "message_body open" : "message_body"}>
+    <div
+      className={open ? "message_body open" : "message_body"}
+      style={message === 6 ? { background: "#ffa62b" } : {}}
+    >
       <div className="message_content">
-        <p>Buyurtmangiz qabul qilindi !</p>
+        {message === 1 ? (
+          <p>Buyurtmangiz qabul qilindi !</p>
+        ) : message === 6 ? (
+          <p>
+            Buyurtmangiz bekor qilindi. Noqulayliklar uchun uzur so'raymiz !
+          </p>
+        ) : message === 3 ? (
+          <p>Xurmatli mijoy buyurtmangiz tayyor va sizga yetkazilmoqda !</p>
+        ) : (
+          <p>
+            Buyurtma yetib keldi iltimos qabul qilib oling. Foodify jamoasi
+            nomidan Yoqimli ishtaha !
+          </p>
+        )}
       </div>
-      <button onClick={() => setOpen(false)}>Ok</button>
+      <button
+        onClick={() => setOpen(false)}
+        style={message === 6 ? { color: "#ffa62b" } : {}}
+      >
+        Ok
+      </button>
     </div>
   );
 };
