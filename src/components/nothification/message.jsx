@@ -2,16 +2,18 @@ import React, { useState } from "react";
 import "./message.css";
 import io from "socket.io-client";
 
-const socket = io("http://localhost:80");
+const socket = io("https://backup1.foodify.uz");
 
 export const Message = (props) => {
   const [open, setOpen] = useState(false);
   const [message, setMessage] = useState("");
+  const user = JSON?.parse(localStorage?.getItem("customer")) || [];
+  const id = user?.users?.id;
 
-  socket.on("/get/message", (data) => {
+  socket.on(`/get/message/${id}`, (data) => {
     setOpen(data.status);
     setMessage(data.variant);
-    socket.off("/get/message");
+    socket.off(`/get/message/${id}`);
   });
 
   return (

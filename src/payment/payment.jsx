@@ -1,7 +1,6 @@
 import React, { useState, useMemo } from "react";
 import "./payment.css";
 import "./pyment.media.css";
-import { useSelector } from "react-redux";
 import { enqueueSnackbar as es } from "notistack";
 import { CalculateTotalPrice } from "../services/calc.service";
 import { NumericFormat } from "react-number-format";
@@ -17,14 +16,13 @@ import { SiHomeadvisor } from "react-icons/si";
 import { MdDelete } from "react-icons/md";
 import { ImArrowLeft2 } from "react-icons/im";
 
-const socket = io("http://localhost:80");
+const socket = io("https://backup1.foodify.uz");
 
 export const Payment = () => {
   const user = useMemo(
     () => JSON?.parse(localStorage?.getItem("customer")) || [],
     []
   );
-  const location = useSelector((state) => state.location);
   const [write, setWrite] = useState(false);
   const [adress_info, setAdress_info] = useState({});
   const user_id = user?.users?.id;
@@ -36,7 +34,6 @@ export const Payment = () => {
   const [deleteCartById] = useDeleteCartByIdMutation();
   const [updateCartById] = useUpdateCartByIdMutation();
   const endpoint = `empty/cart/${user_id}`;
-  console.log(location);
 
   const payment_data = {
     address: adress_info?.home || "",
@@ -72,6 +69,7 @@ export const Payment = () => {
       if (error) return es("Qandaydir muammo yuz berdi", { variant: "error" });
       if (data) es("Mahsulot savatdan o'chirildi!", { variant: "warning" });
       if (cart?.cartItems?.length === 1 && cart?.cartItems[0]?.quantity === 1) {
+        navigate(`/catalog/${id}`);
         window.location.reload();
       }
     }
@@ -92,7 +90,8 @@ export const Payment = () => {
     socket.emit("/order", payment_data);
     const { error, data } = await deleteCartById(endpoint);
     if (error) return es("Qandaydir muammo yuz berdi", { variant: "error" });
-    if (data) es("Mahsulot savatdan o'chirildi!", { variant: "warning" });
+    if (data) console.log("Mahsulot savatdan o'chirildi!");
+    window.location.reload();
     navigate("/my/orders");
   };
 
@@ -187,7 +186,7 @@ export const Payment = () => {
         <div>
           {cart?.cartItems?.map((item) => {
             return (
-              <div className="cart_body__item payment_body" key={item?.name}>
+              <div className="cart_body__item payment_body" key={item?.id}>
                 <div className="payment_info_box">
                   <img src={item?.img} alt="product_photo" />
                   <label>

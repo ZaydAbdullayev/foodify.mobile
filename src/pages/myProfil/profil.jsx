@@ -20,7 +20,7 @@ export const MyProfil = () => {
 
   const logout = () => {
     localStorage.removeItem("customer");
-    window.location.reload();
+    navigate("/login");
   };
 
   return (

@@ -53,7 +53,6 @@ export const Catalog = () => {
       id: id,
       state: state,
       user_id: user_id,
-      rating: shop?.innerData?.rating,
     };
 
     if (state === 1) {

@@ -1,5 +1,5 @@
 /* eslint-disable no-restricted-globals */
-// Service Workerni yaratish
+// Service Worker'ı Oluşturma
 self.addEventListener("install", (event) => {
   event.waitUntil(
     caches
@@ -15,24 +15,29 @@ self.addEventListener("install", (event) => {
   );
 });
 
-// Cache-dan foydalanish
+// Cache Kullanma
 self.addEventListener("fetch", (event) => {
   event.respondWith(
-    caches
-      .match(event.request)
-      .then((response) => response || fetch(event.request))
+    caches.match(event.request).then((response) => {
+      // İlgili kaynak cache'te bulunuyorsa cache'ten al
+      if (response) {
+        return response;
+      }
+      // İlgili kaynak cache'te bulunmuyorsa ağdan al
+      return fetch(event.request);
+    })
   );
 });
 
-// Cache-ni yangilash
+// Cache'i Güncelleme ve Temizleme
 self.addEventListener("activate", (event) => {
   const cacheWhitelist = ["cache-v2"];
   event.waitUntil(
     caches.keys().then((cacheNames) => {
       return Promise.all(
-        // eslint-disable-next-line array-callback-return
         cacheNames.map((cacheName) => {
           if (cacheWhitelist.indexOf(cacheName) === -1) {
+            // Kullanılmayan cache'i temizle
             return caches.delete(cacheName);
           }
         })

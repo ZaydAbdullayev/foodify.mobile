@@ -30,7 +30,6 @@ export const favoriteAPi = createApi({
           Authorization: `Bearer ${user?.token}`,
         },
       }),
-      providesTags: ["favorite"],
     }),
 
     // path of get favorite restaurant by user id "/get/favRes/:user_id"

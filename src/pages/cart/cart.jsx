@@ -2,7 +2,7 @@ import React, { memo } from "react";
 import "./cart.css";
 import { NumericFormat } from "react-number-format";
 import { CalculateTotalPrice } from "../../services/calc.service";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { enqueueSnackbar as es } from "notistack";
 import { ImgService } from "../../services/image.service";
 import {
@@ -10,6 +10,7 @@ import {
   useDeleteCartByIdMutation,
   useUpdateCartByIdMutation,
 } from "../../services/cart.service";
+import { uniqArray } from "../../services/unique.service";
 
 import empty from "../../components/assets/images/empty-cart.gif";
 import { BsTaxiFrontFill, BsTaxiFront, BsInfoCircle } from "react-icons/bs";
@@ -17,12 +18,12 @@ import { BsTaxiFrontFill, BsTaxiFront, BsInfoCircle } from "react-icons/bs";
 export const Cart = memo(({ setOpen }) => {
   const user = JSON?.parse(localStorage.getItem("customer")) || [];
   const navigate = useNavigate();
-  const id = useParams()?.id;
   const user_id = user?.users?.id;
   const { data = [] } = useGetCartProductQuery(user_id);
   const [deleteCartById] = useDeleteCartByIdMutation();
   const [updateCartById] = useUpdateCartByIdMutation();
   const total_price = CalculateTotalPrice(data?.cartItems);
+  const id = uniqArray(data?.cartItems?.map(({ restaurant }) => restaurant));
 
   const updateCart = async (item) => {
     const endpoint = `/remove/cartItem/${user_id}/${item?.id}`;

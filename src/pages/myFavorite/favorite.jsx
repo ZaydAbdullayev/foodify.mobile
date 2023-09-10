@@ -38,7 +38,9 @@ export const MyFavorite = () => {
                 <ImgService src={item?.img} fallbackSrcRes alt="" />
               </figure>
               <div className="res_raiting">
-                <p style={{ flex: "1" }}>{item?.username}</p>
+                <p style={{ flex: "1" }}>
+                  {item?.username.split("_").join(" ")}
+                </p>
                 <div className="give_raiting">
                   <span
                     onClick={() => giveRaiting({ id: item?.id, state: 1 })}
