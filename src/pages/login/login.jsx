@@ -22,13 +22,13 @@ export const Signin = () => {
     navigate(-1);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
     const value = Object.fromEntries(formData.entries());
     value.phone = value?.phone?.split(" ")?.join("");
     if (pass1 === pass2) {
-      ApiService.fetching("register/user", value)
+      await ApiService.fetching("register/user", value)
         .then((res) => {
           const msg =
             "Foydalanuvchi hisobi yaratildi. Iltimos ilovadan foydalanish qaytadan hisobga kiring";
@@ -136,11 +136,11 @@ export const Login = () => {
     navigate("/");
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
     const value = Object.fromEntries(formData.entries());
-    ApiService.fetching("login/users", value)
+    await ApiService.fetching("login/users", value)
       .then((res) => {
         const user = res?.data?.innerData?.users;
         localStorage.setItem("customer", JSON.stringify(user));

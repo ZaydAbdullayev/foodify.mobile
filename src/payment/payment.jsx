@@ -36,7 +36,7 @@ export const Payment = () => {
   const endpoint = `empty/cart/${user_id}`;
 
   const payment_data = {
-    address: adress_info?.home || "",
+    address: adress_info.home + "&" + user.users.username || "",
     description: adress_info?.description || "",
     padyezd: adress_info?.padez || "",
     qavat: adress_info?.qavat || "",
@@ -87,6 +87,8 @@ export const Payment = () => {
   };
 
   const resieveOrderS = async () => {
+    if (adress_info?.home === "")
+      return es("Adressni kiriting", { variant: "warning" });
     socket.emit("/order", payment_data);
     const { error, data } = await deleteCartById(endpoint);
     if (error) return es("Qandaydir muammo yuz berdi", { variant: "error" });
