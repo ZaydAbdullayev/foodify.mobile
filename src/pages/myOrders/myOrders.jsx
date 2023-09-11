@@ -37,7 +37,10 @@ export const MyOrders = () => {
           ?.split("T")
           ?.join(" | ");
         return (
-          <div className="orders_item" key={order?.id}>
+          <div
+            className={order?.status === 6 ? "orders_item none" : "orders_item"}
+            key={order?.id}
+          >
             <div className="order_info">
               <span>Buyurtma IDsi №: {order?.id}</span>
               <label style={!change ? { display: "none" } : {}}>
@@ -54,32 +57,60 @@ export const MyOrders = () => {
             <div className="orders_stution">
               <span>
                 <BsFillCartCheckFill
-                  style={order?.status >= 1 ? { color: "#2ceb1a" } : {}}
+                  style={
+                    order?.status >= 1 && order?.status !== 6
+                      ? { color: "#2ceb1a" }
+                      : {}
+                  }
                 />
                 {/* <span>Buyurtmangiz qabul qilinishi kutilmoqda...</span> */}
               </span>{" "}
               <p
-                style={order?.status >= 1 ? { background: "#2ceb1a" } : {}}
+                style={
+                  order?.status >= 1 && order?.status !== 6
+                    ? { background: "#2ceb1a" }
+                    : {}
+                }
               ></p>{" "}
               <span>
                 <LuChefHat
-                  style={order?.status >= 2 ? { color: "#2ceb1a" } : {}}
+                  style={
+                    order?.status >= 2 && order?.status !== 6
+                      ? { color: "#2ceb1a" }
+                      : {}
+                  }
                 />
               </span>{" "}
               <p
-                style={order?.status >= 2 ? { background: "#2ceb1a" } : {}}
+                style={
+                  order?.status >= 2 && order?.status !== 6
+                    ? { background: "#2ceb1a" }
+                    : {}
+                }
               ></p>{" "}
               <span>
                 <TbTruckDelivery
-                  style={order?.status >= 3 ? { color: "#2ceb1a" } : {}}
+                  style={
+                    order?.status >= 3 && order?.status !== 6
+                      ? { color: "#2ceb1a" }
+                      : {}
+                  }
                 />
               </span>{" "}
               <p
-                style={order?.status >= 3 ? { background: "#2ceb1a" } : {}}
+                style={
+                  order?.status >= 3 && order?.status !== 6
+                    ? { background: "#2ceb1a" }
+                    : {}
+                }
               ></p>{" "}
               <span>
                 <BsFillHouseCheckFill
-                  style={order?.status >= 4 ? { color: "#2ceb1a" } : {}}
+                  style={
+                    order?.status >= 4 && order?.status !== 6
+                      ? { color: "#2ceb1a" }
+                      : {}
+                  }
                 />
               </span>
             </div>

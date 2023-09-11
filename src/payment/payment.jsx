@@ -93,8 +93,8 @@ export const Payment = () => {
     const { error, data } = await deleteCartById(endpoint);
     if (error) return es("Qandaydir muammo yuz berdi", { variant: "error" });
     if (data) console.log("Mahsulot savatdan o'chirildi!");
-    window.location.reload();
     navigate("/my/orders");
+    window.location.reload();
   };
 
   return (

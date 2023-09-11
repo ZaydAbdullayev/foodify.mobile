@@ -20,13 +20,17 @@
 }
 
 .orders_item {
+    position: relative;
     padding: var(--pd7);
     gap: 5vw;
     background: var(--cl4);
     border-radius: 15px;
 }
 
-
+.my_orders .none:hover::after {
+    content: 'Bekor qilingan buyurtma';
+    color: #df2215;
+}
 
 .order_info {
     width: 100%;

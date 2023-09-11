@@ -26,6 +26,7 @@
     font-size: var(--fs4);
     text-align: center;
     color: #fff;
+    z-index: 99;
 }
 
 .none:hover::after {

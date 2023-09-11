@@ -3,6 +3,8 @@ import "./message.css";
 import io from "socket.io-client";
 
 const socket = io("https://backup1.foodify.uz");
+// const socket = io("http://localhost:80");
+
 
 export const Message = (props) => {
   const [open, setOpen] = useState(false);
@@ -11,6 +13,7 @@ export const Message = (props) => {
   const id = user?.users?.id;
 
   socket.on(`/get/message/${id}`, (data) => {
+    console.log(data);
     setOpen(data.status);
     setMessage(data.variant);
     socket.off(`/get/message/${id}`);
