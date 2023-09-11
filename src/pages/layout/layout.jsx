@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./layout.css";
 import { Outlet, Link, useLocation } from "react-router-dom";
 import { Cart } from "../cart/cart";
-import { menu } from "./menu";
+import { menu, getNavigatorItemClass, getNavigatorClass } from "./menu";
 import { QuecklyFilter } from "../../components/navbar/navbar";
 import { useGetCartCountQuery } from "../../services/cart.service";
 import { Message } from "../../components/nothification/message";
@@ -40,21 +40,7 @@ export const Layout = () => {
       </main>
 
       {/* =========== navugation panel for user ============= */}
-      <aside
-        className={
-          location === "/all/foods" // ? "navigator food"
-            ? "navigator food" // : location === "/all/foods"  // ? "navigator food"
-            : location.startsWith("/my/fav/") // ? "navigator fav"
-            ? "navigator like" // : location.startsWith("/my/fav/")  //  ? "navigator fav"
-            : location.startsWith("/my/profile") //  ? "navigator profil"
-            ? "navigator profil" //  : location.startsWith("/my/profile")  //  ? "navigator profil"
-            : location === "/my/orders" //  ? "navigator profil"
-            ? "navigator profil" //  : location.startsWith("/my/profile")  //  ? "navigator profil"
-            : location === `/payment/${location.split("/").pop()}`
-            ? "navigator card"
-            : "navigator" //  : location.startsWith("/my/profile")  //  ? "navigator profil"
-        }
-      >
+      <aside className={getNavigatorClass(location)}>
         {menu?.map((menu, index) => {
           return (
             <Link
@@ -77,19 +63,7 @@ export const Layout = () => {
               <img
                 src={active}
                 alt=""
-                className={
-                  location === menu?.path ||
-                  (location === `/catalog/${location.split("/").pop()}` &&
-                    index === 0) ||
-                  (location.startsWith("/map") && index === 0) ||
-                  (location.startsWith("/my/fav") && index === 3) ||
-                  (location.startsWith("/my/profile") && index === 4) ||
-                  (location === "/my/orders" && index === 4) ||
-                  (location === `/payment/${location.split("/").pop()}` &&
-                    index === 2)
-                    ? "navigator_item active_menu"
-                    : "navigator_item"
-                }
+                className={getNavigatorItemClass(location, menu.path, index)}
               />
             </Link>
           );

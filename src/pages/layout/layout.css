@@ -157,7 +157,7 @@
     left: -10%;
     background: none;
     z-index: -9;
-    transition: all 0.3s ease;
+    transition: all 0.4s ease;
 }
 
 .active_menu {

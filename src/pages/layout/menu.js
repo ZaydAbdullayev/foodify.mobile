@@ -39,3 +39,28 @@ export const menu = [
     check: true,
   },
 ];
+
+export const getNavigatorClass = (location) => {
+  if (location === "/all/foods") return "navigator food";
+  if (location.startsWith("/my/fav/")) return "navigator like";
+  if (location.startsWith("/my/profile") || location === "/my/orders")
+    return "navigator profil";
+  if (location.startsWith(`/payment/${location.split("/").pop()}`))
+    return "navigator card";
+  return "navigator";
+};
+
+export const getNavigatorItemClass = (location, path, index) => {
+  if (
+    location === path ||
+    (location === `/catalog/${location.split("/").pop()}` && index === 0) ||
+    (location.startsWith("/map") && index === 0) ||
+    (location.startsWith("/my/fav") && index === 3) ||
+    (location.startsWith("/my/profile") && index === 4) ||
+    (location === "/my/orders" && index === 4) ||
+    (location === `/payment/${location.split("/").pop()}` && index === 2)
+  ) {
+    return "navigator_item active_menu";
+  }
+  return "navigator_item";
+};
