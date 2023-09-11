@@ -4,6 +4,7 @@ import { NumericFormat } from "react-number-format";
 import { useNavigate } from "react-router-dom";
 import { ImgService } from "../../services/image.service";
 import { useGetOrderQuery } from "../../services/user.service";
+import { io } from "socket.io-client";
 
 import {
   BsFillCartCheckFill,
@@ -15,11 +16,19 @@ import { LuChefHat } from "react-icons/lu";
 import { TbTruckDelivery } from "react-icons/tb";
 import { ImArrowLeft2 } from "react-icons/im";
 
+const socket = io("https://backup.foodify.uz");
+// const socket = io("http://localhost:80");
+
 export const MyOrders = () => {
   const user = JSON?.parse(localStorage?.getItem("customer")) || [];
   const id = user?.users?.id;
   const navigate = useNavigate();
-  const { data: orders = [] } = useGetOrderQuery(id);
+  let { data: orders = [] } = useGetOrderQuery(id);
+
+  socket.on(`/get/order/status/${id}`, (data) => {
+    orders = data;
+    socket.off(`/get/order/status/${id}`);
+  });
 
   return (
     <div className="my_orders">
