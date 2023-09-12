@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "./myOrders.css";
 import { NumericFormat } from "react-number-format";
 import { useNavigate } from "react-router-dom";
@@ -22,13 +22,19 @@ const socket = io("https://backup.foodify.uz");
 export const MyOrders = () => {
   const user = JSON?.parse(localStorage?.getItem("customer")) || [];
   const id = user?.users?.id;
+  const [order, setOrder] = useState([]);
   const navigate = useNavigate();
-  let { data: orders = [] } = useGetOrderQuery(id);
+  const { data: orders = [] } = useGetOrderQuery(id);
+  console.log(order);
 
-  socket.on(`/get/order/status/${id}`, (data) => {
-    orders = data;
-    socket.off(`/get/order/status/${id}`);
-  });
+  useEffect(() => {
+    socket.on(`/get/order/status/${id}`, (data) => {
+      setOrder(data);
+      socket.off(`/get/order/status/${id}`);
+    });
+  }, [id]);
+
+  const orderData = order?.length ? order : orders?.innerData;
 
   return (
     <div className="my_orders">
@@ -38,7 +44,7 @@ export const MyOrders = () => {
         </span>
         <p>Mening Buyurtmalarim</p>
       </pre>
-      {orders?.innerData?.map((order) => {
+      {orderData?.map((order) => {
         const products = JSON?.parse(order?.product_data);
         const change = products?.find(({ status }) => status === "3");
         const time = order?.receivedAt
