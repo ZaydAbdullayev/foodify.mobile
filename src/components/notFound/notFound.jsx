@@ -35,9 +35,9 @@ export const NotFound = () => {
             <div className="handle-sub"></div>
           </div>
         </div>
-        <Link to="/" className="btn_notfound">
-          Bosh sahifaga qaytish{" "}
-        </Link>
+        <div className="btn_notfound">
+          <Link to="/">Bosh sahifaga qaytish </Link>
+        </div>
       </div>
     </div>
   );

@@ -40,7 +40,7 @@
 .head-text {
     font-family: 'Satisfy', cursive;
     color: var(--cl1);
-    font-size: calc(34px + (60 - 34)*(100vw - 320px)/(920 - 320));
+    font-size: calc(30px + (60 - 30)*(100vw - 320px)/(920 - 320));
     position: relative;
     left: 30px;
     letter-spacing: 1px;
@@ -138,8 +138,8 @@
 }
 
 .center {
-    width: 35vw;
-    height: 35vw;
+    width: 43vw;
+    height: 43vw;
     border-radius: 50%;
     background-color: var(--sec-color);
     position: relative;
@@ -148,8 +148,8 @@
 }
 
 .sub-center {
-    width: 30vw;
-    height: 30vw;
+    width: 40vw;
+    height: 40vw;
     border-radius: 50%;
     background-color: var(--pri-color);
     position: absolute;
@@ -185,8 +185,8 @@
 }
 
 .egg {
-    width: 15vw;
-    height: 15vw;
+    width: 20vw;
+    height: 20vw;
     background: white;
     border-radius: 50%;
     position: absolute;
@@ -248,9 +248,20 @@
     top: 80%;
     left: 50%;
     transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.btn_notfound>span {
+    font-size: var(--fs4);
+    letter-spacing: 1px;
+}
+
+.btn_notfound>a {
     background: var(--cl2);
     color: var(--cl1);
-    padding: 1vw 2vw;
+    padding: 2vw 3vw;
     border-radius: 10px;
     font-size: var(--fs4);
     font-weight: 600;
@@ -258,7 +269,7 @@
     transition: all 0.3s ease;
 }
 
-.btn_notfound:hover {
+.btn_notfound>a:hover {
     background: var(--cl7);
     color: var(--cl2);
 }
@@ -295,25 +306,25 @@
 
 @media (max-width: 770px) {
     .handle {
-        left: 245px;
-        top: 250px;
+        left: 265px;
+        top: 270px;
     }
 
     .handle-sub {
-        left: 210px;
-        top: 240px;
+        left: 230px;
+        top: 260px;
     }
 }
 
 @media (max-width: 600px) {
     .handle {
-        left: 230px;
-        top: 230px;
+        left: 250px;
+        top: 250px;
     }
 
     .handle-sub {
-        left: 200px;
-        top: 220px;
+        left: 220px;
+        top: 240px;
     }
 }
 
@@ -321,15 +332,15 @@
     .handle {
         width: 30px;
         height: 100px;
-        left: 138px;
-        top: 140px;
+        left: 170px;
+        top: 173px;
     }
 
     .handle-sub {
         width: 20px;
         height: 40px;
-        left: 115px;
-        top: 130px;
+        left: 140px;
+        top: 155px;
     }
 
     .center::after,
@@ -348,15 +359,15 @@
     .handle {
         width: 25px;
         height: 90px;
-        left: 130px;
-        top: 130px;
+        left: 155px;
+        top: 155px;
     }
 
     .handle-sub {
         width: 15px;
         height: 30px;
-        left: 107px;
-        top: 120px;
+        left: 135px;
+        top: 150px;
     }
 
     .center::after,
@@ -367,13 +378,13 @@
 
 @media (max-width: 360px) {
     .handle {
-        left: 115px;
-        top: 115px;
+        left: 140px;
+        top: 140px;
     }
 
     .handle-sub {
-        left: 95px;
-        top: 110px;
+        left: 120px;
+        top: 135px;
     }
 }
 
@@ -381,15 +392,15 @@
     .handle {
         width: 20px;
         height: 80px;
-        left: 100px;
-        top: 100px;
+        left: 125px;
+        top: 125px;
     }
 
     .handle-sub {
         width: 10px;
         height: 20px;
-        left: 85px;
-        top: 100px;
+        left: 105px;
+        top: 120px;
     }
 
     .btn_notfound {

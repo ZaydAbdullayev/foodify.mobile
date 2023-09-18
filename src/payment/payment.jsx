@@ -16,8 +16,8 @@ import { SiHomeadvisor } from "react-icons/si";
 import { MdDelete } from "react-icons/md";
 import { ImArrowLeft2 } from "react-icons/im";
 
-// const socket = io("https://backup.foodify.uz");
-const socket = io("http://localhost:80");
+const socket = io("https://backup.foodify.uz");
+// const socket = io("http://localhost:80");
 
 export const Payment = () => {
   const user = useMemo(
@@ -83,6 +83,7 @@ export const Payment = () => {
       const { error, data } = await deleteCartById(endpoint);
       if (error) return es("Qandaydir muammo yuz berdi", { variant: "error" });
       if (data) es("Mahsulot savatdan o'chirildi!", { variant: "warning" });
+      navigate("/all/foods");
       window.location.reload();
     }
   };

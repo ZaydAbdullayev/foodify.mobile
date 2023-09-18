@@ -2,9 +2,8 @@ import React, { useState } from "react";
 import "./message.css";
 import io from "socket.io-client";
 
-// const socket = io("https://backup.foodify.uz");
-const socket = io("http://localhost:80");
-
+const socket = io("https://backup.foodify.uz");
+// const socket = io("http://localhost:80");
 
 export const Message = (props) => {
   const [open, setOpen] = useState(false);

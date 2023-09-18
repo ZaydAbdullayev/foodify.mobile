@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-const base_url = "https://backend12.foodify.uz";
+const base_url = "https://backend.foodify.uz";
 const user = JSON?.parse(localStorage.getItem("customer")) || [];
 
 export const favFoodAPi = createApi({
@@ -10,7 +10,7 @@ export const favFoodAPi = createApi({
     // add to cart all product "/add/toCart/:user_id/;id"
     addFavFood: builder.mutation({
       query: (body) => ({
-        url: "add/favFood",
+        url: "add/favFoods",
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -33,10 +33,10 @@ export const favFoodAPi = createApi({
       providesTags: ["food"],
     }),
 
-    // update money path: "/admin/update/money/:id" (private) (PATCH)
+    // update favFoods by user's  gave raiting "/update/money/:id" (private) (PATCH)
     updateFavFood: builder.mutation({
       query: (data) => ({
-        url: ` /update/money/${data?.id}`,
+        url: ` /update/status/${data?.id}`,
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",
@@ -50,7 +50,7 @@ export const favFoodAPi = createApi({
     // delete cart path: "/delete/cart/:user_id/:id" (private) (DELETE)
     deleteFavFood: builder.mutation({
       query: (endpoint) => ({
-        url: `remove/food/${endpoint?.user_id}/${endpoint?.id}`,
+        url: `remove/favFoods/${endpoint?.user_id}/${endpoint?.id}`,
         method: "DELETE",
         headers: {
           Authorization: `Bearer ${user?.token}`,
