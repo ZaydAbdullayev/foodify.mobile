@@ -25,11 +25,26 @@
     gap: 5vw;
     background: var(--cl4);
     border-radius: 15px;
+    margin-top: 25px;
 }
 
 .my_orders .none:hover::after {
     content: 'Bekor qilingan buyurtma';
     color: #df2215;
+}
+
+.time {
+    position: absolute;
+    top: -40px;
+    right: 50%;
+    height: 30px;
+    transform: translateX(50%);
+    padding: 1.5% 3%;
+    background: #ff9900;
+    font-weight: 700;
+    border-radius: 20px;
+    font-size: var(--fs5);
+    color: #fff;
 }
 
 .order_info {
@@ -224,17 +239,13 @@
 
 @media(max-width: 430px) {
     .my_orders {
-        padding: 0;
+        padding: 0 0 4%;
         gap: 30px;
     }
 
     .my_orders>pre {
         padding: var(--pd2);
         line-height: 1.4;
-    }
-
-    .orders_item {
-        border-radius: 0;
     }
 }
 

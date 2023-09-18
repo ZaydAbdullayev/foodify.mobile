@@ -40,9 +40,10 @@
 .head-text {
     font-family: 'Satisfy', cursive;
     color: var(--cl1);
-    font-size: 60px;
+    font-size: calc(34px + (60 - 34)*(100vw - 320px)/(920 - 320));
     position: relative;
     left: 30px;
+    letter-spacing: 1px;
 }
 
 .hat-cont {
@@ -336,10 +337,6 @@
         font-size: 150px;
     }
 
-    .head-text {
-        font-size: 50px;
-    }
-
     .btn_notfound {
         width: 100%;
         padding: 3vw 4vw;
@@ -365,10 +362,6 @@
     .center::after,
     .center::before {
         font-size: 140px;
-    }
-
-    .head-text {
-        font-size: 40px;
     }
 }
 

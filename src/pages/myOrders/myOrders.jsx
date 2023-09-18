@@ -6,12 +6,7 @@ import { ImgService } from "../../services/image.service";
 import { useGetOrderQuery } from "../../services/user.service";
 import { io } from "socket.io-client";
 
-import {
-  BsFillCartCheckFill,
-  BsFillHouseCheckFill,
-  BsBagXFill,
-  BsBagCheckFill,
-} from "react-icons/bs";
+import { BsFillCartCheckFill, BsFillHouseCheckFill } from "react-icons/bs";
 import { LuChefHat } from "react-icons/lu";
 import { TbTruckDelivery } from "react-icons/tb";
 import { ImArrowLeft2 } from "react-icons/im";
@@ -25,7 +20,6 @@ export const MyOrders = () => {
   const [order, setOrder] = useState([]);
   const navigate = useNavigate();
   const { data: orders = [] } = useGetOrderQuery(id);
-  console.log(order);
 
   useEffect(() => {
     socket.on(`/get/order/status/${id}`, (data) => {
@@ -47,25 +41,26 @@ export const MyOrders = () => {
       {orderData?.map((order) => {
         const products = JSON?.parse(order?.product_data);
         const change = products?.find(({ status }) => status === "3");
-        const time = order?.receivedAt
-          ?.substring(0, 19)
-          ?.split("T")
-          ?.join(" | ");
+        const time = new Date(order?.receivedAt)?.toLocaleString("en-US", {
+          hour: "numeric",
+          minute: "numeric",
+          hour12: false,
+        });
         return (
           <div
             className={order?.status === 6 ? "orders_item none" : "orders_item"}
             key={order?.id}
           >
+            <b className="time">{time}</b>
             <div className="order_info">
               <span>Buyurtma IDsi №: {order?.id}</span>
               <label style={!change ? { display: "none" } : {}}>
-                Buyurtmani:{" "}
-                <b style={{ background: "#38b000" }}>
-                  <BsBagXFill />
-                </b>
-                yoki
-                <b style={{ background: "#ff0000da" }}>
-                  <BsBagCheckFill />
+                Boshqa taomlar:{" "}
+                <b
+                  style={{ color: "#ff8c00" }}
+                  onClick={() => navigate(`/catalog/${order?.restaurant_id}`)}
+                >
+                  Ko'rish
                 </b>
               </label>
             </div>
@@ -148,9 +143,8 @@ export const MyOrders = () => {
                       />
                     </figcaption>
                     <i style={product?.status === "3" ? {} : { top: "-120%" }}>
-                      <b>Ushbu mahsulot restoran tarafidan bekor qilindi...!</b>
-                      <b>Noqulayliklar uchu uzur so'raymiz!</b>
-                      <b>Mavjud mahsulotlar tayyorlansinmi?</b>
+                      <b>Ushbu taom restoran tarafidan bekor qilindi...!</b>
+                      <b>Boshqa taom buyurta qiling !</b>
                     </i>
                   </figure>
                 );
@@ -165,7 +159,6 @@ export const MyOrders = () => {
                     suffix=" so'm"
                   />
                 </p>
-                <b>{time}</b>
               </div>
             </div>
           </div>
