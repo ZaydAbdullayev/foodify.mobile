@@ -196,6 +196,8 @@ export const CatalogCard = memo(({ restaurantId, category }) => {
                           id: item?.id,
                           quantity: 1,
                           user_id: user_id,
+                          resId: item?.restaurant,
+                          department: item?.department || "test",
                         });
                       }
                     }}
