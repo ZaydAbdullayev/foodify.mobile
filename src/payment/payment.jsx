@@ -24,6 +24,7 @@ export const Payment = () => {
     () => JSON?.parse(localStorage?.getItem("customer")) || [],
     []
   );
+  const coords = JSON?.parse(localStorage?.getItem("coords")) || [];
   const [write, setWrite] = useState(false);
   const [adress_info, setAdress_info] = useState({});
   const user_id = user?.users?.id;
@@ -46,8 +47,8 @@ export const Payment = () => {
     price: total || 0,
     user_id: user_id || 0,
     restaurant_id: id,
-    latitude: "4567584985784938574934857",
-    longitude: "4567584985784938574934857",
+    latitude: coords[0] || "",
+    longitude: coords[1] || "",
   };
 
   const updateCart = async (item) => {
@@ -92,6 +93,7 @@ export const Payment = () => {
     if (adress_info?.home === "")
       return es("Adressni kiriting", { variant: "warning" });
     socket.emit("/order", payment_data);
+    es("malumot yuborildi", { variant: "success" });
     const { error, data } = await deleteCartById(endpoint);
     if (error) return es("Qandaydir muammo yuz berdi", { variant: "error" });
     if (data) console.log("Mahsulot savatdan o'chirildi!");

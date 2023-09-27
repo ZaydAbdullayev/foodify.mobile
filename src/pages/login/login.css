@@ -1,238 +1,146 @@
+:root {
+  --iwh: 130px;
+  --lmw: 600px;
+}
+
 .login_container {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: #fff;
-    z-index: 99999;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #222;
+  z-index: 99999;
+}
+
+.login_container > span {
+  position: absolute;
+  top: 2.5%;
+  left: 4%;
+  font-size: calc(var(--fs1) + 5px);
+  color: #eee;
+  cursor: pointer;
 }
 
 /*========== login ===========*/
 .login {
-    position: relative;
-    width: 400px;
-    display: flex;
-    flex-direction: column;
-    padding: 2% 2% 3%;
-    border-radius: 20px;
-    background: #333;
-    gap: var(--gap2);
+  position: relative;
+  max-width: var(--lmw);
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 2% 2% 3%;
+  border-radius: 20px;
+  gap: var(--gap2);
 }
 
-.login>h1 {
-    inline-size: 100%;
-    text-align: center;
-    font-size: var(--fs3);
-    color: #fff;
+.icon_box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--gap1);
 }
 
+.icon_box > img {
+  width: var(--iwh);
+  height: var(--iwh);
+  background: none;
+  object-fit: cover;
+}
+
+.icon_box > h1 {
+  inline-size: 100%;
+  text-align: center;
+  font-size: var(--fs1);
+  color: #fff;
+}
 
 /* ============= login header ============= */
-.login_header,
 .login_body {
-    width: 100%;
-    display: flex;
-    align-items: center;
-}
-
-.login_header {
-    border-radius: 10px;
-    overflow: hidden;
-
-}
-
-.btn {
-    width: calc(100% / 2);
-    padding: 3%;
-    background: #eee;
-    border: none;
-    font-size: var(--fs5);
-    color: #aaa;
-    max-width: 150px;
-    text-overflow: ellipsis;
-    overflow: hidden;
-    white-space: nowrap;
-}
-
-
-.login_header .active {
-    background: #2ceb1a !important;
-    color: #555;
+  width: 100%;
+  display: flex;
+  align-items: center;
 }
 
 /* ============ login body ========= */
 .login_body {
-    flex-direction: column;
-    gap: var(--gap4);
+  flex-direction: column;
+  gap: var(--gap1);
 }
 
-.login :where(input, label>input, button) {
-    width: 100%;
-    height: 40px;
-    font-size: var(--fs5);
-    border-radius: 10px;
-    color: #333;
+.login :where(label, button) {
+  width: 100%;
+  height: 65px;
+  font-size: var(--fs4);
+  border-radius: 40px;
+  color: #eee;
 }
 
-.login_body :where(input, label>input) {
-    padding: 0 3%;
-    border: 3px solid transparent;
-    background: #fff;
+.login_body > label {
+  position: relative;
+  width: 100%;
+  padding: 0 5%;
+  display: flex;
+  align-items: center;
+  gap: var(--gap3);
+  border: none;
+  background: #333;
 }
 
-.login_body :where(input, label>input):focus {
-    border: 3px solid #2ceb1a
+.login_body > label > input {
+  flex: 1;
+  height: 100%;
+  background: none;
+  border: none;
+  font-size: var(--fs5);
+  color: #eee;
 }
 
-.login_body>label {
-    position: relative;
-    width: 100%;
+.login_body > label > span {
+  position: absolute;
+  top: 50%;
+  right: 5%;
+  transform: translate(0, -50%);
+  font-size: var(--fs3);
+  color: #eee;
 }
 
-.login_body>label>span {
-    position: absolute;
-    top: 50%;
-    right: 5%;
-    transform: translate(0, -50%);
-    font-size: var(--fs8);
+.login_body > button {
+  border: none;
+  background: #4bcc17;
+  font-weight: 600;
+  font-size: var(--fs5);
 }
 
-
-.login_body>button {
-    margin: 5% 0 1%;
-    border: none;
-    background: #2ceb1a;
-    font-weight: 600;
-    font-size: var(--fs5);
+.login_body > button:active {
+  background: #4acc17cc;
 }
 
-.login_body>button:active {
-    background: #138509;
+.login_body > span {
+  font-size: var(--fs5);
+  color: #ccc6;
 }
 
-.login_body>span {
-    font-size: var(--fs7);
-    color: #aaa;
+.login_body > span > a {
+  color: #4acc17cc;
 }
 
-.close {
-    position: absolute;
-    top: 2%;
-    right: 2%;
-    font-size: var(--fs4);
-    color: tomato;
-    cursor: pointer;
+.login_body > a {
+  font-size: var(--fs5);
+  color: #ccc;
+  text-decoration: underline;
+  letter-spacing: 1px;
 }
 
+@media (max-width: 500px) {
+  .login_body :where(label, button) {
+    height: 55px;
+  }
 
-/* ============== baground ========= */
-.baground {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-    overflow: auto;
-    background: linear-gradient(315deg, #021600 3%, #267021a9 38%, #0a130aa4 68%, #285e258f 98%);
-    animation: gradient 15s ease infinite;
-    background-size: 400% 400%;
-    background-attachment: fixed;
-    z-index: -9;
-}
-
-@keyframes gradient {
-    0% {
-        background-position: 0% 0%;
-    }
-
-    50% {
-        background-position: 100% 100%;
-    }
-
-    100% {
-        background-position: 0% 0%;
-    }
-}
-
-.wave {
-    background: rgb(255 255 255 / 25%);
-    border-radius: 1000% 1000% 0 0;
-    position: fixed;
-    width: 200%;
-    height: 12em;
-    animation: wave 10s -3s linear infinite;
-    transform: translate3d(0, 0, 0);
-    opacity: 0.8;
-    bottom: 0;
-    left: 0;
-    z-index: -1;
-}
-
-.wave:nth-of-type(2) {
-    bottom: -1.25em;
-    animation: wave 18s linear reverse infinite;
-    opacity: 0.8;
-}
-
-.wave:nth-of-type(3) {
-    bottom: -2.5em;
-    animation: wave 20s -1s reverse infinite;
-    opacity: 0.9;
-}
-
-@keyframes wave {
-    2% {
-        transform: translateX(1);
-    }
-
-    25% {
-        transform: translateX(-25%);
-    }
-
-    50% {
-        transform: translateX(-50%);
-    }
-
-    75% {
-        transform: translateX(-25%);
-    }
-
-    100% {
-        transform: translateX(1);
-    }
-}
-
-
-@media(max-width: 500px) {
-    .login {
-        width: 340px;
-        padding: 3% 5%;
-    }
-
-    .login_header {
-        border-radius: 5px;
-    }
-
-    .login_body :where(input, label>input, button) {
-        height: 30px;
-        font-size: var(--fs6);
-        border-radius: 5px;
-    }
-
-    .login_body>button {
-        margin: 2% 0;
-    }
-
-    .login_body>label>input {
-        padding: 0 2%;
-    }
-
-    .login_body {
-        gap: var(--gap2);
-    }
+  .login_body {
+    gap: var(--gap2);
+  }
 }

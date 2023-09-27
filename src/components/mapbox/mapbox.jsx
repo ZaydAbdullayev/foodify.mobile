@@ -3,8 +3,6 @@ import "./mapbox.css";
 import { YMaps, Map, Placemark, Polyline } from "@pbe/react-yandex-maps";
 import { ImArrowLeft2 } from "react-icons/im";
 import { useNavigate } from "react-router-dom";
-import { acLocation } from "../../redux/location";
-import { useDispatch } from "react-redux";
 
 import pin from "../assets/images/black pin.png";
 import { MdOutlineMyLocation } from "react-icons/md";
@@ -16,7 +14,6 @@ export const LocationMap = memo(() => {
     currentCoords || null
   );
   const navigate = useNavigate();
-  const dispatch = useDispatch();
 
   const handleMapClick = (e) => {
     const coordinates = e.get("coords");
@@ -32,12 +29,12 @@ export const LocationMap = memo(() => {
   };
 
   const addLoaction = () => {
-    dispatch(acLocation(clickedCoordinates));
+    localStorage.setItem("coords", JSON.stringify(clickedCoordinates));
   };
 
   return (
     <YMaps>
-      <div className="map_container animate__animated animate__fadeIn">
+      <div className="map_container">
         <span
           className="backword"
           onClick={() => navigate("/")}
