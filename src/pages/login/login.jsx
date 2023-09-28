@@ -68,6 +68,7 @@ export const Signin = () => {
               required
               autoComplete="off"
               autoCapitalize="off"
+              style={err ? { border: "2px solid tomato", color: "tomato" } : {}}
             />
           </label>
           <label>
