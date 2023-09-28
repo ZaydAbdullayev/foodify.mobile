@@ -136,11 +136,38 @@
 }
 
 @media (max-width: 500px) {
+  :root {
+    --iwh: 100px;
+    --lmw: 400px;
+  }
+
   .login_body :where(label, button) {
     height: 55px;
+  }
+}
+
+@media (max-width: 400px) {
+  :root {
+    --iwh: 90px;
+    --lmw: 350px;
+  }
+
+  .login_body :where(label, button) {
+    height: 45px;
+  }
+}
+
+@media (max-width: 340px) {
+  :root {
+    --iwh: 80px;
+    --lmw: 300px;
   }
 
   .login_body {
     gap: var(--gap2);
+  }
+
+  .login_body :where(label, button) {
+    height: 35px;
   }
 }
