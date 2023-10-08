@@ -115,27 +115,3 @@ export const QuecklyFilter = () => {
     </form>
   );
 };
-
-//  <label
-//     className={active.find((item) => "price1") ? "active" : ""}
-//     onChange={(e) => setFrom((prev) => [...prev, e.target.value])}
-//   >
-//     <span>$</span>
-//     <input type="checkbox" value="$" name="price1" />
-//   </label>
-//   <label>
-//     <span>$$</span>
-//     <input type="checkbox" value="$$" name="price2" />
-//   </label>
-//   <label>
-//     <span>$$$</span>
-//     <input type="checkbox" value="$$$" name="price3" />
-//   </label>
-//   <label>
-//     <span>$$$$</span>
-//     <input type="checkbox" value="$$$$" name="price4" />
-//   </label>
-//   <label>
-//     <span>$$$$$</span>
-//     <input type="checkbox" value="$$$$$" name="price5" />
-//   </label>

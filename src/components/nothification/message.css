@@ -1,7 +1,7 @@
 .message_body {
     width: 90%;
     padding: 5%;
-    background: #87ae73;
+    background: #17fd02;
     color: #fff;
     border-radius: 15px;
     position: fixed;
@@ -30,7 +30,7 @@
     padding: 1% 3%;
     border-radius: 5px;
     background: #fff;
-    color: #87ae73;
+    color: #17fd02;
     border: none;
     font-size: var(--fs4);
     font-weight: 600;
