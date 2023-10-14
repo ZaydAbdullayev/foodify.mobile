@@ -93,7 +93,7 @@ export const Payment = () => {
     if (adress_info?.home === "")
       return es("Adressni kiriting", { variant: "warning" });
     socket.emit("/order", payment_data);
-    es("malumot yuborildi", { variant: "success" });
+    es("Buyurtma yuborildi", { variant: "success" });
     const { error, data } = await deleteCartById(endpoint);
     if (error) return es("Qandaydir muammo yuz berdi", { variant: "error" });
     if (data) console.log("Mahsulot savatdan o'chirildi!");

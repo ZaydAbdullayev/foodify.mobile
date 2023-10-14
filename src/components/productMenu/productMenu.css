@@ -1,41 +1,40 @@
 .food_menu {
-    position: relative;
-    overflow-x: auto;
-    scroll-behavior: smooth;
-
+  position: relative;
+  overflow-x: auto;
+  scroll-behavior: smooth;
 }
 
 .food_menu::-webkit-scrollbar {
-    display: none;
+  display: none;
 }
 
 .food_menu,
-.food_menu>ul {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    border-radius: 15px;
+.food_menu > ul {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  border-radius: 15px;
 }
 
-.food_menu>ul {
-    list-style: none;
-
+.food_menu > ul {
+  list-style: none;
 }
 
-.food_menu>ul>p {
-    padding: var(--pd2);
-    font-size: var(--fs3);
-    color: var(--cl6);
-    line-height: 1.5;
-    transition: all 0.3s ease;
-    background: #5e5e5e;
+.food_menu > ul > p {
+  padding: var(--pd2);
+  font-size: var(--fs3);
+  color: var(--cl6);
+  line-height: 1.5;
+  transition: all 0.3s ease;
+  background: #5e5e5e;
+  white-space: nowrap;
 }
 
 .active {
-    background: #333 !important;
-    font-weight: 600;
+  background: #333 !important;
+  font-weight: 600;
 }
 
-.food_menu>ul>p:hover {
-    background: #333;
+.food_menu > ul > p:hover {
+  background: #333;
 }
