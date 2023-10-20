@@ -11,8 +11,9 @@ import { LuChefHat } from "react-icons/lu";
 import { TbTruckDelivery } from "react-icons/tb";
 import { ImArrowLeft2 } from "react-icons/im";
 
-const socket = io("https://backup.foodify.uz");
+// const socket = io("https://backup.foodify.uz");
 // const socket = io("http://localhost:80");
+const socket = io("https://lncxlmks-80.inc1.devtunnels.ms");
 
 export const MyOrders = () => {
   const user = JSON?.parse(localStorage?.getItem("customer")) || [];
@@ -39,7 +40,8 @@ export const MyOrders = () => {
         <p>Mening Buyurtmalarim</p>
       </pre>
       {orderData?.map((order) => {
-        const products = JSON?.parse(order?.product_data);
+        const products =
+          order?.product_data && JSON?.parse(order?.product_data);
         const change = products?.find(({ status }) => status === "3");
         const time = new Date(order?.receivedAt)?.toLocaleString("en-US", {
           hour: "numeric",

@@ -16,8 +16,9 @@ import { SiHomeadvisor } from "react-icons/si";
 import { MdDelete } from "react-icons/md";
 import { ImArrowLeft2 } from "react-icons/im";
 
-const socket = io("https://backup.foodify.uz");
+// const socket = io("https://backup.foodify.uz");
 // const socket = io("http://localhost:80");
+const socket = io("https://lncxlmks-80.inc1.devtunnels.ms");
 
 export const Payment = () => {
   const user = useMemo(
