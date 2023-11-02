@@ -68,8 +68,7 @@ export const Message = (props) => {
 //       }
 //     });
 //   }
-
-// At last, if the user has denied notifications, and you
-// want to be respectful there is no need to bother them anymore.
-
-// <button onclick="notifyMe()">Notify me!</button>;
+// }
+// {
+//   /* <button onclick="notifyMe()">Notify me!</button>; */
+// }

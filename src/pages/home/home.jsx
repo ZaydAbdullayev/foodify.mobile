@@ -3,11 +3,10 @@ import "./home.css";
 import { useNavigate } from "react-router-dom";
 import { Navbar } from "../../components/navbar/navbar";
 import { useSelector } from "react-redux";
-import {
-  useGetAllRestaurantQuery,
-  useGetPopularResQuery,
-} from "../../services/product.service";
+import { useGetAllRestaurantQuery } from "../../services/product.service";
+import { useGetPopularResQuery } from "../../services/product.service";
 import { ImgService } from "../../services/image.service";
+import { useGetMyCoordsQuery } from "../../services/user.service";
 
 import { BsTaxiFrontFill, BsFillStarFill } from "react-icons/bs";
 import { MdDeliveryDining } from "react-icons/md";
@@ -18,6 +17,7 @@ export const Home = () => {
   const search_data = useSelector((state) => state.search);
   const { data: restaurant = [] } = useGetAllRestaurantQuery();
   const { data: popular = [] } = useGetPopularResQuery();
+  const { data: coords = [] } = useGetMyCoordsQuery();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -39,8 +39,6 @@ export const Home = () => {
     return item?.username?.toLowerCase().includes(search_data?.toLowerCase());
   });
 
-  const locationOptions = ["Option 1", "Option 2", "Option 3"];
-
   return (
     <div className="home_page">
       <div className="header">
@@ -48,12 +46,14 @@ export const Home = () => {
           <label>
             <span>Hozirgi manzil</span>
             <select name="location">
-              {locationOptions.map((option, index) => (
-                <option key={index} value={option}>
-                  {option}
+              {coords?.data?.map((option) => (
+                <option key={option?.id} value={option?.name}>
+                  {option?.name}
                 </option>
               ))}
-              <option value="kj">+Yangi manzil</option>
+              <option value="" onClick={() => navigate("/map")}>
+                +Yangi manzil
+              </option>
             </select>
           </label>
           <button onClick={() => navigate("/map")}>

@@ -6,7 +6,7 @@ const user = JSON?.parse(localStorage.getItem("customer")) || [];
 export const userAPi = createApi({
   reducerPath: "userApi",
   baseQuery: fetchBaseQuery({ baseUrl: base_url }),
-  tagTypes: ["order"],
+  tagTypes: ["order", "location"],
   endpoints: (builder) => ({
     // path for user's data "/get/user/:id"
     getUser: builder.query({
@@ -44,8 +44,36 @@ export const userAPi = createApi({
       }),
       providesTags: ["order"],
     }),
+
+    locationAdd: builder.mutation({
+      query: (value) => ({
+        url: `add/location`,
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: value,
+      }),
+      invalidatesTags: ["location"],
+    }),
+
+    getMyCoords: builder.query({
+      query: (id) => ({
+        url: `get/locations/${user?.users?.id}`,
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${user?.token}`,
+        },
+      }),
+      providesTags: ["location"],
+    }),
   }),
 });
 
-export const { useGetUserQuery, useGetOrderQuery, useResieveOrderMutation } =
-  userAPi;
+export const {
+  useGetUserQuery,
+  useGetOrderQuery,
+  useResieveOrderMutation,
+  useLocationAddMutation,
+  useGetMyCoordsQuery,
+} = userAPi;

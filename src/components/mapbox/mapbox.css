@@ -1,51 +1,122 @@
+:root {
+  --ih: 55px;
+}
+
 .map_container {
-    width: 100%;
-    height: 100dvh;
-    color: #fff;
+  width: 100%;
+  height: 100dvh;
+  color: #fff;
 }
 
 .map_container__map {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
 }
 
 .geolocation {
-    position: fixed;
-    bottom: 80px;
-    right: 0;
-    width: 100%;
-    height: 50px;
-    padding: 0 20px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+  position: fixed;
+  bottom: calc(var(--vh1) + 20px);
+  right: 0;
+  width: 100%;
+  height: 50px;
+  padding: 0 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .geolocation button {
-    color: #fff;
+  color: #fff;
 }
 
-.geolocation> :first-child {
-    width: calc(100% - 70px);
-    height: 100%;
-    border-radius: 15px;
-    border: none;
-    background: #333;
-    font-size: var(--fs4);
+.geolocation > :first-child {
+  width: calc(100% - 70px);
+  height: 100%;
+  border-radius: 15px;
+  border: none;
+  background: #333;
+  font-size: var(--fs4);
 }
 
-.geolocation>:last-child {
-    width: 50px;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border: none;
-    font-size: 35px;
-    background: #333;
-    border-radius: 50%;
+.geolocation > :last-child {
+  width: 50px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  font-size: 35px;
+  background: #333;
+  border-radius: 50%;
+}
+
+.confirm_location {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  height: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #0009;
+  overflow: hidden;
+  transition: all 0.3s ease-in-out;
+}
+
+.confirm_location.open {
+  top: 0;
+  left: 0;
+  transform: translate(0%, 0%);
+  height: 100vh;
+}
+
+.confirm_location > i {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.location_box {
+  width: 70%;
+  padding: var(--pd4) var(--pd4) calc(var(--pd4) * 2);
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 20px;
+  gap: var(--gap3);
+  z-index: 99;
+}
+
+.location_box > p {
+  font-size: var(--fs3);
+}
+
+.location_box > input {
+  padding: 0 3%;
+  background: #eee;
+  border: 1px solid #3333;
+}
+
+.location_box :where(input, button) {
+  width: 100%;
+  height: var(--ih);
+  border: none;
+  border-radius: 10px;
+  font-size: var(--fs5);
+}
+
+.location_box > button {
+  position: relative;
+  background: #333;
+  color: #fff;
+  overflow: hidden;
 }

@@ -3,12 +3,19 @@ import "./mapbox.css";
 import { YMaps, Map, Placemark, Polyline } from "@pbe/react-yandex-maps";
 import { ImArrowLeft2 } from "react-icons/im";
 import { useNavigate } from "react-router-dom";
+import { useLocationAddMutation } from "../../services/user.service";
+import { enqueueSnackbar as es } from "notistack";
+import { LoadingBtn } from "../loading/loading";
 
 import pin from "../assets/images/black pin.png";
 import { MdOutlineMyLocation } from "react-icons/md";
 
 export const LocationMap = memo(() => {
   const currentCoords = JSON.parse(localStorage.getItem("coords"));
+  const user = JSON.parse(localStorage.getItem("customer")) || [];
+  const [locationAdd] = useLocationAddMutation();
+  const [open, setOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
   const center = currentCoords || [41.002534933524345, 71.67760873138532];
   const [clickedCoordinates, setClickedCoordinates] = useState(
     currentCoords || null
@@ -28,8 +35,27 @@ export const LocationMap = memo(() => {
     window.location.reload();
   };
 
-  const addLoaction = () => {
-    localStorage.setItem("coords", JSON.stringify(clickedCoordinates));
+  const addLoaction = async (e) => {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    const value = Object.fromEntries(formData);
+    console.log(value);
+
+    try {
+      setLoading(true);
+      const { data } = await locationAdd(value);
+      if (data) {
+        es("Lokatsiya qo'shildi", { variant: "success" });
+        e.target.reset();
+        setOpen(false);
+        navigate("/");
+        localStorage.setItem("coords", JSON.stringify(clickedCoordinates));
+      }
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -88,11 +114,48 @@ export const LocationMap = memo(() => {
           />
         </Map>
         <div className="geolocation">
-          <button onClick={addLoaction}>Locatsiyani tasdiqlash</button>
+          <button onClick={() => setOpen(true)}>Lokatsiyani tasdiqlash</button>
           <button onClick={getCurrentLocation}>
             <MdOutlineMyLocation />
           </button>
         </div>
+      </div>
+      <div className={open ? "confirm_location open" : "confirm_location"}>
+        {open && (
+          <form className="location_box" onSubmit={addLoaction}>
+            <p>Lokatsiya tasdiqlash</p>
+            <input
+              type="text"
+              name="name"
+              required
+              placeholder="Lokatsiya uchun nom kiriting"
+              autoComplete="off"
+              autoFocus
+            />
+            <input
+              type="hidden"
+              name="latitude"
+              value={clickedCoordinates[0]}
+              required
+            />
+            <input
+              type="hidden"
+              name="longitude"
+              value={clickedCoordinates[1]}
+              required
+            />
+            <input
+              type="hidden"
+              name="user_id"
+              value={user?.users?.id}
+              required
+            />
+            <button id="addCoord">
+              {loading ? <LoadingBtn /> : "Tasdiqlash"}
+            </button>
+          </form>
+        )}
+        <i onClick={() => setOpen(false)}></i>
       </div>
     </YMaps>
   );
