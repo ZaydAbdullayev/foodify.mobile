@@ -95,11 +95,11 @@ export const Payment = () => {
       return es("Adressni kiriting", { variant: "warning" });
     socket.emit("/order", payment_data);
     es("Buyurtma yuborildi", { variant: "success" });
-    // const { error, data } = await deleteCartById(endpoint);
-    // if (error) return es("Qandaydir muammo yuz berdi", { variant: "error" });
-    // if (data) console.log("Mahsulot savatdan o'chirildi!");
-    // navigate("/my/orders");
-    // window.location.reload();
+    const { error, data } = await deleteCartById(endpoint);
+    if (error) return es("Qandaydir muammo yuz berdi", { variant: "error" });
+    if (data) console.log("Mahsulot savatdan o'chirildi!");
+    navigate("/my/orders");
+    window.location.reload();
   };
 
   return (

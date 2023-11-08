@@ -31,6 +31,10 @@ export const Home = () => {
     };
   }, []);
 
+  function addNewCoords(value) {
+    if (value === "new") return navigate("/map");
+  }
+
   function viewShop(id) {
     navigate(`/catalog/${id}`);
   }
@@ -45,15 +49,16 @@ export const Home = () => {
         <div className="navigation_panel">
           <label>
             <span>Hozirgi manzil</span>
-            <select name="location">
+            <select
+              name="location"
+              onChange={(e) => addNewCoords(e.target.value)}
+            >
               {coords?.data?.map((option) => (
                 <option key={option?.id} value={option?.name}>
                   {option?.name}
                 </option>
               ))}
-              <option value="" onClick={() => navigate("/map")}>
-                +Yangi manzil
-              </option>
+              <option value="new">+Yangi manzil</option>
             </select>
           </label>
           <button onClick={() => navigate("/map")}>

@@ -38,11 +38,19 @@ export const CatalogCard = memo(({ restaurantId, category }) => {
 
   const addToCart = async (item) => {
     if (user?.token) {
-      const { error, data } = await addCart(item);
-      if (error)
-        return es("Savatga qo'shishda muammo yuz berdi", {
+      const { error = null, data } = await addCart(item);
+      if (error?.status === 400) {
+        es(
+          "Bir vaqtning o'zida faqat bitta restoranga buyurtma yuborish mumkin",
+          {
+            variant: "warning",
+          }
+        );
+      } else if (error) {
+        es("Savatga qo'shishda muammo yuz berdi", {
           variant: "warning",
         });
+      }
       if (data)
         es("Mahsulot savatga muvoffaqiyatli qo'shildi!", {
           variant: "success",

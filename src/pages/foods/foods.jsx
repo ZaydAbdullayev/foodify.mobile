@@ -6,14 +6,20 @@ import { ImgService } from "../../services/image.service";
 import { useGetfilterByCategoryMutation } from "../../services/product.service";
 import { acToggleModal } from "../../redux/modal";
 import { useDispatch } from "react-redux";
+import { enqueueSnackbar as es } from "notistack";
+import { useAddCartMutation } from "../../services/cart.service";
 
 import { LuSettings2 } from "react-icons/lu";
+import { MdAddShoppingCart } from "react-icons/md";
 
 export const Foods = () => {
+  const user = JSON.parse(localStorage.getItem("customer")) || null;
+  const user_id = user?.users?.id;
   const [products, setProducts] = useState([]);
   const navigate = useNavigate();
   const [getfilterByCategory] = useGetfilterByCategoryMutation();
   const dispatch = useDispatch();
+  const [addCart] = useAddCartMutation();
 
   const totalProductCount = products?.reduce((count) => {
     return count + 1;
@@ -31,6 +37,40 @@ export const Foods = () => {
 
   const handleOpen = () => {
     dispatch(acToggleModal());
+  };
+
+  const addToCart = async (item) => {
+    const Pdata = {
+      id: item?.id,
+      quantity: 1,
+      user_id: user_id,
+      resId: item?.restaurant,
+      department: item?.department || "test",
+    };
+    if (user?.token) {
+      navigate(`/catalog/${item?.restaurant}/?ct=${item?.category}`);
+      const { error = null, data } = await addCart(Pdata);
+
+      if (error)
+        if (error && error?.status === 400) {
+          return es(
+            "Bir vaqtning o'zida faqat bitta restoranga buyurtma yuborish mumkin",
+            {
+              variant: "warning",
+            }
+          );
+        }
+      es("Savatga qo'shishda muammo yuz berdi", {
+        variant: "warning",
+      });
+
+      if (data)
+        es("Mahsulot savatga muvoffaqiyatli qo'shildi!", {
+          variant: "success",
+        });
+    } else {
+      navigate("/signin");
+    }
   };
 
   return (
@@ -62,25 +102,21 @@ export const Foods = () => {
         </h1>
         {products?.map((item) => {
           return (
-            <figure
-              className="food_body_item"
-              key={item?.id}
-              onClick={() => navigate(`/catalog/${item?.restaurant}`)}
-            >
+            <figure className="food_body_item" key={item?.id}>
               <ImgService src={item?.img} fallbackSrc alt="images" />
               <figcaption>
                 <pre>
                   <p>{item?.name}</p>
+                  <p>Restaurant name</p>
                   <NumericFormat
                     displayType="text"
                     value={item?.price}
                     suffix=" sum"
                     thousandSeparator=" "
                   />
-                  <p>15-20 min</p>
                 </pre>
-                <span style={item?.raiting ? {} : { display: "none" }}>
-                  {item?.raiting}
+                <span onClick={() => addToCart(item)}>
+                  <MdAddShoppingCart />
                 </span>
               </figcaption>
             </figure>

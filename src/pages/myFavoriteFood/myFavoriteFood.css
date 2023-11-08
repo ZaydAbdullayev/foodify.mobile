@@ -1,18 +1,86 @@
+:root {
+  --bwh: 45px;
+  --iwh2: calc(100px + (150 - 100) * (100vw - 320px) / (920 - 320));
+  --fh: 6/1.2;
+}
+
 .food_fav {
-    width: 100%;
-    min-height: 80vh;
-    padding: var(--pd4);
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--gap1) var(--gap3);
-    background: var(--cl2);
-    border-radius: 30px 30px 0 0;
+  width: 100%;
+  min-height: 80vh;
+  padding: var(--pd4);
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap1);
+  background: var(--cl2);
+  border-radius: 30px 30px 0 0;
 }
 
-.food_fav>figure {
-    background: rgba(238, 230, 200, 0.534);
+.food_fav_item {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  background: var(--cl7);
+  border-radius: 20px;
+  overflow: hidden;
 }
 
-.food_fav * {
-    color: #333;
+.food_fav_item img {
+  width: var(--iwh2);
+  aspect-ratio: 1/1;
+}
+
+.food_fav_item > figcaption {
+  width: calc(100% - var(--iwh2));
+  aspect-ratio: var(--fh);
+  display: flex;
+  align-items: flex-end;
+  padding: var(--pd7);
+}
+
+.food_fav__item__info {
+  height: 100%;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.food_fav__item__info > :first-child {
+  font-size: var(--fs4);
+}
+
+.food_fav__item__info > span {
+  font-size: var(--fs5);
+}
+
+.food_btn_box button {
+  width: var(--bwh);
+  height: var(--bwh);
+  border: none;
+  border-radius: 50%;
+  background: var(--cl1);
+  color: #222;
+  font-size: var(--fs4);
+}
+
+@media (max-width: 550px) {
+  :root {
+    --bwh: 30px;
+    --iwh2: 25vw;
+    --fh: 6/2;
+  }
+}
+
+@media (max-width: 360px) {
+  .food_fav {
+    border-radius: 20px 20px 0 0;
+  }
+
+  .food_fav_item {
+    border-radius: 10px;
+  }
+
+  .food_fav__item__info > span {
+    font-size: var(--fs6);
+  }
 }

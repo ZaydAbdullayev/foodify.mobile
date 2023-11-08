@@ -1,23 +1,17 @@
 import React, { useState, useMemo } from "react";
 import "./myFavoriteFood.css";
-import "../../components/cProductCard/cProductCard.css";
 import { NumericFormat } from "react-number-format";
 import { enqueueSnackbar as es } from "notistack";
 import { MdOutlineFavoriteBorder, MdFavorite } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
 import { ImgService } from "../../services/image.service";
-
-import {
-  useAddCartMutation,
-  useDeleteCartByIdMutation,
-  useUpdateCartByIdMutation,
-  useGetCartProductQuery,
-} from "../../services/cart.service";
-
-import {
-  useGetFavFoodQuery,
-  useDeleteFavFoodMutation,
-} from "../../services/food.service";
+import { useAddCartMutation } from "../../services/cart.service";
+import { useDeleteCartByIdMutation } from "../../services/cart.service";
+import { useUpdateCartByIdMutation } from "../../services/cart.service";
+import { useGetCartProductQuery } from "../../services/cart.service";
+import { useGetFavFoodQuery } from "../../services/food.service";
+import { useDeleteFavFoodMutation } from "../../services/food.service";
+import { MdAddShoppingCart } from "react-icons/md";
 
 export const MyFavFood = () => {
   const [user, setUser] = useState([]);
@@ -83,17 +77,19 @@ export const MyFavFood = () => {
     <div className="my_favorite">
       <h1>Sevimli Ovqatlarim</h1>
       <div className="food_fav">
-        {product?.innerData?.map((item) => {
+        {order_data?.map((item) => {
           const existingCartItem = cart?.innerData?.find(
             (cartItem) => cartItem?.id === item?.id
           );
-          const quantity = existingCartItem
-            ? existingCartItem?.quantity
-            : "Qo'shish";
+          const quantity = existingCartItem ? (
+            existingCartItem?.quantity
+          ) : (
+            <MdAddShoppingCart />
+          );
 
           return (
             <figure
-              className="catalog_product"
+              className="food_fav_item"
               key={item?.id}
               style={
                 item?.status === 0
@@ -102,21 +98,22 @@ export const MyFavFood = () => {
               }
             >
               <ImgService src={item?.img} fallbackSrc alt="images" />
-              <figcaption className="product_info">
-                <div>
+              <figcaption>
+                <div className="food_fav__item__info">
+                  <span style={{ textTransform: "capitalize" }}>
+                    {item?.name}
+                  </span>
+                  <span>{item?.res_name || "Restaurant name"}</span>
+
                   <NumericFormat
                     value={item?.price}
                     suffix=" sum"
                     thousandSeparator=" "
                     displayType="text"
                   />
-                  <span style={{ textTransform: "capitalize" }}>
-                    {item?.name}
-                  </span>
-                  <span>{item?.description || ""}</span>
                 </div>
-                {existingCartItem ? (
-                  <div className="btn_box add_effect">
+                {!existingCartItem ? (
+                  <div className="food_btn_box add_effect">
                     {quantity > 0 && (
                       <span
                         className="span"
@@ -141,7 +138,7 @@ export const MyFavFood = () => {
                   </div>
                 ) : (
                   <div
-                    className="btn_box"
+                    className="food_btn_box"
                     style={existingCartItem ? {} : { justifyContent: "center" }}
                   >
                     <button
@@ -158,7 +155,7 @@ export const MyFavFood = () => {
                         }
                       }}
                     >
-                      {quantity > 0 ? quantity : "Qo'shish +"}
+                      {quantity > 0 ? quantity : <MdAddShoppingCart />}
                     </button>
                   </div>
                 )}
@@ -182,3 +179,42 @@ export const MyFavFood = () => {
     </div>
   );
 };
+
+const order_data = [
+  {
+    id: 1,
+    status: 2,
+    name: "Plov",
+    category: "Main Dishes",
+    price: 30000,
+    description: "nice meal",
+    quantity: 1,
+  },
+  {
+    id: 2,
+    status: 1,
+    name: "Manti",
+    category: "Main Dishes",
+    price: 4000,
+    description: "nice meal",
+    quantity: 3,
+  },
+  {
+    id: 3,
+    status: 1,
+    name: "Lagman",
+    category: "Main Dishes",
+    price: 25000,
+    description: "nice meal",
+    quantity: 2,
+  },
+  {
+    id: 4,
+    status: 5,
+    name: "Shashlik",
+    category: "Kebabs",
+    price: 13000,
+    description: "nice meal",
+    quantity: 2,
+  },
+];

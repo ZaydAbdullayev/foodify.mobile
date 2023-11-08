@@ -24,7 +24,7 @@ export const Message = (props) => {
       style={message === 6 ? { background: "#ffa62b" } : {}}
     >
       <div className="message_content">
-        {message === 1 ? (
+        {message === 2 ? (
           <p>Buyurtmangiz qabul qilindi !</p>
         ) : message === 6 ? (
           <p>

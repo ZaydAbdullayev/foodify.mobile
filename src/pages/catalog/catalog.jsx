@@ -2,7 +2,7 @@ import React, { useState, Fragment, useRef } from "react";
 import "./catalog.css";
 import { CatalogCard } from "../../components/cProductCard/cProductCard";
 import { ProductMenu } from "../../components/productMenu/productMenu";
-import { useParams } from "react-router-dom";
+import { useParams, useLocation } from "react-router-dom";
 import { enqueueSnackbar as es } from "notistack";
 import {
   MdOutlineFavoriteBorder,
@@ -32,6 +32,7 @@ export const Catalog = () => {
   const [deleteFavRes] = useDeleteFavResMutation();
   const name = shop?.innerData?.username?.split("_").join(" ");
   const categoryRefs = useRef({});
+  const search = useLocation().search.split("=").pop();
 
   const categoryes = category
     ? category?.data?.filter((item) =>
@@ -84,6 +85,15 @@ export const Catalog = () => {
       categoryRef.scrollIntoView({ behavior: "smooth", block: "center" });
     }
   };
+
+  if (search) {
+    const categoryRef = categoryRefs.current[search];
+    if (categoryRef) {
+      setTimeout(() => {
+        categoryRef.scrollIntoView({ behavior: "smooth", block: "center" });
+      }, 2000);
+    }
+  }
 
   return (
     <div className="catalog_page">
@@ -161,7 +171,13 @@ export const Catalog = () => {
             <Fragment key={index}>
               <h1
                 id={category}
-                ref={(element) => (categoryRefs.current[category] = element)}
+                ref={(element) => {
+                  if (element) {
+                    categoryRefs.current[category] = element;
+                  } else if (search === category) {
+                    categoryRefs.current[category] = search;
+                  }
+                }}
               >
                 {category}
               </h1>

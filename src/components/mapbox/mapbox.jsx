@@ -1,4 +1,4 @@
-import React, { useState, memo } from "react";
+import React, { useState, useMemo, memo } from "react";
 import "./mapbox.css";
 import { YMaps, Map, Placemark, Polyline } from "@pbe/react-yandex-maps";
 import { ImArrowLeft2 } from "react-icons/im";
@@ -11,7 +11,11 @@ import pin from "../assets/images/black pin.png";
 import { MdOutlineMyLocation } from "react-icons/md";
 
 export const LocationMap = memo(() => {
-  const currentCoords = JSON.parse(localStorage.getItem("coords"));
+  const [newCoords, setNewCoords] = useState(false);
+  const currentCoords = useMemo(() => {
+    return JSON.parse(localStorage.getItem("coords"));
+  }, [newCoords]);
+  console.log(currentCoords);
   const user = JSON.parse(localStorage.getItem("customer")) || [];
   const [locationAdd] = useLocationAddMutation();
   const [open, setOpen] = useState(false);
@@ -32,7 +36,10 @@ export const LocationMap = memo(() => {
       const { latitude, longitude } = position.coords;
       localStorage.setItem("coords", JSON.stringify([latitude, longitude]));
     });
-    window.location.reload();
+    setNewCoords(!newCoords);
+    if (currentCoords) {
+      window.location.reload();
+    }
   };
 
   const addLoaction = async (e) => {
