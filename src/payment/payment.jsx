@@ -18,7 +18,7 @@ import { ImArrowLeft2 } from "react-icons/im";
 
 // const socket = io("https://backup.foodify.uz");
 // const socket = io("http://localhost:80");
-const socket = io("https://lncxlmks-80.inc1.devtunnels.ms");
+const socket = io("https://799twrl4-80.euw.devtunnels.ms");
 
 export const Payment = () => {
   const user = useMemo(
@@ -39,7 +39,7 @@ export const Payment = () => {
   const endpoint = `empty/cart/${user_id}`;
 
   const payment_data = {
-    address: adress_info.home + "&" + user.users.username || "",
+    address: adress_info.home + "&" + user?.users?.username || "",
     description: adress_info?.description || "",
     padyezd: adress_info?.padez || "",
     qavat: adress_info?.qavat || "",

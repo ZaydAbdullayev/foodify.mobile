@@ -13,7 +13,7 @@ import { ImArrowLeft2 } from "react-icons/im";
 
 // const socket = io("https://backup.foodify.uz");
 // const socket = io("http://localhost:80");
-const socket = io("https://lncxlmks-80.inc1.devtunnels.ms");
+const socket = io("https://799twrl4-80.euw.devtunnels.ms");
 
 export const MyOrders = () => {
   const user = JSON?.parse(localStorage?.getItem("customer")) || [];
