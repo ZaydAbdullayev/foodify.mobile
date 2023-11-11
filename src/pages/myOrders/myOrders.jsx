@@ -70,28 +70,12 @@ export const MyOrders = () => {
               <span>
                 <BsFillCartCheckFill
                   style={
-                    order?.status >= 1 && order?.status !== 6
-                      ? { color: "#2ceb1a" }
-                      : {}
-                  }
-                />
-                {/* <span>Buyurtmangiz qabul qilinishi kutilmoqda...</span> */}
-              </span>{" "}
-              <p
-                style={
-                  order?.status >= 1 && order?.status !== 6
-                    ? { background: "#2ceb1a" }
-                    : {}
-                }
-              ></p>{" "}
-              <span>
-                <LuChefHat
-                  style={
                     order?.status >= 2 && order?.status !== 6
                       ? { color: "#2ceb1a" }
                       : {}
                   }
                 />
+                {/* <span>Buyurtmangiz qabul qilinishi kutilmoqda...</span> */}
               </span>{" "}
               <p
                 style={
@@ -101,7 +85,7 @@ export const MyOrders = () => {
                 }
               ></p>{" "}
               <span>
-                <TbTruckDelivery
+                <LuChefHat
                   style={
                     order?.status >= 3 && order?.status !== 6
                       ? { color: "#2ceb1a" }
@@ -117,9 +101,25 @@ export const MyOrders = () => {
                 }
               ></p>{" "}
               <span>
-                <BsFillHouseCheckFill
+                <TbTruckDelivery
                   style={
                     order?.status >= 4 && order?.status !== 6
+                      ? { color: "#2ceb1a" }
+                      : {}
+                  }
+                />
+              </span>{" "}
+              <p
+                style={
+                  order?.status >= 4 && order?.status !== 6
+                    ? { background: "#2ceb1a" }
+                    : {}
+                }
+              ></p>{" "}
+              <span>
+                <BsFillHouseCheckFill
+                  style={
+                    order?.status >= 5 && order?.status !== 6
                       ? { color: "#2ceb1a" }
                       : {}
                   }
