@@ -19,7 +19,7 @@ export const MyProfil = () => {
   const { data: users = [] } = useGetUserQuery(id);
 
   const logout = () => {
-    localStorage.removeItem("customer");
+    localStorage.clear();
     navigate("/login");
   };
 
