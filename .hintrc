@@ -21,6 +21,7 @@
       }
     ],
     "detect-css-reflows/composite": "off",
-    "detect-css-reflows/paint": "off"
+    "detect-css-reflows/paint": "off",
+    "manifest-file-extension": "off"
   }
 }

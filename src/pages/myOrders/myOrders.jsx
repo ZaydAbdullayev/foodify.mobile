@@ -4,16 +4,12 @@ import { NumericFormat } from "react-number-format";
 import { useNavigate } from "react-router-dom";
 import { ImgService } from "../../services/image.service";
 import { useGetOrderQuery } from "../../services/user.service";
-import { io } from "socket.io-client";
+import socket from "../../socket.config";
 
 import { BsFillCartCheckFill, BsFillHouseCheckFill } from "react-icons/bs";
 import { LuChefHat } from "react-icons/lu";
 import { TbTruckDelivery } from "react-icons/tb";
 import { ImArrowLeft2 } from "react-icons/im";
-
-// const socket = io("https://backup.foodify.uz");
-// const socket = io("http://localhost:80");
-const socket = io("https://799twrl4-80.euw.devtunnels.ms");
 
 export const MyOrders = () => {
   const user = JSON?.parse(localStorage?.getItem("customer")) || [];

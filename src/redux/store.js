@@ -10,6 +10,7 @@ import { favoriteAPi } from "../services/fav.service";
 import { favFoodAPi } from "../services/food.service";
 import { universalAPi } from "../services/product.service";
 import { userAPi } from "../services/user.service";
+import api from "../services/fetch.service";
 
 export const store = configureStore({
   reducer: combineReducers({
@@ -24,6 +25,7 @@ export const store = configureStore({
     [favFoodAPi.reducerPath]: favFoodAPi.reducer,
     [universalAPi.reducerPath]: universalAPi.reducer,
     [userAPi.reducerPath]: userAPi.reducer,
+    [api.reducerPath]: api.reducer,
   }),
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(
@@ -31,6 +33,7 @@ export const store = configureStore({
       favoriteAPi.middleware,
       favFoodAPi.middleware,
       universalAPi.middleware,
-      userAPi.middleware
+      userAPi.middleware,
+      api.middleware
     ),
 });

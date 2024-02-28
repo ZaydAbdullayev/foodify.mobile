@@ -5,20 +5,14 @@ import { enqueueSnackbar as es } from "notistack";
 import { CalculateTotalPrice } from "../services/calc.service";
 import { NumericFormat } from "react-number-format";
 import { useParams, useNavigate } from "react-router-dom";
-import { io } from "socket.io-client";
-import {
-  useGetCartProductQuery,
-  useDeleteCartByIdMutation,
-  useUpdateCartByIdMutation,
-} from "../services/cart.service";
+import { useGetCartProductQuery } from "../services/cart.service";
+import { useDeleteCartByIdMutation } from "../services/cart.service";
+import { useUpdateCartByIdMutation } from "../services/cart.service";
 import { useGetFavDataQuery } from "../services/fav.service";
 import { SiHomeadvisor } from "react-icons/si";
 import { MdDelete } from "react-icons/md";
 import { ImArrowLeft2 } from "react-icons/im";
-
-// const socket = io("https://backup.foodify.uz");
-// const socket = io("http://localhost:80");
-const socket = io("https://799twrl4-80.euw.devtunnels.ms");
+import socket from "../socket.config";
 
 export const Payment = () => {
   const user = useMemo(
@@ -38,14 +32,32 @@ export const Payment = () => {
   const [updateCartById] = useUpdateCartByIdMutation();
   const endpoint = `empty/cart/${user_id}`;
 
+  //   address: `&${position[3]}-stoll`,
+  // restaurant_id: user?.id,
+  // user_id: position[4],
+  // product_data: JSON.stringify({ 1: { pd: cart } }),
+  // food_total: total?.totalPrice,
+  // service: total?.service,
+  // prime_cost: prime_cost,
+  // total: total?.total,
+  // paid: 0,
+  // online_paymentToken: "token",
+  // table_name: position[3],
+  // worker_name: user?.name || "owner",
+  // worker_id: user?.user_id || user?.id,
+  // order_type: "offline",
+  // t_location: position[2],
+  // table_id: position[4],
+  // discount: 0,
+
   const payment_data = {
     address: adress_info.home + "&" + user?.users?.username || "",
     description: adress_info?.description || "",
     padyezd: adress_info?.padez || "",
     qavat: adress_info?.qavat || "",
-    product_data: JSON.stringify(cart?.cartItems),
+    product_data: JSON.stringify({ 1: { pd: cart?.cartItems } }),
     payment: "token",
-    price: total || 0,
+    total: total || 0,
     user_id: user_id || 0,
     restaurant_id: id,
     latitude: coords[0] || "",
